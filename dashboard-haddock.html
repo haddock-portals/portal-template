@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>haddock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fafaf7;
+  --bg2:#ffffff;
+  --surface:#ffffff;
+  --surface2:#f4f3ee;
+  --border:#e8e6df;
+  --border2:#d4d2ca;
+  --text:#0a0a0a;
+  --muted:#7a7770;
+  --muted2:#b8b5ae;
+  --pendiente:#ef4444;
+  --pendiente-bg:#fef2f2;
+  --pendiente-strong:#dc2626;
+  --trabajando:#3b82f6;
+  --trabajando-bg:#eff6ff;
+  --trabajando-strong:#2563eb;
+  --resuelta:#10b981;
+  --resuelta-bg:#f0fdf4;
+  --resuelta-strong:#059669;
+  --grad-personal:linear-gradient(135deg,#a855f7 0%,#ec4899 100%);
+  --font-sans:'Bricolage Grotesque',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --r:12px;
+  --r-lg:18px;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 8px rgba(0,0,0,.04);
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-size:14px;line-height:1.5;min-height:100vh}
+.shell{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:24px 16px;display:flex;flex-direction:column;gap:24px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.logo{padding:0 12px}
+.logo-mark{font-family:var(--font-sans);font-weight:700;font-size:30px;color:var(--text);letter-spacing:-.04em;line-height:1}
+
+.user-card{background:linear-gradient(135deg,#faf5ff,#fdf2f8);border:1px solid #e9d5ff;border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.user-card:hover{border-color:#d8b4fe;transform:translateY(-1px);box-shadow:0 4px 14px rgba(168,85,247,.15)}
+.user-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;font-weight:600;color:#fff;flex-shrink:0;background:var(--grad-personal)}
+.user-info{flex:1;min-width:0}
+.user-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-role{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.user-switch{font-size:13px;color:var(--muted);font-family:var(--font-mono)}
+
+.nav-group{display:flex;flex-direction:column;gap:2px}
+.nav-label{font-family:var(--font-mono);font-size:9px;color:var(--muted2);letter-spacing:.15em;text-transform:uppercase;padding:0 12px;margin-bottom:6px}
+.nav-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:var(--r);color:var(--muted);font-size:13px;cursor:pointer;transition:all .15s;border:none;background:none;width:100%;text-align:left;font-family:var(--font-sans);position:relative;font-weight:500}
+.nav-item::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;background:transparent;border-radius:0 3px 3px 0;transition:background .15s}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:var(--surface2);color:var(--text)}
+.nav-item.personal.active::before{background:#a855f7}
+.nav-item.general.active::before{background:#3b82f6}
+.nav-count{font-family:var(--font-mono);font-size:10px;opacity:.6}
+
+.client-item{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-radius:var(--r);cursor:pointer;transition:all .15s;color:var(--muted);font-size:12.5px;border:none;background:none;width:100%;text-align:left;font-family:var(--font-sans)}
+.client-item-left{display:flex;align-items:center;gap:9px;flex:1;min-width:0;overflow:hidden}
+.client-item:hover{background:var(--surface2);color:var(--text)}
+.client-item.active{color:var(--text);font-weight:500;background:var(--surface2)}
+.client-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.client-name-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.manage-clients{font-family:var(--font-mono);font-size:9px;color:var(--muted);padding:6px 12px;cursor:pointer;background:none;border:none;text-align:left;border-radius:var(--r);transition:all .15s;width:100%;letter-spacing:.05em;text-transform:uppercase;margin-top:4px}
+.manage-clients:hover{background:var(--surface2);color:var(--text)}
+
+.add-task-btn{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:var(--r);background:var(--text);color:#fff;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:var(--font-sans)}
+.add-task-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.15)}
+
+.sync-status{display:flex;align-items:center;gap:6px;padding:6px 12px;font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:#9ca3af}
+.sync-dot.ok{background:#10b981}
+.sync-dot.error{background:#ef4444}
+.sync-dot.syncing{background:#f59e0b;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.main{padding:32px 36px;display:flex;flex-direction:column;gap:24px;overflow-x:hidden}
+.topbar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.title-block{display:flex;flex-direction:column;gap:4px}
+.title-eyebrow{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+.page-title{font-family:var(--font-sans);font-size:36px;font-weight:600;color:var(--text);letter-spacing:-.03em;line-height:1}
+.page-title-grad{background:var(--grad-personal);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 14px;transition:border-color .15s}
+.search-box:focus-within{border-color:var(--border2)}
+.search-box input{border:none;background:none;font-size:13px;color:var(--text);outline:none;width:200px;font-family:var(--font-sans)}
+.search-box input::placeholder{color:var(--muted2)}
+.search-icon{color:var(--muted2);font-size:14px}
+
+.notif-banner{background:linear-gradient(135deg,#faf5ff,#fdf2f8);border:1px solid #d8b4fe;border-radius:var(--r-lg);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;animation:slideIn .3s ease-out;box-shadow:0 4px 14px rgba(168,85,247,.1)}
+@keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.notif-icon{width:36px;height:36px;border-radius:50%;background:var(--grad-personal);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:#fff}
+.notif-content{flex:1}
+.notif-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.notif-msg{font-size:12px;color:var(--muted)}
+.notif-dismiss{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px 8px;border-radius:6px}
+.notif-dismiss:hover{background:rgba(168,85,247,.1);color:var(--text)}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.stat:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat.total::before{background:linear-gradient(90deg,#a855f7,#ec4899)}
+.stat.pendiente::before{background:linear-gradient(90deg,#ef4444,#f87171)}
+.stat.trabajando::before{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.stat.resuelta::before{background:linear-gradient(90deg,#10b981,#34d399)}
+.stat-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.stat-val{font-size:36px;font-weight:600;color:var(--text);letter-spacing:-.04em;line-height:1;font-family:var(--font-sans)}
+.stat-val.pendiente{color:var(--pendiente)}
+.stat-val.trabajando{color:var(--trabajando)}
+.stat-val.resuelta{color:var(--resuelta)}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--font-mono)}
+
+/* CLIENT MINI DASHBOARDS */
+.section-block{display:flex;flex-direction:column;gap:14px}
+.section-header{display:flex;align-items:center;justify-content:space-between}
+.section-title{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;font-weight:500}
+.client-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.client-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.client-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--border2)}
+.client-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
+.client-card-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.client-card-pct{font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text);letter-spacing:-.02em}
+.client-card-pct.complete{color:var(--resuelta-strong)}
+.progress-bar{width:100%;height:6px;background:var(--surface2);border-radius:100px;overflow:hidden;margin-bottom:10px}
+.progress-fill{height:100%;border-radius:100px;transition:width .4s ease-out}
+.progress-fill.low{background:linear-gradient(90deg,#ef4444,#f87171)}
+.progress-fill.mid{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.progress-fill.high{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.progress-fill.complete{background:linear-gradient(90deg,#10b981,#34d399)}
+.client-card-stats{display:flex;gap:14px;font-family:var(--font-mono);font-size:10px;color:var(--muted)}
+.client-card-stats span{display:flex;align-items:center;gap:4px}
+.client-card-stats .dot{width:6px;height:6px;border-radius:50%}
+
+.filters-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px}
+.filter-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.pills{display:flex;gap:5px;flex-wrap:wrap}
+.pill{padding:5px 13px;border-radius:100px;border:1px solid var(--border);background:var(--bg2);color:var(--muted);font-size:11.5px;cursor:pointer;transition:all .15s;font-family:var(--font-sans);font-weight:500}
+.pill:hover{border-color:var(--border2);color:var(--text)}
+.pill.active{background:var(--text);color:var(--bg2);border-color:var(--text)}
+.divider{width:1px;height:18px;background:var(--border);flex-shrink:0}
+
+/* KANBAN — DARK CARDS */
+.kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+.column{background:#1f1f1f;border-radius:var(--r-lg);padding:14px;transition:all .2s;border:1px solid #2a2a2a;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.column.col-Pendiente{border-top:3px solid var(--pendiente)}
+.column.col-Trabajando{border-top:3px solid var(--trabajando)}
+.column.col-Resuelta{border-top:3px solid var(--resuelta)}
+.column.drag-over{transform:scale(1.01)}
+.column.col-Pendiente.drag-over{box-shadow:0 0 0 2px var(--pendiente),0 4px 24px rgba(239,68,68,.25)}
+.column.col-Trabajando.drag-over{box-shadow:0 0 0 2px var(--trabajando),0 4px 24px rgba(59,130,246,.25)}
+.column.col-Resuelta.drag-over{box-shadow:0 0 0 2px var(--resuelta),0 4px 24px rgba(16,185,129,.25)}
+.col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px}
+.col-title{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;display:flex;align-items:center;gap:8px;font-weight:600}
+.col-title.col-Pendiente{color:#f87171}
+.col-title.col-Trabajando{color:#60a5fa}
+.col-title.col-Resuelta{color:#34d399}
+.col-title-dot{width:8px;height:8px;border-radius:50%}
+.col-title.col-Pendiente .col-title-dot{background:var(--pendiente);box-shadow:0 0 8px rgba(239,68,68,.6)}
+.col-title.col-Trabajando .col-title-dot{background:var(--trabajando);box-shadow:0 0 8px rgba(59,130,246,.6)}
+.col-title.col-Resuelta .col-title-dot{background:var(--resuelta);box-shadow:0 0 8px rgba(16,185,129,.6)}
+.col-badge{font-size:10px;background:#0e0e0e;border:1px solid #2a2a2a;border-radius:100px;padding:2px 9px;color:#888;font-family:var(--font-mono);font-weight:500}
+.col-cards{display:flex;flex-direction:column;gap:8px;min-height:60px}
+
+.task-card{background:#0e0e0e;border:1px solid #2a2a2a;border-radius:var(--r);padding:14px;cursor:grab;transition:all .15s;position:relative;overflow:hidden;color:#f5f5f7}
+.task-card:hover{border-color:#3a3a3a;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.task-card:active{cursor:grabbing}
+.task-card.dragging{opacity:.4;transform:rotate(2deg) scale(.98)}
+.task-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.task-card.estado-Pendiente::before{background:var(--pendiente);box-shadow:0 0 12px rgba(239,68,68,.5)}
+.task-card.estado-Trabajando::before{background:var(--trabajando);box-shadow:0 0 12px rgba(59,130,246,.5)}
+.task-card.estado-Resuelta::before{background:var(--resuelta);box-shadow:0 0 12px rgba(16,185,129,.5)}
+.task-card.is-new{box-shadow:0 0 0 2px #a855f7,0 4px 16px rgba(168,85,247,.4);animation:newPulse 2s ease-out}
+@keyframes newPulse{0%{box-shadow:0 0 0 4px #a855f7,0 4px 24px rgba(168,85,247,.6)}100%{box-shadow:0 0 0 2px #a855f7,0 4px 16px rgba(168,85,247,.4)}}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.card-client{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#888;font-weight:500}
+.priority-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.priority-dot.alta{background:#ef4444;box-shadow:0 0 6px rgba(239,68,68,.6)}
+.priority-dot.media{background:#f59e0b}
+.priority-dot.baja{background:#6b7280}
+.card-title{font-size:13.5px;font-weight:500;color:#f5f5f7;margin-bottom:6px;line-height:1.4}
+.card-notes{font-size:11.5px;color:#999;margin-bottom:10px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-attach{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:9px;color:#888;margin-bottom:8px}
+.card-attach span{display:flex;align-items:center;gap:3px}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card-assignees{display:flex}
+.avatar{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9px;font-weight:600;border:2px solid #0e0e0e;margin-left:-5px;flex-shrink:0;color:#fff}
+.avatar:first-child{margin-left:0}
+.av-Sergio{background:linear-gradient(135deg,#3b82f6,#1e40af)}
+.av-Joaquín{background:linear-gradient(135deg,#10b981,#047857)}
+.av-MaríaJesús{background:linear-gradient(135deg,#fbbf24,#d97706)}
+.av-Tomás{background:linear-gradient(135deg,#ef4444,#991b1b)}
+.av-Cristóbal{background:linear-gradient(135deg,#a855f7,#7e22ce)}
+.av-Constanza{background:linear-gradient(135deg,#f97316,#c2410c)}
+.av-unknown{background:linear-gradient(135deg,#6b7280,#374151)}
+.card-date{font-family:var(--font-mono);font-size:10px;color:#888}
+.card-date.overdue{color:#f87171;font-weight:600}
+.card-project{font-size:10.5px;color:#aaa;background:#1a1a1a;padding:2px 8px;border-radius:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;font-family:var(--font-mono);border:1px solid #2a2a2a}
+
+.list-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.list-table{width:100%;border-collapse:collapse}
+.list-table th{text-align:left;padding:12px 18px;font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--surface2);font-weight:500}
+.list-table td{padding:14px 18px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+.list-table tr:last-child td{border-bottom:none}
+.list-table tr:hover td{background:var(--surface2);cursor:pointer}
+
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:9px;padding:3px 10px;border-radius:100px;font-weight:600;white-space:nowrap;letter-spacing:.05em;text-transform:uppercase}
+.status-badge.Pendiente{background:var(--pendiente-bg);color:var(--pendiente-strong);border:1px solid #fecaca}
+.status-badge.Trabajando{background:var(--trabajando-bg);color:var(--trabajando-strong);border:1px solid #bfdbfe}
+.status-badge.Resuelta{background:var(--resuelta-bg);color:var(--resuelta-strong);border:1px solid #bbf7d0}
+.priority-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;padding:2px 8px;border-radius:100px;font-family:var(--font-mono);font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.priority-badge.alta{background:#fef2f2;color:#dc2626}
+.priority-badge.media{background:#fffbeb;color:#d97706}
+.priority-badge.baja{background:var(--surface2);color:var(--muted)}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(4px)}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border-radius:var(--r-lg);padding:28px;width:640px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:translateY(12px);transition:transform .2s;border:1px solid var(--border);box-shadow:0 24px 60px rgba(0,0,0,.15)}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.modal-title{font-family:var(--font-sans);font-size:22px;font-weight:600;letter-spacing:-.02em}
+.modal-close{background:none;border:none;font-size:20px;color:var(--muted);cursor:pointer;padding:4px;line-height:1;border-radius:6px}
+.modal-close:hover{background:var(--surface2);color:var(--text)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.form-input,.form-select,.form-textarea{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 13px;font-size:13px;color:var(--text);font-family:var(--font-sans);outline:none;transition:border-color .15s;width:100%}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:#a855f7}
+.form-textarea{resize:vertical;min-height:80px;line-height:1.5}
+.assignees-grid{display:flex;flex-wrap:wrap;gap:8px}
+.assignee-check{display:none}
+.assignee-label{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:100px;border:1px solid var(--border);cursor:pointer;font-size:12px;color:var(--muted);transition:all .15s;user-select:none;background:var(--bg2)}
+.assignee-check:checked+.assignee-label{background:var(--grad-personal);color:#fff;border-color:transparent}
+.assignee-label:hover{border-color:var(--border2);color:var(--text)}
+
+.files-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.file-pill{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;font-size:12px}
+.file-pill .file-icon{font-size:14px}
+.file-pill .file-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.file-pill .file-link{color:#3b82f6;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--font-sans);font-size:12px;font-weight:500}
+.file-pill .file-link:hover{text-decoration:underline}
+.file-pill .file-meta{font-family:var(--font-mono);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.file-pill button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:2px 6px;border-radius:4px}
+.file-pill button:hover{background:var(--pendiente-bg);color:var(--pendiente)}
+.upload-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.upload-row input[type="text"]{flex:1;min-width:160px}
+.btn-upload{padding:10px 16px;background:var(--text);color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font-sans);transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.btn-upload:hover:not(:disabled){opacity:.85}
+.btn-upload:disabled{opacity:.5;cursor:not-allowed}
+.btn-link{padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);font-size:12px;cursor:pointer;color:var(--text);font-family:var(--font-sans);transition:all .15s;white-space:nowrap;font-weight:500}
+.btn-link:hover{background:var(--border)}
+.upload-divider{font-family:var(--font-mono);font-size:10px;color:var(--muted2);text-transform:uppercase}
+.upload-progress{margin-top:10px}
+.upload-progress-bar{height:6px;background:var(--surface2);border-radius:100px;overflow:hidden;margin-bottom:6px}
+.upload-progress-fill{height:100%;background:linear-gradient(90deg,#a855f7,#ec4899);transition:width .3s;width:0%}
+.upload-progress-text{font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center}
+
+/* COMMENTS */
+.comments-section{background:var(--surface2);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px;max-height:280px;overflow-y:auto}
+.comment{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.comment-head{display:flex;align-items:center;gap:8px;font-size:11px}
+.comment-author{font-weight:600;color:var(--text)}
+.comment-time{color:var(--muted);font-family:var(--font-mono);font-size:10px}
+.comment-body{font-size:13px;color:var(--text);line-height:1.45;white-space:pre-wrap;word-break:break-word}
+.comment-empty{text-align:center;color:var(--muted2);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:14px}
+.comment-input-row{display:flex;gap:6px;margin-top:6px}
+.comment-input-row textarea{flex:1;resize:none;min-height:40px;max-height:120px}
+.comment-input-row button{padding:8px 16px;background:var(--text);color:#fff;border:none;border-radius:var(--r);font-size:12px;cursor:pointer;font-family:var(--font-sans);font-weight:500;align-self:flex-end}
+.comment-input-row button:disabled{opacity:.5;cursor:not-allowed}
+.comment-input-row button:hover:not(:disabled){opacity:.85}
+
+.form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.btn{padding:10px 22px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s;font-family:var(--font-sans)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn-secondary{background:var(--surface2);color:var(--text)}
+.btn-secondary:hover:not(:disabled){background:var(--border)}
+.btn-primary{background:var(--text);color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.15)}
+.btn-danger{background:var(--pendiente-bg);color:var(--pendiente-strong);border:1px solid #fecaca}
+.btn-danger:hover:not(:disabled){background:#fee2e2}
+
+.view-toggle{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:3px;gap:2px}
+.view-btn{padding:6px 14px;border-radius:8px;border:none;background:none;color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s;font-family:var(--font-sans);font-weight:500}
+.view-btn.active{background:var(--surface2);color:var(--text)}
+
+.empty-col{text-align:center;padding:24px 12px;color:#555;font-size:11px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em}
+
+.client-list-edit{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto;margin-bottom:14px}
+.client-row{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px}
+.client-row input{flex:1;background:none;border:none;color:var(--text);font-size:13px;outline:none;font-family:var(--font-sans)}
+.client-row button{background:none;border:none;cursor:pointer;font-size:14px;padding:4px 8px;border-radius:6px}
+.client-row button.save{color:#10b981}
+.client-row button.save:hover{background:var(--resuelta-bg)}
+.client-row button.del{color:var(--pendiente)}
+.client-row button.del:hover{background:var(--pendiente-bg)}
+
+.login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:200;flex-direction:column;gap:24px;padding:20px}
+.login-screen.hidden{display:none}
+.login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(168,85,247,.08),transparent 50%),radial-gradient(ellipse at bottom,rgba(59,130,246,.06),transparent 50%);pointer-events:none}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:36px;max-width:520px;width:100%;position:relative;z-index:1;box-shadow:0 24px 60px rgba(0,0,0,.08)}
+.login-logo{font-family:var(--font-sans);font-weight:700;font-size:54px;letter-spacing:-.04em;line-height:1;margin-bottom:32px;color:var(--text)}
+.login-question{font-size:18px;color:var(--text);margin-bottom:20px;font-weight:500}
+.login-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.login-option{padding:16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--text);text-align:left}
+.login-option:hover{transform:translateY(-2px);border-color:var(--border2);box-shadow:var(--shadow)}
+.login-option .login-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;font-weight:600;color:#fff;flex-shrink:0}
+
+.loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:300;flex-direction:column;gap:14px}
+.loading-screen.hidden{display:none}
+.loading-text{font-family:var(--font-sans);font-size:36px;font-weight:700;letter-spacing:-.04em;color:var(--text)}
+.loading-sub{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+
+@media (max-width:880px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{position:relative;height:auto}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .kanban{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .client-cards{grid-template-columns:1fr}
+  .cal-grid{grid-template-columns:repeat(7,1fr)}
+  .cal-day{min-height:60px}
+}
+
+/* ── CALENDARIO ─────────────────────────────────────── */
+.cal-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;overflow:hidden}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.cal-title{font-family:var(--font-sans);font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--text)}
+.cal-nav{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--r);padding:8px 16px;cursor:pointer;font-size:14px;transition:all .15s;font-family:var(--font-sans)}
+.cal-nav:hover{background:var(--border)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
+.cal-dayname{text-align:center;font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;padding:6px 2px}
+.cal-day{min-height:96px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 6px;transition:border-color .15s}
+.cal-day.other{background:transparent;border-color:transparent}
+.cal-day.today{border-color:#a855f7;box-shadow:0 0 0 1px #a855f7}
+.cal-day-num{font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--muted);margin-bottom:5px}
+.cal-day.today .cal-day-num{color:#a855f7}
+.cal-day-tasks{display:flex;flex-direction:column;gap:3px}
+.cal-task{font-size:10px;font-family:var(--font-sans);padding:2px 6px;border-radius:4px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;transition:opacity .1s}
+.cal-task:hover{opacity:.7}
+.cal-task.estado-Pendiente{background:#fef2f2;color:#dc2626;border-left:2px solid #ef4444}
+.cal-task.estado-Trabajando{background:#eff6ff;color:#2563eb;border-left:2px solid #3b82f6}
+.cal-task.estado-Resuelta{background:#f0fdf4;color:#059669;border-left:2px solid #10b981}
+.cal-more{font-family:var(--font-mono);font-size:9px;color:var(--muted);padding:1px 4px;cursor:default;letter-spacing:.05em}
+.cal-nodate{margin-top:16px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
+.cal-nodate-title{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.cal-nodate-tasks{display:flex;flex-wrap:wrap;gap:6px}
+
+/* ── HISTORIAL ──────────────────────────────────────── */
+.historial-entry{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+
+/* ── EXPORTAR ───────────────────────────────────────── */
+.export-wrap{position:relative}
+.btn-export{padding:8px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font-sans);color:var(--text);transition:all .15s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.btn-export:hover{background:var(--border)}
+.export-menu{position:absolute;top:calc(100% + 4px);right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 8px 24px rgba(0,0,0,.1);z-index:50;min-width:160px;overflow:hidden;display:none}
+.export-menu.open{display:block}
+.export-opt{display:block;width:100%;padding:10px 14px;background:none;border:none;text-align:left;font-size:13px;cursor:pointer;font-family:var(--font-sans);color:var(--text);transition:background .1s}
+.export-opt:hover{background:var(--surface2)}
+
+/* ── PRINT ──────────────────────────────────────────── */
+@media print{
+  .sidebar,.topbar,.filters-row,.stats-row,#clients-section,.notif-banner,.view-toggle,.export-wrap{display:none!important}
+  .shell{display:block}
+  .main{padding:0}
+  .kanban{display:grid!important;grid-template-columns:repeat(3,1fr)!important}
+  .column{background:#fff!important;border:1px solid #ccc!important;break-inside:avoid;box-shadow:none!important}
+  .task-card{background:#f8f8f8!important;border:1px solid #ddd!important;break-inside:avoid;color:#000!important}
+  .card-client,.card-title,.card-date,.card-notes{color:#000!important}
+  .col-title,.col-badge{color:#333!important}
+}
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">haddock</div>
+    <div class="login-question">¿Quién eres?</div>
+    <div class="login-options" id="login-options"></div>
+  </div>
+</div>
+
+<div class="loading-screen hidden" id="loading">
+  <div class="loading-text">haddock</div>
+  <div class="loading-sub">Sincronizando...</div>
+</div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-mark">haddock</div>
+    </div>
+
+    <div class="user-card" onclick="logout()">
+      <div class="user-avatar" id="user-avatar">??</div>
+      <div class="user-info">
+        <div class="user-name" id="user-name">—</div>
+        <div class="user-role" id="user-role">Cambiar usuario</div>
+      </div>
+      <div class="user-switch">⇄</div>
+    </div>
+
+    <nav class="nav-group">
+      <div class="nav-label">Vistas</div>
+      <button class="nav-item personal active" id="nav-personal" onclick="setView('personal')">
+        <span>Mi vista</span>
+        <span class="nav-count" id="cnt-personal">0</span>
+      </button>
+      <button class="nav-item general" id="nav-general" onclick="setView('general')">
+        <span>Vista general</span>
+        <span class="nav-count" id="cnt-general">0</span>
+      </button>
+    </nav>
+
+    <div class="nav-group">
+      <div class="nav-label">Clientes</div>
+      <div id="sidebar-clients"></div>
+      <button class="manage-clients" id="btn-manage-clients" onclick="openClientManager()" style="display:none">+ Administrar clientes</button>
+    </div>
+
+    <div class="sync-status">
+      <div class="sync-dot ok" id="sync-dot"></div>
+      <span id="sync-text">Sincronizado</span>
+    </div>
+
+    <button class="add-task-btn" onclick="openModal()">+ Nueva tarea</button>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="title-block">
+        <div class="title-eyebrow" id="title-eyebrow">— —</div>
+        <div class="page-title" id="page-title">Cargando...</div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+          <input type="text" placeholder="Buscar..." id="search-input" oninput="renderAll()">
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn active" id="vbtn-kanban" onclick="setLayout('kanban')">Kanban</button>
+          <button class="view-btn" id="vbtn-lista" onclick="setLayout('lista')">Lista</button>
+          <button class="view-btn" id="vbtn-calendario" onclick="setLayout('calendario')">Calendario</button>
+        </div>
+        <div class="export-wrap" id="export-wrap">
+          <button class="btn-export" onclick="toggleExportMenu()">↓ Exportar</button>
+          <div class="export-menu" id="export-menu">
+            <button class="export-opt" onclick="exportCSV()">📊 CSV / Excel</button>
+            <button class="export-opt" onclick="exportPDF()">🖨 PDF (imprimir)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="notif-area"></div>
+
+    <div class="stats-row" id="stats-row"></div>
+
+    <div class="section-block" id="clients-section" style="display:none">
+      <div class="section-header">
+        <div class="section-title">Progreso por cliente</div>
+      </div>
+      <div class="client-cards" id="client-cards"></div>
+    </div>
+
+    <div class="filters-row">
+      <span class="filter-label">Estado</span>
+      <div class="pills" id="pills-estado">
+        <button class="pill active" data-val="all" onclick="setFilter('estado','all',this)">Todos</button>
+        <button class="pill" data-val="Pendiente" onclick="setFilter('estado','Pendiente',this)">Pendiente</button>
+        <button class="pill" data-val="Trabajando" onclick="setFilter('estado','Trabajando',this)">Trabajando</button>
+        <button class="pill" data-val="Resuelta" onclick="setFilter('estado','Resuelta',this)">Resuelta</button>
+      </div>
+      <div class="divider"></div>
+      <span class="filter-label">Prioridad</span>
+      <div class="pills" id="pills-prio">
+        <button class="pill active" data-val="all" onclick="setFilter('prio','all',this)">Todas</button>
+        <button class="pill" data-val="alta" onclick="setFilter('prio','alta',this)">Alta</button>
+        <button class="pill" data-val="media" onclick="setFilter('prio','media',this)">Media</button>
+        <button class="pill" data-val="baja" onclick="setFilter('prio','baja',this)">Baja</button>
+      </div>
+      <div class="divider"></div>
+      <span class="filter-label">Encargado</span>
+      <div class="pills" id="pills-enc">
+        <button class="pill active" data-val="all" onclick="setFilter('enc','all',this)">Todos</button>
+        <button class="pill" data-val="Sergio" onclick="setFilter('enc','Sergio',this)">Sergio</button>
+        <button class="pill" data-val="Joaquín" onclick="setFilter('enc','Joaquín',this)">Joaquín</button>
+        <button class="pill" data-val="María Jesús" onclick="setFilter('enc','María Jesús',this)">M. Jesús</button>
+        <button class="pill" data-val="Tomás" onclick="setFilter('enc','Tomás',this)">Tomás</button>
+        <button class="pill" data-val="Cristóbal" onclick="setFilter('enc','Cristóbal',this)">Cristóbal</button>
+        <button class="pill" data-val="Constanza" onclick="setFilter('enc','Constanza',this)">Constanza</button>
+      </div>
+    </div>
+
+    <div class="kanban" id="view-kanban">
+      <div class="column col-Pendiente" data-status="Pendiente"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="handleDrop(event,'Pendiente')">
+        <div class="col-header">
+          <div class="col-title col-Pendiente"><span class="col-title-dot"></span>Pendiente <span class="col-badge" id="cnt-Pendiente">0</span></div>
+        </div>
+        <div class="col-cards" id="col-Pendiente"></div>
+      </div>
+      <div class="column col-Trabajando" data-status="Trabajando"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="handleDrop(event,'Trabajando')">
+        <div class="col-header">
+          <div class="col-title col-Trabajando"><span class="col-title-dot"></span>Trabajando <span class="col-badge" id="cnt-Trabajando">0</span></div>
+        </div>
+        <div class="col-cards" id="col-Trabajando"></div>
+      </div>
+      <div class="column col-Resuelta" data-status="Resuelta"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="handleDrop(event,'Resuelta')">
+        <div class="col-header">
+          <div class="col-title col-Resuelta"><span class="col-title-dot"></span>Resuelta <span class="col-badge" id="cnt-Resuelta">0</span></div>
+        </div>
+        <div class="col-cards" id="col-Resuelta"></div>
+      </div>
+    </div>
+
+    <div id="view-lista" style="display:none">
+      <div class="list-wrap">
+        <table class="list-table">
+          <thead><tr>
+            <th>Tarea</th><th>Cliente</th><th>Proyecto</th>
+            <th>Encargado(s)</th><th>Prioridad</th><th>Estado</th><th>Entrega</th>
+          </tr></thead>
+          <tbody id="list-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="view-calendario" style="display:none"></div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title-text">Nueva tarea</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group form-full">
+        <label class="form-label">Tarea *</label>
+        <input class="form-input" id="f-titulo" type="text" placeholder="Nombre de la tarea">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Cliente *</label>
+        <select class="form-select" id="f-cliente"><option value="">Seleccionar</option></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Proyecto</label>
+        <input class="form-input" id="f-proyecto" type="text" placeholder="Opcional">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Estado</label>
+        <select class="form-select" id="f-estado">
+          <option value="Pendiente">Pendiente</option>
+          <option value="Trabajando">Trabajando</option>
+          <option value="Resuelta">Resuelta</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Prioridad</label>
+        <select class="form-select" id="f-prioridad">
+          <option value="media">Media</option>
+          <option value="alta">Alta</option>
+          <option value="baja">Baja</option>
+        </select>
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Fecha de entrega</label>
+        <input class="form-input" id="f-fecha" type="date">
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Encargado(s)</label>
+        <div class="assignees-grid" id="assignees-grid"></div>
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Archivos adjuntos</label>
+        <div class="files-list" id="files-list"></div>
+        <div class="upload-row">
+          <input type="file" id="f-file-upload" multiple style="display:none" onchange="subirArchivos(event)">
+          <button class="btn-upload" onclick="document.getElementById('f-file-upload').click()" id="btn-upload-files">
+            <span>📤</span> Subir archivo
+          </button>
+          <span class="upload-divider">o</span>
+          <input class="form-input" id="f-archivo-input" type="text" placeholder="Pega un link (Drive, Dropbox, etc.)">
+          <button class="btn-link" onclick="agregarArchivo()">+ Link</button>
+        </div>
+        <div class="upload-progress" id="upload-progress" style="display:none">
+          <div class="upload-progress-bar"><div class="upload-progress-fill" id="upload-fill"></div></div>
+          <div class="upload-progress-text" id="upload-text">Subiendo...</div>
+        </div>
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Descripción / Notas</label>
+        <textarea class="form-textarea" id="f-notas" placeholder="Detalles, instrucciones..."></textarea>
+      </div>
+      <div class="form-group form-full" id="comments-block" style="display:none">
+        <label class="form-label">Comentarios del equipo</label>
+        <div class="comments-section" id="comments-section"></div>
+        <div class="comment-input-row">
+          <textarea class="form-textarea" id="comment-input" placeholder="Escribe un comentario..." rows="2"></textarea>
+          <button onclick="enviarComentario()" id="btn-comment">Enviar</button>
+        </div>
+      </div>
+      <div class="form-group form-full" id="historial-block" style="display:none">
+        <label class="form-label">Historial de cambios</label>
+        <div class="comments-section" id="historial-section" style="max-height:200px"></div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-danger" id="btn-eliminar" onclick="eliminarTarea()" style="display:none;margin-right:auto">Eliminar</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" id="btn-guardar" onclick="guardarTarea()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="client-modal" onclick="if(event.target===this)closeClientManager()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Administrar clientes</div>
+      <button class="modal-close" onclick="closeClientManager()">✕</button>
+    </div>
+    <div class="client-list-edit" id="client-list-edit"></div>
+    <div class="file-input-row">
+      <input class="form-input" id="new-client-input" type="text" placeholder="Nombre del nuevo cliente">
+      <button onclick="agregarCliente()">+ Agregar</button>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeClientManager()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbx8zgrXs4fKDBX_atEt-bdp6nj-vs2t7MCKdDi6uuSuitL7ASa1oA6fjKCN_T4gFqKb/exec';
+
+const ENCARGADOS = ['Sergio','Joaquín','María Jesús','Tomás','Cristóbal','Constanza'];
+const ADMINS = ['Sergio','Joaquín'];
+const AV_INIT = {'Sergio':'SE','Joaquín':'JO','María Jesús':'MJ','Tomás':'TO','Cristóbal':'CR','Constanza':'CO'};
+const avClass = (n) => 'av-' + (n||'').replace(/\s/g,'');
+
+let tasks = [];
+let clientes = [];
+let editingId = null;
+let editingFiles = [];
+let editingComments = [];
+let filters = {estado:'all',prio:'all',enc:'all',cliente:'all'};
+let currentView = 'personal';
+let currentLayout = 'kanban';
+let currentUser = localStorage.getItem('haddock-user') || null;
+let lastSeenIds = JSON.parse(localStorage.getItem('haddock-seen-'+(currentUser||''))||'[]');
+let newAssignedTasks = [];
+let saveLock = false;
+let pendingSaveCount = 0;
+let calendarYear = new Date().getFullYear();
+let calendarMonth = new Date().getMonth();
+
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function setSync(s,m){const d=document.getElementById('sync-dot');const t=document.getElementById('sync-text');d.className='sync-dot '+s;t.textContent=m;}
+
+function renderLogin(){
+  document.getElementById('login-options').innerHTML = ENCARGADOS.map(n=>`
+    <button class="login-option" onclick="setUser('${n.replace(/'/g,"\\'")}')">
+      <div class="login-avatar ${avClass(n)}">${AV_INIT[n]}</div>
+      <span>${n}</span>
+    </button>`).join('');
+}
+function setUser(name){
+  currentUser = name;
+  localStorage.setItem('haddock-user', name);
+  lastSeenIds = JSON.parse(localStorage.getItem('haddock-seen-'+name)||'[]');
+  document.getElementById('login-screen').classList.add('hidden');
+  initApp();
+}
+function logout(){
+  if(!confirm('¿Cambiar de usuario?')) return;
+  currentUser = null;
+  localStorage.removeItem('haddock-user');
+  document.getElementById('login-screen').classList.remove('hidden');
+  renderLogin();
+}
+
+function initApp(){
+  const av = document.getElementById('user-avatar');
+  av.className = 'user-avatar ' + avClass(currentUser);
+  av.textContent = AV_INIT[currentUser]||'??';
+  document.getElementById('user-name').textContent = currentUser;
+  document.getElementById('user-role').textContent = ADMINS.includes(currentUser) ? 'Admin · Cambiar' : 'Equipo · Cambiar';
+  document.getElementById('btn-manage-clients').style.display = ADMINS.includes(currentUser) ? 'block' : 'none';
+  document.getElementById('assignees-grid').innerHTML = ENCARGADOS.map(e=>{
+    const id = 'enc-'+e.replace(/\s/g,'').toLowerCase();
+    return `<input type="checkbox" class="assignee-check" id="${id}" value="${e}">
+      <label class="assignee-label" for="${id}">${e}</label>`;
+  }).join('');
+  loadData();
+}
+
+async function loadData(force){
+  // FIX: no refrescar si hay modal abierto (evita perder datos del form)
+  const modalOpen = document.getElementById('modal-overlay').classList.contains('open') ||
+                    document.getElementById('client-modal').classList.contains('open');
+  if(!force && (saveLock || pendingSaveCount > 0 || modalOpen)){return;}
+  setSync('syncing','Cargando...');
+  try{
+    const r = await fetch(API_URL+'?t='+Date.now());
+    const data = await r.json();
+    tasks = data.tasks || [];
+    clientes = data.clientes || [];
+    setSync('ok','Sincronizado');
+    document.getElementById('loading').classList.add('hidden');
+    detectNewAssignments();
+    renderAll();
+  }catch(e){
+    setSync('error','Error de conexión');
+    console.error(e);
+  }
+}
+
+async function apiPost(action, payload){
+  pendingSaveCount++;
+  setSync('syncing','Guardando...');
+  try{
+    const formData = new FormData();
+    formData.append('payload', JSON.stringify({action, ...payload}));
+    const r = await fetch(API_URL, {method:'POST', body: formData});
+    const result = await r.json();
+    console.log('Save result:', result);
+    await new Promise(r=>setTimeout(r,1500));
+    setSync('ok','Sincronizado');
+    return result.ok;
+  }catch(e){
+    setSync('error','Error al guardar');
+    console.error('Save error:', e);
+    return false;
+  } finally {
+    pendingSaveCount--;
+  }
+}
+
+function detectNewAssignments(){
+  if(!currentUser) return;
+  const myCurrentTasks = tasks.filter(t=>(t.encargados||[]).includes(currentUser));
+  const myCurrentIds = myCurrentTasks.map(t=>t.id);
+  newAssignedTasks = myCurrentTasks.filter(t=>{
+    const isNew = !lastSeenIds.includes(t.id);
+    const byOther = (t.creadoPor && t.creadoPor !== currentUser) || (t.modificadoPor && t.modificadoPor !== currentUser);
+    return isNew && byOther;
+  });
+  lastSeenIds = myCurrentIds;
+  localStorage.setItem('haddock-seen-'+currentUser, JSON.stringify(lastSeenIds));
+}
+
+function renderNotifications(){
+  const area = document.getElementById('notif-area');
+  if(currentView !== 'personal' || !newAssignedTasks.length){area.innerHTML='';return;}
+  area.innerHTML = newAssignedTasks.map(t=>{
+    const who = t.modificadoPor || t.creadoPor || 'alguien';
+    return `<div class="notif-banner">
+      <div class="notif-icon">✨</div>
+      <div class="notif-content">
+        <div class="notif-title">Nueva tarea: ${t.titulo}</div>
+        <div class="notif-msg">${who} te asignó esta tarea · ${t.cliente||''}</div>
+      </div>
+      <button class="notif-dismiss" onclick="dismissNotif('${t.id}')">✕</button>
+    </div>`;
+  }).join('');
+}
+function dismissNotif(id){newAssignedTasks = newAssignedTasks.filter(t=>t.id!==id);renderNotifications();}
+
+function getFiltered(){
+  const q = (document.getElementById('search-input')?.value||'').toLowerCase();
+  let list = tasks;
+  if(currentView==='personal') list = list.filter(t=>(t.encargados||[]).includes(currentUser));
+  return list.filter(t=>{
+    if(filters.estado!=='all' && t.estado!==filters.estado) return false;
+    if(filters.prio!=='all' && t.prioridad!==filters.prio) return false;
+    if(filters.enc!=='all' && !(t.encargados||[]).includes(filters.enc)) return false;
+    if(filters.cliente!=='all' && t.cliente!==filters.cliente) return false;
+    if(q && !((t.titulo||'').toLowerCase().includes(q) || (t.cliente||'').toLowerCase().includes(q) || (t.proyecto||'').toLowerCase().includes(q))) return false;
+    return true;
+  });
+}
+
+function formatDate(d){if(!d) return '';const dt=new Date(d+'T12:00:00');if(isNaN(dt))return '';return dt.toLocaleDateString('es-CL',{day:'numeric',month:'short'});}
+function formatDateTime(iso){if(!iso) return '';const dt=new Date(iso);if(isNaN(dt))return '';return dt.toLocaleDateString('es-CL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});}
+function isOverdue(d){if(!d) return false;const dt=new Date(d+'T12:00:00');return !isNaN(dt) && dt<new Date();}
+function clientColor(name){const colors=['#ef4444','#3b82f6','#10b981','#f59e0b','#a855f7','#ec4899','#06b6d4','#f97316'];const idx=clientes.indexOf(name);return colors[idx>=0?idx%8:0];}
+function avatarHTML(enc){return (enc||[]).map(e=>`<div class="avatar ${avClass(e)}" title="${e}">${AV_INIT[e]||e[0]}</div>`).join('');}
+
+function cardHTML(t){
+  const od = t.estado!=='Resuelta' && isOverdue(t.fecha);
+  const archivos = t.archivos||[];
+  const comentarios = t.comentarios||[];
+  const isNew = newAssignedTasks.some(n=>n.id===t.id);
+  const attachInfo = [];
+  if(archivos.length) attachInfo.push(`<span>📎 ${archivos.length}</span>`);
+  if(comentarios.length) attachInfo.push(`<span>💬 ${comentarios.length}</span>`);
+  return `<div class="task-card estado-${t.estado} ${isNew?'is-new':''}" draggable="true"
+    ondragstart="handleDragStart(event,'${t.id}')"
+    ondragend="this.classList.remove('dragging')"
+    onclick="if(!event.defaultPrevented)openModal('${t.id}')">
+    <div class="card-top">
+      <div class="card-client">${t.cliente||''}</div>
+      <div class="priority-dot ${t.prioridad||'media'}" title="${t.prioridad||''}"></div>
+    </div>
+    <div class="card-title">${t.titulo||''}</div>
+    ${t.notas?`<div class="card-notes">${t.notas}</div>`:''}
+    ${attachInfo.length?`<div class="card-attach">${attachInfo.join('')}</div>`:''}
+    <div class="card-bottom">
+      <div class="card-assignees">${avatarHTML(t.encargados)}</div>
+      <div style="display:flex;align-items:center;gap:6px">
+        ${t.proyecto?`<div class="card-project">${t.proyecto}</div>`:''}
+        ${t.fecha?`<div class="card-date${od?' overdue':''}">${od?'⚠ ':''}${formatDate(t.fecha)}</div>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderKanban(filtered){
+  ['Pendiente','Trabajando','Resuelta'].forEach(col=>{
+    const cards=filtered.filter(t=>t.estado===col);
+    document.getElementById('cnt-'+col).textContent=cards.length;
+    document.getElementById('col-'+col).innerHTML=cards.length?cards.map(cardHTML).join(''):`<div class="empty-col">Sin tareas</div>`;
+  });
+}
+
+function renderLista(filtered){
+  document.getElementById('list-body').innerHTML=filtered.length?filtered.map(t=>`<tr onclick="openModal('${t.id}')">
+    <td><strong>${t.titulo||''}</strong></td>
+    <td>${t.cliente||''}</td>
+    <td style="color:var(--muted)">${t.proyecto||'—'}</td>
+    <td><div style="display:flex">${avatarHTML(t.encargados)}</div></td>
+    <td><span class="priority-badge ${t.prioridad||'media'}">${t.prioridad||''}</span></td>
+    <td><span class="status-badge ${t.estado}">${t.estado||''}</span></td>
+    <td class="${t.estado!=='Resuelta'&&isOverdue(t.fecha)?'card-date overdue':''}">${formatDate(t.fecha)||'—'}</td>
+  </tr>`).join(''):`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">Sin tareas</td></tr>`;
+}
+
+function renderStats(filtered){
+  const t=filtered.length;
+  const pen=filtered.filter(x=>x.estado==='Pendiente').length;
+  const trab=filtered.filter(x=>x.estado==='Trabajando').length;
+  const res=filtered.filter(x=>x.estado==='Resuelta').length;
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat total"><div class="stat-label">Total</div><div class="stat-val">${t}</div><div class="stat-sub">tareas</div></div>
+    <div class="stat pendiente"><div class="stat-label">Pendiente</div><div class="stat-val pendiente">${pen}</div><div class="stat-sub">por iniciar</div></div>
+    <div class="stat trabajando"><div class="stat-label">Trabajando</div><div class="stat-val trabajando">${trab}</div><div class="stat-sub">en curso</div></div>
+    <div class="stat resuelta"><div class="stat-label">Resueltas</div><div class="stat-val resuelta">${res}</div><div class="stat-sub">completadas</div></div>`;
+}
+
+function renderClientCards(){
+  const list = currentView==='personal' ? tasks.filter(t=>(t.encargados||[]).includes(currentUser)) : tasks;
+  const groups = {};
+  list.forEach(t=>{
+    if(!t.cliente) return;
+    if(!groups[t.cliente]) groups[t.cliente] = {total:0, resueltas:0, trab:0, pen:0};
+    groups[t.cliente].total++;
+    if(t.estado==='Resuelta') groups[t.cliente].resueltas++;
+    else if(t.estado==='Trabajando') groups[t.cliente].trab++;
+    else if(t.estado==='Pendiente') groups[t.cliente].pen++;
+  });
+  const entries = Object.entries(groups).sort((a,b)=>b[1].total-a[1].total);
+  if(!entries.length){
+    document.getElementById('clients-section').style.display='none';
+    return;
+  }
+  document.getElementById('clients-section').style.display='flex';
+  document.getElementById('client-cards').innerHTML = entries.map(([name, s])=>{
+    const pct = Math.round((s.resueltas/s.total)*100);
+    let cls = 'low';
+    if(pct===100) cls='complete';
+    else if(pct>=66) cls='high';
+    else if(pct>=33) cls='mid';
+    return `<div class="client-card" onclick="setClientFilter('${name.replace(/'/g,"\\'")}')">
+      <div class="client-card-top">
+        <div class="client-card-name">${name}</div>
+        <div class="client-card-pct ${pct===100?'complete':''}">${pct}%</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill ${cls}" style="width:${pct}%"></div></div>
+      <div class="client-card-stats">
+        <span><div class="dot" style="background:#ef4444"></div>${s.pen}</span>
+        <span><div class="dot" style="background:#3b82f6"></div>${s.trab}</span>
+        <span><div class="dot" style="background:#10b981"></div>${s.resueltas}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderSidebar(){
+  const counts={};
+  const list = currentView==='personal' ? tasks.filter(t=>(t.encargados||[]).includes(currentUser)) : tasks;
+  list.forEach(t=>{if(t.cliente)counts[t.cliente]=(counts[t.cliente]||0)+1;});
+  const used=clientes.filter(c=>counts[c]);
+  document.getElementById('sidebar-clients').innerHTML=[
+    `<button class="client-item ${filters.cliente==='all'?'active':''}" onclick="setClientFilter('all')">
+      <div class="client-item-left"><div class="client-dot" style="background:#999"></div><span class="client-name-text">Todos</span></div>
+    </button>`
+  ].concat(used.map(c=>`<button class="client-item ${filters.cliente===c?'active':''}" onclick="setClientFilter('${c.replace(/'/g,"\\'")}')">
+    <div class="client-item-left"><div class="client-dot" style="background:${clientColor(c)}"></div><span class="client-name-text">${c}</span></div>
+    <span class="nav-count">${counts[c]}</span>
+  </button>`)).join('');
+  const sel=document.getElementById('f-cliente');
+  if(sel) sel.innerHTML='<option value="">Seleccionar</option>'+clientes.map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+
+function renderAll(){
+  const f=getFiltered();
+  renderStats(f);renderKanban(f);renderLista(f);renderSidebar();renderNotifications();renderClientCards();
+  if(currentLayout==='calendario') renderCalendar(f);
+  const myCount = tasks.filter(t=>(t.encargados||[]).includes(currentUser)).length;
+  document.getElementById('cnt-personal').textContent = myCount;
+  document.getElementById('cnt-general').textContent = tasks.length;
+  const isPersonal = currentView==='personal';
+  document.getElementById('title-eyebrow').textContent = isPersonal ? `Hola, ${currentUser}` : 'Vista general';
+  document.getElementById('page-title').textContent = filters.cliente!=='all' ? filters.cliente : (isPersonal ? 'Mis tareas' : 'Todas las tareas');
+  document.getElementById('page-title').className = 'page-title' + (isPersonal ? ' page-title-grad' : '');
+}
+
+function setFilter(type,val,btn){
+  filters[type]=val;
+  btn.closest('.pills').querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  renderAll();
+}
+function setClientFilter(val){filters.cliente=val;renderAll();}
+function setView(v){
+  currentView=v;
+  filters.cliente='all';
+  document.getElementById('nav-personal').classList.toggle('active',v==='personal');
+  document.getElementById('nav-general').classList.toggle('active',v==='general');
+  renderAll();
+}
+function setLayout(v){
+  currentLayout=v;
+  document.getElementById('view-kanban').style.display=v==='kanban'?'grid':'none';
+  document.getElementById('view-lista').style.display=v==='lista'?'block':'none';
+  document.getElementById('view-calendario').style.display=v==='calendario'?'block':'none';
+  document.getElementById('vbtn-kanban').classList.toggle('active',v==='kanban');
+  document.getElementById('vbtn-lista').classList.toggle('active',v==='lista');
+  document.getElementById('vbtn-calendario').classList.toggle('active',v==='calendario');
+  if(v==='calendario') renderCalendar(getFiltered());
+}
+
+let draggingId=null;
+function handleDragStart(e,id){draggingId=id;e.target.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
+async function handleDrop(e,newStatus){
+  e.preventDefault();
+  document.querySelectorAll('.column').forEach(c=>c.classList.remove('drag-over'));
+  if(!draggingId) return;
+  const task=tasks.find(t=>t.id===draggingId);
+  if(!task||task.estado===newStatus){draggingId=null;return;}
+  task.estado=newStatus;
+  task.modificadoPor=currentUser;
+  saveLock=true;
+  renderAll();
+  await apiPost('update',{task});
+  saveLock=false;
+  draggingId=null;
+}
+
+function fileIcon(name){
+  const ext = (name||'').split('.').pop().toLowerCase();
+  if(['jpg','jpeg','png','gif','webp','heic'].includes(ext)) return '🖼️';
+  if(['pdf'].includes(ext)) return '📄';
+  if(['doc','docx'].includes(ext)) return '📝';
+  if(['xls','xlsx','csv'].includes(ext)) return '📊';
+  if(['mp4','mov','avi','mkv'].includes(ext)) return '🎬';
+  if(['mp3','wav','m4a'].includes(ext)) return '🎵';
+  if(['zip','rar'].includes(ext)) return '🗜️';
+  return '📎';
+}
+function formatBytes(b){
+  if(!b) return '';
+  if(b<1024) return b+' B';
+  if(b<1024*1024) return (b/1024).toFixed(1)+' KB';
+  return (b/(1024*1024)).toFixed(1)+' MB';
+}
+function renderFiles(){
+  document.getElementById('files-list').innerHTML=editingFiles.length?editingFiles.map((f,i)=>{
+    const file = typeof f === 'string' ? {name:f, url:f, type:'link'} : f;
+    const icon = file.type==='drive' ? fileIcon(file.name) : '🔗';
+    const meta = file.type==='drive' ? (file.size?formatBytes(file.size):'Drive') : 'Link externo';
+    let displayName = file.name;
+    if(file.type === 'link'){
+      try{ displayName = new URL(file.url).hostname.replace('www.',''); }catch(_){}
+    }
+    return `<div class="file-pill">
+      <span class="file-icon">${icon}</span>
+      <div class="file-info">
+        <a class="file-link" href="${file.url}" target="_blank">${displayName}</a>
+        <span class="file-meta">${meta}</span>
+      </div>
+      <button onclick="quitarArchivo(${i})" title="Quitar">✕</button>
+    </div>`;
+  }).join(''):'';
+}
+function agregarArchivo(){
+  const inp=document.getElementById('f-archivo-input');
+  const url=inp.value.trim();
+  if(!url) return;
+  if(!/^https?:\/\//i.test(url)){alert('Pega un link válido (debe empezar con http o https)');return;}
+  let name = url;
+  try{ name = new URL(url).hostname.replace('www.',''); }catch(_){}
+  editingFiles.push({name, url, type:'link'});
+  inp.value='';renderFiles();
+}
+function quitarArchivo(i){editingFiles.splice(i,1);renderFiles();}
+
+async function subirArchivos(event){
+  const files = event.target.files;
+  if(!files || !files.length) return;
+  const btn = document.getElementById('btn-upload-files');
+  const progressBox = document.getElementById('upload-progress');
+  const fill = document.getElementById('upload-fill');
+  const txt = document.getElementById('upload-text');
+  btn.disabled = true;
+  progressBox.style.display = 'block';
+
+  saveLock = true;
+  try{
+    for(let i=0; i<files.length; i++){
+      const file = files[i];
+      txt.textContent = `Subiendo ${i+1}/${files.length}: ${file.name}`;
+      fill.style.width = ((i)/files.length*100)+'%';
+
+      // Validación tamaño (max 25MB para no saturar Apps Script)
+      if(file.size > 25*1024*1024){
+        alert(`"${file.name}" pesa más de 25MB. Sube el archivo manualmente a Drive y pega el link.`);
+        continue;
+      }
+
+      const base64 = await fileToBase64(file);
+      const formData = new FormData();
+      formData.append('payload', JSON.stringify({
+        action: 'uploadFile',
+        fileName: file.name,
+        mimeType: file.type || 'application/octet-stream',
+        fileData: base64
+      }));
+      const r = await fetch(API_URL, {method:'POST', body: formData});
+      const result = await r.json();
+      if(result.ok && result.file){
+        editingFiles.push(result.file);
+        renderFiles();
+      } else {
+        alert(`Error subiendo "${file.name}": ${result.error||'desconocido'}`);
+      }
+      fill.style.width = ((i+1)/files.length*100)+'%';
+    }
+    txt.textContent = 'Listo';
+    setTimeout(()=>{progressBox.style.display='none';fill.style.width='0%';},1500);
+  } catch(err){
+    txt.textContent = 'Error';
+    console.error(err);
+    alert('Error al subir: '+err.message);
+  } finally {
+    btn.disabled = false;
+    event.target.value = ''; // reset input
+    saveLock = false;
+  }
+}
+
+function fileToBase64(file){
+  return new Promise((resolve,reject)=>{
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const result = reader.result;
+      // Quitar el prefijo "data:...base64,"
+      const base64 = result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderComments(){
+  const wrap = document.getElementById('comments-section');
+  if(!editingComments.length){
+    wrap.innerHTML = `<div class="comment-empty">Sin comentarios todavía</div>`;
+    return;
+  }
+  wrap.innerHTML = editingComments.map(c=>`
+    <div class="comment">
+      <div class="comment-head">
+        <span class="comment-author">${c.author||'?'}</span>
+        <span class="comment-time">${formatDateTime(c.time)}</span>
+      </div>
+      <div class="comment-body">${(c.text||'').replace(/</g,'&lt;')}</div>
+    </div>`).join('');
+  // Auto scroll bottom
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+async function enviarComentario(){
+  const inp = document.getElementById('comment-input');
+  const text = inp.value.trim();
+  if(!text || !editingId) return;
+  const btn = document.getElementById('btn-comment');
+  btn.disabled = true;
+  const comment = {author: currentUser, time: new Date().toISOString(), text};
+  editingComments.push(comment);
+  // Update local task
+  const idx = tasks.findIndex(t=>t.id===editingId);
+  if(idx>-1) tasks[idx].comentarios = [...editingComments];
+  inp.value='';
+  renderComments();
+  saveLock = true;
+  await apiPost('addComment', {id: editingId, comment});
+  saveLock = false;
+  btn.disabled = false;
+}
+
+function openModal(id){
+  editingId=id||null;editingFiles=[];editingComments=[];
+  document.getElementById('modal-title-text').textContent=id?'Editar tarea':'Nueva tarea';
+  document.getElementById('btn-eliminar').style.display='none';
+  document.getElementById('btn-guardar').disabled=false;
+  document.getElementById('comments-block').style.display = id ? 'flex':'none';
+  document.getElementById('historial-block').style.display = id ? 'flex':'none';
+  document.querySelectorAll('.assignee-check').forEach(c=>c.checked=false);
+  document.getElementById('f-archivo-input').value='';
+  document.getElementById('comment-input').value='';
+
+  if(id){
+    const t=tasks.find(x=>x.id===id);
+    if(!t) return;
+    document.getElementById('f-titulo').value=t.titulo||'';
+    document.getElementById('f-cliente').value=t.cliente||'';
+    document.getElementById('f-proyecto').value=t.proyecto||'';
+    document.getElementById('f-estado').value=t.estado||'Pendiente';
+    document.getElementById('f-prioridad').value=t.prioridad||'media';
+    document.getElementById('f-fecha').value=t.fecha||'';
+    document.getElementById('f-notas').value=t.notas||'';
+    editingFiles=[...(t.archivos||[])];
+    editingComments=[...(t.comentarios||[])];
+    (t.encargados||[]).forEach(e=>{
+      document.querySelectorAll('.assignee-check').forEach(c=>{if(c.value===e) c.checked=true;});
+    });
+    const canDelete = ADMINS.includes(currentUser) || t.creadoPor === currentUser;
+    document.getElementById('btn-eliminar').style.display = canDelete ? 'inline-flex' : 'none';
+  } else {
+    document.getElementById('f-titulo').value='';
+    document.getElementById('f-cliente').value='';
+    document.getElementById('f-proyecto').value='';
+    document.getElementById('f-estado').value='Pendiente';
+    document.getElementById('f-prioridad').value='media';
+    document.getElementById('f-fecha').value='';
+    document.getElementById('f-notas').value='';
+  }
+  renderFiles();renderComments();renderHistorial();
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  editingId=null;editingFiles=[];editingComments=[];
+}
+function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+
+async function guardarTarea(){
+  const btn = document.getElementById('btn-guardar');
+  if(btn.disabled) return;
+  const titulo=document.getElementById('f-titulo').value.trim();
+  const cliente=document.getElementById('f-cliente').value;
+  if(!titulo){alert('La tarea necesita un nombre.');return;}
+  if(!cliente){alert('Selecciona un cliente.');return;}
+  const encargados=[...document.querySelectorAll('.assignee-check:checked')].map(c=>c.value);
+  const data={
+    titulo,cliente,
+    proyecto:document.getElementById('f-proyecto').value.trim(),
+    estado:document.getElementById('f-estado').value,
+    prioridad:document.getElementById('f-prioridad').value,
+    fecha:document.getElementById('f-fecha').value,
+    notas:document.getElementById('f-notas').value.trim(),
+    encargados,archivos:editingFiles,comentarios:editingComments,
+    modificadoPor:currentUser
+  };
+  btn.disabled=true;btn.textContent='Guardando...';
+  saveLock = true;
+  try {
+    if(editingId){
+      const idx=tasks.findIndex(t=>t.id===editingId);
+      if(idx>-1) tasks[idx]={...tasks[idx],...data};
+      renderAll();closeModal();
+      await apiPost('update',{task:tasks[idx]});
+    }else{
+      const newTask={id:uid(),...data,creadoPor:currentUser};
+      tasks.push(newTask);
+      renderAll();closeModal();
+      await apiPost('create',{task:newTask});
+    }
+    lastSeenIds = tasks.filter(t=>(t.encargados||[]).includes(currentUser)).map(t=>t.id);
+    localStorage.setItem('haddock-seen-'+currentUser, JSON.stringify(lastSeenIds));
+  } finally {
+    btn.disabled=false;btn.textContent='Guardar';
+    saveLock = false;
+  }
+}
+
+async function eliminarTarea(){
+  if(!editingId) return;
+  if(!confirm('¿Eliminar esta tarea?')) return;
+  const id=editingId;
+  saveLock = true;
+  tasks=tasks.filter(t=>t.id!==id);
+  closeModal();renderAll();
+  await apiPost('delete',{id});
+  saveLock = false;
+}
+
+function openClientManager(){
+  if(!ADMINS.includes(currentUser)) return;
+  renderClientList();
+  document.getElementById('client-modal').classList.add('open');
+}
+function closeClientManager(){
+  document.getElementById('client-modal').classList.remove('open');
+  loadData(true);
+}
+function renderClientList(){
+  document.getElementById('client-list-edit').innerHTML=clientes.map((c,i)=>`
+    <div class="client-row">
+      <input type="text" id="cli-${i}" value="${c}">
+      <button class="save" onclick="editarCliente('${c.replace(/'/g,"\\'")}',${i})" title="Guardar">✓</button>
+      <button class="del" onclick="eliminarCliente('${c.replace(/'/g,"\\'")}')" title="Eliminar">✕</button>
+    </div>`).join('');
+}
+async function agregarCliente(){
+  const inp=document.getElementById('new-client-input');
+  const nombre=inp.value.trim();
+  if(!nombre) return;
+  if(clientes.includes(nombre)){alert('Ese cliente ya existe.');return;}
+  saveLock = true;
+  clientes.push(nombre);inp.value='';
+  renderClientList();
+  await apiPost('addClient',{nombre});
+  renderSidebar();
+  saveLock = false;
+}
+async function editarCliente(oldName,i){
+  const newName=document.getElementById('cli-'+i).value.trim();
+  if(!newName||newName===oldName) return;
+  saveLock = true;
+  clientes[i]=newName;
+  tasks.forEach(t=>{if(t.cliente===oldName) t.cliente=newName;});
+  renderClientList();renderSidebar();
+  await apiPost('editClient',{oldName,newName});
+  saveLock = false;
+}
+async function eliminarCliente(nombre){
+  if(!confirm(`¿Eliminar cliente "${nombre}"?`)) return;
+  saveLock = true;
+  clientes=clientes.filter(c=>c!==nombre);
+  renderClientList();renderSidebar();
+  await apiPost('deleteClient',{nombre});
+  saveLock = false;
+}
+
+// ── CALENDARIO ─────────────────────────────────────────────────
+function calNav(dir){
+  calendarMonth+=dir;
+  if(calendarMonth<0){calendarMonth=11;calendarYear--;}
+  if(calendarMonth>11){calendarMonth=0;calendarYear++;}
+  renderCalendar(getFiltered());
+}
+
+function renderCalendar(filtered){
+  const year=calendarYear, month=calendarMonth;
+  const firstDay=new Date(year,month,1).getDay();
+  const daysInMonth=new Date(year,month+1,0).getDate();
+  const tasksByDate={};
+  filtered.forEach(t=>{
+    if(!t.fecha) return;
+    tasksByDate[t.fecha]=tasksByDate[t.fecha]||[];
+    tasksByDate[t.fecha].push(t);
+  });
+  const today=new Date().toISOString().slice(0,10);
+  const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const dayNames=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+  let html=`<div class="cal-wrap">
+    <div class="cal-header">
+      <button class="cal-nav" onclick="calNav(-1)">← Anterior</button>
+      <div class="cal-title">${monthNames[month]} ${year}</div>
+      <button class="cal-nav" onclick="calNav(1)">Siguiente →</button>
+    </div>
+    <div class="cal-grid">
+      ${dayNames.map(d=>`<div class="cal-dayname">${d}</div>`).join('')}`;
+
+  for(let i=0;i<firstDay;i++) html+=`<div class="cal-day other"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dt=tasksByDate[ds]||[];
+    const isToday=ds===today;
+    html+=`<div class="cal-day${isToday?' today':''}">
+      <div class="cal-day-num">${d}</div>
+      <div class="cal-day-tasks">
+        ${dt.slice(0,3).map(t=>`<div class="cal-task estado-${t.estado}" onclick="openModal('${t.id}')" title="${t.titulo}">${t.titulo}</div>`).join('')}
+        ${dt.length>3?`<div class="cal-more">+${dt.length-3} más</div>`:''}
+      </div>
+    </div>`;
+  }
+  html+=`</div>`;
+
+  const noDate=filtered.filter(t=>!t.fecha);
+  if(noDate.length){
+    html+=`<div class="cal-nodate">
+      <div class="cal-nodate-title">Sin fecha asignada (${noDate.length})</div>
+      <div class="cal-nodate-tasks">${noDate.map(t=>`<div class="cal-task estado-${t.estado}" onclick="openModal('${t.id}')" title="${t.titulo}">${t.titulo}</div>`).join('')}</div>
+    </div>`;
+  }
+  html+=`</div>`;
+  document.getElementById('view-calendario').innerHTML=html;
+}
+
+// ── HISTORIAL ───────────────────────────────────────────────────
+function renderHistorial(){
+  const wrap=document.getElementById('historial-section');
+  if(!wrap||!editingId) return;
+  const t=tasks.find(x=>x.id===editingId);
+  const hist=(t&&t.historial)||[];
+  if(!hist.length){
+    wrap.innerHTML=`<div class="comment-empty">Sin historial todavía</div>`;
+    return;
+  }
+  wrap.innerHTML=[...hist].reverse().map(h=>{
+    let content='';
+    if(h.action){
+      content=h.action;
+    } else if(h.changes&&h.changes.length){
+      content=h.changes.map(c=>`<b>${c.field}</b>: "${c.from}" → "${c.to}"`).join(' &middot; ');
+    } else {
+      content='Modificó la tarea';
+    }
+    return `<div class="historial-entry">
+      <div class="comment-head">
+        <span class="comment-author">${h.user||'?'}</span>
+        <span class="comment-time">${formatDateTime(h.time)}</span>
+      </div>
+      <div class="comment-body" style="font-size:12px;color:var(--muted)">${content}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── EXPORTAR ────────────────────────────────────────────────────
+function toggleExportMenu(){
+  document.getElementById('export-menu').classList.toggle('open');
+}
+
+function exportCSV(){
+  document.getElementById('export-menu').classList.remove('open');
+  const f=getFiltered();
+  const headers=['ID','Título','Cliente','Proyecto','Estado','Prioridad','Fecha','Encargados','Notas','Creado por','Fecha creación','Modificado por'];
+  const rows=[headers,...f.map(t=>[
+    t.id,t.titulo,t.cliente,t.proyecto,t.estado,t.prioridad,t.fecha,
+    (t.encargados||[]).join(', '),
+    (t.notas||'').replace(/\n/g,' '),
+    t.creadoPor,
+    t.creado?new Date(t.creado).toLocaleDateString('es-CL'):'',
+    t.modificadoPor
+  ].map(v=>`"${String(v||'').replace(/"/g,'""')}"`))];
+  const csv=rows.map(r=>r.join(',')).join('\n');
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`haddock-tareas-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function exportPDF(){
+  document.getElementById('export-menu').classList.remove('open');
+  window.print();
+}
+
+document.addEventListener('click',e=>{
+  const wrap=document.getElementById('export-wrap');
+  if(wrap&&!wrap.contains(e.target)){
+    document.getElementById('export-menu').classList.remove('open');
+  }
+});
+
+setInterval(()=>{if(currentUser) loadData();}, 30000);
+
+if(currentUser){
+  document.getElementById('login-screen').classList.add('hidden');
+  initApp();
+}else{
+  renderLogin();
+}
+</script>
+</body>
+</html>
