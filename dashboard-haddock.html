@@ -327,12 +327,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 }
 
 /* ── CALENDARIO ─────────────────────────────────────── */
-.cal-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;overflow:hidden}
+.cal-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;overflow-x:auto}
 .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .cal-title{font-family:var(--font-sans);font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--text)}
 .cal-nav{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--r);padding:8px 16px;cursor:pointer;font-size:14px;transition:all .15s;font-family:var(--font-sans)}
 .cal-nav:hover{background:var(--border)}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px;min-width:600px}
 .cal-dayname{text-align:center;font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;padding:6px 2px}
 .cal-day{min-height:96px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 6px;transition:border-color .15s}
 .cal-day.other{background:transparent;border-color:transparent}
@@ -342,9 +342,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .cal-day-tasks{display:flex;flex-direction:column;gap:3px}
 .cal-task{font-size:10px;font-family:var(--font-sans);padding:2px 6px;border-radius:4px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;transition:opacity .1s}
 .cal-task:hover{opacity:.7}
-.cal-task.estado-Pendiente{background:#fef2f2;color:#dc2626;border-left:2px solid #ef4444}
-.cal-task.estado-Trabajando{background:#eff6ff;color:#2563eb;border-left:2px solid #3b82f6}
-.cal-task.estado-Resuelta{background:#f0fdf4;color:#059669;border-left:2px solid #10b981}
+.cal-task.cp-Sergio{background:#eff6ff;color:#1d4ed8;border-left:2px solid #3b82f6}
+.cal-task.cp-Joaquín{background:#f0fdf4;color:#047857;border-left:2px solid #10b981}
+.cal-task.cp-MaríaJesús{background:#fffbeb;color:#b45309;border-left:2px solid #f59e0b}
+.cal-task.cp-Tomás{background:#fef2f2;color:#b91c1c;border-left:2px solid #ef4444}
+.cal-task.cp-Cristóbal{background:#faf5ff;color:#7e22ce;border-left:2px solid #a855f7}
+.cal-task.cp-Constanza{background:#fff7ed;color:#c2410c;border-left:2px solid #f97316}
+.cal-task.cp-default{background:var(--surface2);color:var(--muted);border-left:2px solid var(--border2)}
 .cal-more{font-family:var(--font-mono);font-size:9px;color:var(--muted);padding:1px 4px;cursor:default;letter-spacing:.05em}
 .cal-nodate{margin-top:16px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
 .cal-nodate-title{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
@@ -418,6 +422,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     </nav>
 
     <div class="nav-group">
+      <div class="nav-label">Equipo</div>
+      <div id="sidebar-equipo"></div>
+    </div>
+
+    <div class="nav-group">
       <div class="nav-label">Clientes</div>
       <div id="sidebar-clients"></div>
       <button class="manage-clients" id="btn-manage-clients" onclick="openClientManager()" style="display:none">+ Administrar clientes</button>
@@ -445,7 +454,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="view-toggle">
           <button class="view-btn active" id="vbtn-kanban" onclick="setLayout('kanban')">Kanban</button>
           <button class="view-btn" id="vbtn-lista" onclick="setLayout('lista')">Lista</button>
-          <button class="view-btn" id="vbtn-calendario" onclick="setLayout('calendario')">Calendario</button>
+          <button class="view-btn" id="vbtn-calendario" onclick="toggleCalendario()">Calendario</button>
         </div>
         <div class="export-wrap" id="export-wrap">
           <button class="btn-export" onclick="toggleExportMenu()">↓ Exportar</button>
@@ -466,6 +475,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="section-title">Progreso por cliente</div>
       </div>
       <div class="client-cards" id="client-cards"></div>
+    </div>
+
+    <div class="section-block" id="cal-section" style="display:none">
+      <div id="view-calendario"></div>
     </div>
 
     <div class="filters-row">
@@ -539,7 +552,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       </div>
     </div>
 
-    <div id="view-calendario" style="display:none"></div>
   </main>
 </div>
 
@@ -919,8 +931,8 @@ function renderSidebar(){
 
 function renderAll(){
   const f=getFiltered();
-  renderStats(f);renderKanban(f);renderLista(f);renderSidebar();renderNotifications();renderClientCards();
-  if(currentLayout==='calendario') renderCalendar(f);
+  renderStats(f);renderKanban(f);renderLista(f);renderSidebar();renderNotifications();renderClientCards();renderEquipo();
+  if(document.getElementById('cal-section').style.display!=='none') renderCalendar(f);
   const myCount = tasks.filter(t=>(t.encargados||[]).includes(currentUser)).length;
   document.getElementById('cnt-personal').textContent = myCount;
   document.getElementById('cnt-general').textContent = tasks.length;
@@ -948,11 +960,17 @@ function setLayout(v){
   currentLayout=v;
   document.getElementById('view-kanban').style.display=v==='kanban'?'grid':'none';
   document.getElementById('view-lista').style.display=v==='lista'?'block':'none';
-  document.getElementById('view-calendario').style.display=v==='calendario'?'block':'none';
   document.getElementById('vbtn-kanban').classList.toggle('active',v==='kanban');
   document.getElementById('vbtn-lista').classList.toggle('active',v==='lista');
-  document.getElementById('vbtn-calendario').classList.toggle('active',v==='calendario');
-  if(v==='calendario') renderCalendar(getFiltered());
+}
+
+function toggleCalendario(){
+  const sec=document.getElementById('cal-section');
+  const btn=document.getElementById('vbtn-calendario');
+  const visible=sec.style.display!=='none';
+  sec.style.display=visible?'none':'block';
+  btn.classList.toggle('active',!visible);
+  if(!visible) renderCalendar(getFiltered());
 }
 
 let draggingId=null;
@@ -1270,6 +1288,45 @@ async function eliminarCliente(nombre){
   saveLock = false;
 }
 
+// ── EQUIPO SIDEBAR ─────────────────────────────────────────────
+function renderEquipo(){
+  const list = currentView==='personal' ? tasks.filter(t=>(t.encargados||[]).includes(currentUser)) : tasks;
+  const counts={};
+  ENCARGADOS.forEach(e=>counts[e]={total:0,activas:0});
+  list.forEach(t=>{
+    (t.encargados||[]).forEach(e=>{
+      if(!counts[e]) counts[e]={total:0,activas:0};
+      counts[e].total++;
+      if(t.estado!=='Resuelta') counts[e].activas++;
+    });
+  });
+  document.getElementById('sidebar-equipo').innerHTML=[
+    `<button class="client-item ${filters.enc==='all'?'active':''}" onclick="setEncSideFilter('all')">
+      <div class="client-item-left"><div class="client-dot" style="background:#999"></div><span class="client-name-text">Todos</span></div>
+    </button>`
+  ].concat(ENCARGADOS.map(e=>`
+    <button class="client-item ${filters.enc===e?'active':''}" onclick="setEncSideFilter('${e.replace(/'/g,"\\'")}')">
+      <div class="client-item-left">
+        <div class="avatar ${avClass(e)}" style="width:18px;height:18px;font-size:8px;border:none;margin-left:0;flex-shrink:0">${AV_INIT[e]||e[0]}</div>
+        <span class="client-name-text">${e}</span>
+      </div>
+      <span class="nav-count">${counts[e]?.activas||0}</span>
+    </button>`)).join('');
+}
+
+function setEncSideFilter(val){
+  filters.enc=val;
+  document.querySelectorAll('#pills-enc .pill').forEach(p=>p.classList.toggle('active',p.dataset.val===val));
+  renderAll();
+}
+
+// ── COLOR POR ENCARGADO EN CALENDARIO ──────────────────────────
+function calTaskClass(t){
+  const enc=(t.encargados||[])[0];
+  if(!enc) return 'cp-default';
+  return 'cp-'+enc.replace(/\s/g,'');
+}
+
 // ── CALENDARIO ─────────────────────────────────────────────────
 function calNav(dir){
   calendarMonth+=dir;
@@ -1309,7 +1366,7 @@ function renderCalendar(filtered){
     html+=`<div class="cal-day${isToday?' today':''}">
       <div class="cal-day-num">${d}</div>
       <div class="cal-day-tasks">
-        ${dt.slice(0,3).map(t=>`<div class="cal-task estado-${t.estado}" onclick="openModal('${t.id}')" title="${t.titulo}">${t.titulo}</div>`).join('')}
+        ${dt.slice(0,3).map(t=>`<div class="cal-task ${calTaskClass(t)}" onclick="openModal('${t.id}')" title="${t.titulo}">${t.titulo}</div>`).join('')}
         ${dt.length>3?`<div class="cal-more">+${dt.length-3} más</div>`:''}
       </div>
     </div>`;
@@ -1320,7 +1377,7 @@ function renderCalendar(filtered){
   if(noDate.length){
     html+=`<div class="cal-nodate">
       <div class="cal-nodate-title">Sin fecha asignada (${noDate.length})</div>
-      <div class="cal-nodate-tasks">${noDate.map(t=>`<div class="cal-task estado-${t.estado}" onclick="openModal('${t.id}')" title="${t.titulo}">${t.titulo}</div>`).join('')}</div>
+      <div class="cal-nodate-tasks">${noDate.map(t=>`<div class="cal-task ${calTaskClass(t)}" onclick="openModal('${t.id}')" title="${t.titulo}">${t.titulo}</div>`).join('')}</div>
     </div>`;
   }
   html+=`</div>`;
