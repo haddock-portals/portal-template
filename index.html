@@ -354,6 +354,57 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .cal-nodate-title{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
 .cal-nodate-tasks{display:flex;flex-wrap:wrap;gap:6px}
 
+/* ── VISTA PERSONAL ─────────────────────────────────── */
+.foco-wrap{margin-bottom:4px}
+.foco-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.foco-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.foco-card{background:linear-gradient(135deg,#1a0a2e,#0d1a2e);border:1px solid #3d2070;border-radius:var(--r-lg);padding:22px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.foco-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(168,85,247,.25)}
+.foco-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-personal)}
+.foco-client{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#a78bfa;margin-bottom:8px}
+.foco-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:10px}
+.foco-notes{font-size:13px;color:#c4b5fd;margin-bottom:16px;line-height:1.5}
+.foco-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foco-date{font-family:var(--font-mono);font-size:11px;color:#a78bfa}
+.foco-date.overdue{color:#f87171}
+.foco-date.today{color:#fbbf24}
+
+.personal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:4px}
+
+.personal-sections{display:flex;flex-direction:column;gap:20px}
+.personal-section-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.personal-section-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:600}
+.personal-section-label.vencida{color:var(--pendiente)}
+.personal-section-label.hoy{color:#f59e0b}
+.personal-section-label.semana{color:var(--trabajando)}
+.personal-section-label.luego,.personal-section-label.sinfecha{color:var(--muted)}
+.personal-section-label.resuelta{color:var(--resuelta)}
+.personal-section-count{font-family:var(--font-mono);font-size:10px;background:var(--surface2);border:1px solid var(--border);border-radius:100px;padding:1px 9px;color:var(--muted)}
+.personal-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+
+.task-card-p{background:#0e0e0e;border:1px solid #2a2a2a;border-radius:var(--r);padding:16px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden;color:#f5f5f7;display:flex;flex-direction:column;gap:0}
+.task-card-p:hover{border-color:#3a3a3a;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.task-card-p::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.task-card-p.estado-Pendiente::before{background:var(--pendiente)}
+.task-card-p.estado-Trabajando::before{background:var(--trabajando)}
+.task-card-p.estado-Resuelta::before{background:var(--resuelta)}
+.card-p-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
+.card-p-client{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#888}
+.card-p-title{font-size:14px;font-weight:600;color:#f5f5f7;margin-bottom:8px;line-height:1.35}
+.card-p-notes{font-size:12px;color:#999;margin-bottom:10px;line-height:1.5}
+.card-p-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.card-p-date{font-family:var(--font-mono);font-size:10px;color:#888}
+.card-p-date.overdue{color:#f87171;font-weight:600}
+.card-p-date.today{color:#fbbf24;font-weight:600}
+.card-status-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:2px}
+.status-btn{padding:5px 12px;border-radius:100px;border:1px solid;font-size:10px;font-weight:600;cursor:pointer;font-family:var(--font-mono);letter-spacing:.04em;text-transform:uppercase;transition:all .15s;white-space:nowrap}
+.status-btn.to-trabajando{background:#1e3a5f;border-color:#3b82f6;color:#60a5fa}
+.status-btn.to-trabajando:hover{background:#2563eb;color:#fff;border-color:#2563eb}
+.status-btn.to-resuelta{background:#052e16;border-color:#10b981;color:#34d399}
+.status-btn.to-resuelta:hover{background:#059669;color:#fff;border-color:#059669}
+.status-btn.to-pendiente{background:#2d1515;border-color:#ef4444;color:#f87171}
+.status-btn.to-pendiente:hover{background:#dc2626;color:#fff;border-color:#dc2626}
+
 /* ── HISTORIAL ──────────────────────────────────────── */
 .historial-entry{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;display:flex;flex-direction:column;gap:4px}
 
@@ -539,6 +590,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="col-cards" id="col-Resuelta"></div>
       </div>
     </div>
+
+    <div id="view-personal" style="display:none;flex-direction:column;gap:20px"></div>
 
     <div id="view-lista" style="display:none">
       <div class="list-wrap">
@@ -931,15 +984,21 @@ function renderSidebar(){
 
 function renderAll(){
   const f=getFiltered();
-  renderStats(f);renderKanban(f);renderLista(f);renderSidebar();renderNotifications();renderClientCards();renderEquipo();
+  const isPersonal=currentView==='personal';
+  const showPersonal=isPersonal&&currentLayout==='kanban';
+  document.getElementById('view-kanban').style.display=(!showPersonal&&currentLayout==='kanban')?'grid':'none';
+  document.getElementById('view-personal').style.display=showPersonal?'flex':'none';
+  document.getElementById('view-lista').style.display=currentLayout==='lista'?'block':'none';
+  if(showPersonal) renderPersonalView(f); else renderKanban(f);
+  renderLista(f);renderSidebar();renderNotifications();renderClientCards();renderEquipo();
   if(document.getElementById('cal-section').style.display!=='none') renderCalendar(f);
-  const myCount = tasks.filter(t=>(t.encargados||[]).includes(currentUser)).length;
-  document.getElementById('cnt-personal').textContent = myCount;
-  document.getElementById('cnt-general').textContent = tasks.length;
-  const isPersonal = currentView==='personal';
-  document.getElementById('title-eyebrow').textContent = isPersonal ? `Hola, ${currentUser}` : 'Vista general';
-  document.getElementById('page-title').textContent = filters.cliente!=='all' ? filters.cliente : (isPersonal ? 'Mis tareas' : 'Todas las tareas');
-  document.getElementById('page-title').className = 'page-title' + (isPersonal ? ' page-title-grad' : '');
+  const myCount=tasks.filter(t=>(t.encargados||[]).includes(currentUser)).length;
+  document.getElementById('cnt-personal').textContent=myCount;
+  document.getElementById('cnt-general').textContent=tasks.length;
+  document.getElementById('title-eyebrow').textContent=isPersonal?`Hola, ${currentUser}`:'Vista general';
+  document.getElementById('page-title').textContent=filters.cliente!=='all'?filters.cliente:(isPersonal?'Mis tareas':'Todas las tareas');
+  document.getElementById('page-title').className='page-title'+(isPersonal?' page-title-grad':'');
+  if(!isPersonal) renderStats(f); else renderPersonalStats(f);
 }
 
 function setFilter(type,val,btn){
@@ -958,10 +1017,9 @@ function setView(v){
 }
 function setLayout(v){
   currentLayout=v;
-  document.getElementById('view-kanban').style.display=v==='kanban'?'grid':'none';
-  document.getElementById('view-lista').style.display=v==='lista'?'block':'none';
   document.getElementById('vbtn-kanban').classList.toggle('active',v==='kanban');
   document.getElementById('vbtn-lista').classList.toggle('active',v==='lista');
+  renderAll();
 }
 
 function toggleCalendario(){
@@ -1286,6 +1344,136 @@ async function eliminarCliente(nombre){
   renderClientList();renderSidebar();
   await apiPost('deleteClient',{nombre});
   saveLock = false;
+}
+
+// ── VISTA PERSONAL ─────────────────────────────────────────────
+function urgencyGroup(t){
+  const today=new Date().toISOString().slice(0,10);
+  if(!t.fecha) return 'sinfecha';
+  if(t.fecha<today) return 'vencida';
+  if(t.fecha===today) return 'hoy';
+  const diff=(new Date(t.fecha+'T12:00:00')-new Date())/(1000*60*60*24);
+  return diff<=7?'semana':'luego';
+}
+
+function renderPersonalStats(filtered){
+  const today=new Date().toISOString().slice(0,10);
+  const active=filtered.filter(t=>t.estado!=='Resuelta');
+  const vencidas=active.filter(t=>t.fecha&&t.fecha<today).length;
+  const hoy=active.filter(t=>t.fecha===today).length;
+  const enCurso=active.filter(t=>t.estado==='Trabajando').length;
+  const res=filtered.filter(t=>t.estado==='Resuelta').length;
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat pendiente"><div class="stat-label">Vencidas</div><div class="stat-val pendiente">${vencidas}</div><div class="stat-sub">tareas</div></div>
+    <div class="stat" style="border-top-color:#f59e0b"><div class="stat-label">Vence hoy</div><div class="stat-val" style="color:#f59e0b">${hoy}</div><div class="stat-sub">tareas</div></div>
+    <div class="stat trabajando"><div class="stat-label">En curso</div><div class="stat-val trabajando">${enCurso}</div><div class="stat-sub">tareas</div></div>
+    <div class="stat resuelta"><div class="stat-label">Resueltas</div><div class="stat-val resuelta">${res}</div><div class="stat-sub">tareas</div></div>`;
+}
+
+function renderPersonalView(filtered){
+  const today=new Date().toISOString().slice(0,10);
+  const active=filtered.filter(t=>t.estado!=='Resuelta');
+  const resueltas=filtered.filter(t=>t.estado==='Resuelta');
+  const prioOrder={alta:0,media:1,baja:2};
+  const focusTask=[...active].sort((a,b)=>{
+    const pa=prioOrder[a.prioridad]??1,pb=prioOrder[b.prioridad]??1;
+    if(pa!==pb) return pa-pb;
+    if(a.fecha&&b.fecha) return a.fecha.localeCompare(b.fecha);
+    return a.fecha?-1:b.fecha?1:0;
+  })[0];
+
+  const groups={vencida:[],hoy:[],semana:[],luego:[],sinfecha:[]};
+  active.forEach(t=>{if(!focusTask||t.id!==focusTask.id) groups[urgencyGroup(t)].push(t);});
+
+  let html='';
+
+  // Foco del día
+  if(focusTask){
+    const od=focusTask.fecha&&focusTask.fecha<today;
+    const tod=focusTask.fecha===today;
+    html+=`<div class="foco-wrap">
+      <div class="foco-label">Foco del día</div>
+      <div class="foco-card" onclick="if(!event.defaultPrevented)openModal('${focusTask.id}')">
+        <div class="foco-client">${focusTask.cliente||''} &nbsp;·&nbsp; ${focusTask.prioridad||''}</div>
+        <div class="foco-title">${focusTask.titulo||''}</div>
+        ${focusTask.notas?`<div class="foco-notes">${focusTask.notas}</div>`:''}
+        <div class="foco-bottom">
+          <div class="foco-date ${od?'overdue':tod?'today':''}">${od?'⚠ Vencida · ':tod?'Vence hoy · ':''}${focusTask.fecha?formatDate(focusTask.fecha):''}</div>
+          <div class="card-status-btns" onclick="event.stopPropagation()">
+            ${focusTask.estado==='Pendiente'?`<button class="status-btn to-trabajando" onclick="quickStatus('${focusTask.id}','Trabajando')">→ Trabajando</button>`:''}
+            ${focusTask.estado==='Trabajando'?`<button class="status-btn to-pendiente" onclick="quickStatus('${focusTask.id}','Pendiente')">← Pendiente</button>`:''}
+            <button class="status-btn to-resuelta" onclick="quickStatus('${focusTask.id}','Resuelta')">✓ Resuelta</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // Secciones de urgencia
+  const secciones=[
+    {key:'vencida',label:'Vencidas',cls:'vencida'},
+    {key:'hoy',label:'Vence hoy',cls:'hoy'},
+    {key:'semana',label:'Esta semana',cls:'semana'},
+    {key:'luego',label:'Más adelante',cls:'luego'},
+    {key:'sinfecha',label:'Sin fecha',cls:'sinfecha'},
+  ];
+  html+='<div class="personal-sections">';
+  secciones.forEach(({key,label,cls})=>{
+    const ts=groups[key];
+    if(!ts.length) return;
+    html+=`<div>
+      <div class="personal-section-header">
+        <span class="personal-section-label ${cls}">${label}</span>
+        <span class="personal-section-count">${ts.length}</span>
+      </div>
+      <div class="personal-cards">${ts.map(t=>personalCardHTML(t,today)).join('')}</div>
+    </div>`;
+  });
+  if(resueltas.length){
+    html+=`<div>
+      <div class="personal-section-header">
+        <span class="personal-section-label resuelta">Resueltas</span>
+        <span class="personal-section-count">${resueltas.length}</span>
+      </div>
+      <div class="personal-cards">${resueltas.map(t=>personalCardHTML(t,today)).join('')}</div>
+    </div>`;
+  }
+  html+='</div>';
+
+  document.getElementById('view-personal').innerHTML=html;
+}
+
+function personalCardHTML(t,today){
+  const od=t.estado!=='Resuelta'&&t.fecha&&t.fecha<today;
+  const tod=t.fecha===today&&t.estado!=='Resuelta';
+  return `<div class="task-card-p estado-${t.estado}" onclick="if(!event.defaultPrevented)openModal('${t.id}')">
+    <div class="card-p-top">
+      <div class="card-p-client">${t.cliente||''}</div>
+      <div class="priority-dot ${t.prioridad||'media'}"></div>
+    </div>
+    <div class="card-p-title">${t.titulo||''}</div>
+    ${t.notas?`<div class="card-p-notes">${t.notas}</div>`:''}
+    <div class="card-p-meta">
+      <div class="card-assignees">${avatarHTML(t.encargados)}</div>
+      ${t.fecha?`<div class="card-p-date ${od?'overdue':tod?'today':''}">${od?'⚠ ':tod?'Hoy · ':''}${formatDate(t.fecha)}</div>`:'<div></div>'}
+    </div>
+    ${t.estado!=='Resuelta'?`<div class="card-status-btns" onclick="event.stopPropagation()">
+      ${t.estado==='Pendiente'?`<button class="status-btn to-trabajando" onclick="quickStatus('${t.id}','Trabajando')">→ Trabajando</button>`:''}
+      ${t.estado==='Trabajando'?`<button class="status-btn to-pendiente" onclick="quickStatus('${t.id}','Pendiente')">← Pendiente</button>`:''}
+      <button class="status-btn to-resuelta" onclick="quickStatus('${t.id}','Resuelta')">✓ Resuelta</button>
+    </div>`:''}
+  </div>`;
+}
+
+async function quickStatus(id,newStatus){
+  const task=tasks.find(t=>t.id===id);
+  if(!task||task.estado===newStatus) return;
+  task.estado=newStatus;
+  task.modificadoPor=currentUser;
+  saveLock=true;
+  renderAll();
+  await apiPost('update',{task});
+  saveLock=false;
 }
 
 // ── EQUIPO SIDEBAR ─────────────────────────────────────────────
