@@ -6,7 +6,7 @@ const DASHBOARD_URL = 'https://dashboardhaddock.netlify.app';
 const TEAM_EMAILS = {
   'Sergio':      'sergio@haddock.cl',
   'Joaquín':     'joaquin@haddock.cl',
-  'María Jesús': 'mj@haddock.cl',
+  'María Jesús': 'mariajesus@haddock.cl',
   'Tomás':       'tomas@haddock.cl',
   'Cristóbal':   'cristobal@haddock.cl',
   'Constanza':   'constanza@haddock.cl'
