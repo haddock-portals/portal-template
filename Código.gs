@@ -87,7 +87,10 @@ function handlePortalGet(e, tasksSheet, clientsSheet) {
     }
   }
 
-  return out({ ok: true, cliente: clientName, clientColor, clientDesc, tasks });
+  // Solo tareas marcadas como visibles en portal
+  const visibleTasks = tasks.filter(t => t.visible_cliente === 'Sí');
+
+  return out({ ok: true, cliente: clientName, clientColor, clientDesc, tasks: visibleTasks });
 }
 
 // ─── POST ──────────────────────────────────────────────────────────
@@ -141,7 +144,8 @@ function doPost(e) {
       t.notas, new Date().toISOString(),
       JSON.stringify(t.archivos || []),
       t.creadoPor || '', t.modificadoPor || '',
-      JSON.stringify(t.comentarios || [])
+      JSON.stringify(t.comentarios || []),
+      t.visible_cliente || 'No'
     ]);
     return out({ ok: true, id: t.id });
   }
@@ -151,14 +155,15 @@ function doPost(e) {
     const data = sheet.getDataRange().getValues();
     for (let i = 1; i < data.length; i++) {
       if (data[i][0] === t.id) {
-        sheet.getRange(i + 1, 1, 1, 14).setValues([[
+        sheet.getRange(i + 1, 1, 1, 15).setValues([[
           t.id, t.titulo, t.cliente, t.proyecto, t.estado,
           t.prioridad, t.fecha, (t.encargados || []).join('|'),
           t.notas, data[i][9] || new Date().toISOString(),
           JSON.stringify(t.archivos || []),
           data[i][11] || t.creadoPor || '',
           t.modificadoPor || '',
-          JSON.stringify(t.comentarios || [])
+          JSON.stringify(t.comentarios || []),
+          t.visible_cliente || data[i][14] || 'No'
         ]]);
         return out({ ok: true });
       }

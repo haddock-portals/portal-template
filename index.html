@@ -700,6 +700,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <label class="form-label">Descripción / Notas</label>
         <textarea class="form-textarea" id="f-notas" placeholder="Detalles, instrucciones..."></textarea>
       </div>
+      <div class="form-group form-full">
+        <label class="form-label" style="display:flex;align-items:center;justify-content:space-between">
+          <span>👁 Visible en portal del cliente</span>
+          <label style="position:relative;display:inline-flex;align-items:center;cursor:pointer;gap:10px">
+            <input type="checkbox" id="f-visible" style="opacity:0;width:0;height:0;position:absolute">
+            <span id="toggle-track" style="display:inline-block;width:44px;height:24px;background:var(--border2);border-radius:99px;transition:background .2s;flex-shrink:0"></span>
+            <span id="toggle-thumb" style="position:absolute;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)"></span>
+            <span id="toggle-label" style="font-size:12px;color:var(--muted);font-family:var(--font-mono)">No</span>
+          </label>
+        </label>
+      </div>
       <div class="form-group form-full" id="comments-block" style="display:none">
         <label class="form-label">Comentarios del equipo</label>
         <div class="comments-section" id="comments-section"></div>
@@ -764,6 +775,24 @@ let calendarYear = new Date().getFullYear();
 let calendarMonth = new Date().getMonth();
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+
+function setToggleVisible(on){
+  const cb=document.getElementById('f-visible');
+  const track=document.getElementById('toggle-track');
+  const thumb=document.getElementById('toggle-thumb');
+  const label=document.getElementById('toggle-label');
+  if(!cb) return;
+  cb.checked=on;
+  track.style.background=on?'var(--resuelta)':'var(--border2)';
+  thumb.style.transform=on?'translateX(20px)':'translateX(0)';
+  label.textContent=on?'Sí':'No';
+  label.style.color=on?'var(--resuelta)':'var(--muted)';
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const cb=document.getElementById('f-visible');
+  if(cb) cb.addEventListener('change',()=>setToggleVisible(cb.checked));
+});
 function setSync(s,m){const d=document.getElementById('sync-dot');const t=document.getElementById('sync-text');d.className='sync-dot '+s;t.textContent=m;}
 
 function renderLogin(){
@@ -1242,6 +1271,7 @@ function openModal(id){
   document.querySelectorAll('.assignee-check').forEach(c=>c.checked=false);
   document.getElementById('f-archivo-input').value='';
   document.getElementById('comment-input').value='';
+  setToggleVisible(false);
 
   if(id){
     const t=tasks.find(x=>x.id===id);
@@ -1253,6 +1283,7 @@ function openModal(id){
     document.getElementById('f-prioridad').value=t.prioridad||'media';
     document.getElementById('f-fecha').value=t.fecha||'';
     document.getElementById('f-notas').value=t.notas||'';
+    setToggleVisible(t.visible_cliente==='Sí');
     editingFiles=[...(t.archivos||[])];
     editingComments=[...(t.comentarios||[])];
     (t.encargados||[]).forEach(e=>{
@@ -1298,6 +1329,7 @@ async function guardarTarea(){
     prioridad:document.getElementById('f-prioridad').value,
     fecha:document.getElementById('f-fecha').value,
     notas:document.getElementById('f-notas').value.trim(),
+    visible_cliente:document.getElementById('f-visible').checked?'Sí':'No',
     encargados,archivos:editingFiles,comentarios:editingComments,
     modificadoPor:currentUser
   };
