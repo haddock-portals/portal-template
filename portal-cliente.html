@@ -12,7 +12,7 @@
   --accent:#6366f1;
   --accent-bg:#eef2ff;
   --bg:#f7f7f4;
-  --surface:#ffffff;
+  --surface:#fff;
   --border:#e8e6df;
   --border2:#d4d2ca;
   --text:#0a0a0a;
@@ -20,42 +20,41 @@
   --muted2:#b8b5ae;
   --font-sans:'Bricolage Grotesque',sans-serif;
   --font-mono:'JetBrains Mono',monospace;
-  --r:12px;
-  --r-lg:20px;
+  --r:12px;--r-lg:20px;
   --shadow:0 1px 3px rgba(0,0,0,.06),0 6px 20px rgba(0,0,0,.06);
   --shadow-lg:0 4px 6px rgba(0,0,0,.05),0 24px 64px rgba(0,0,0,.12);
 }
 body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-size:15px;line-height:1.5;min-height:100vh}
 
-/* ─── LOADING ─── */
+/* LOADING */
 #loading-screen{position:fixed;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:9999}
-.loading-logo{font-family:var(--font-sans);font-weight:700;font-size:32px;letter-spacing:-.05em}
+.loading-logo{font-weight:700;font-size:32px;letter-spacing:-.05em}
 .loading-spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ─── LOGIN ─── */
-#login-screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px;background:linear-gradient(145deg,#fafaf7 0%,#eeeef7 100%)}
+/* LOGIN */
+#login-screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px;background:linear-gradient(145deg,#fafaf7,#eeeef7)}
 .login-card{background:#fff;border-radius:28px;padding:52px 44px;max-width:440px;width:100%;box-shadow:var(--shadow-lg);text-align:center}
-.login-logo{font-family:var(--font-sans);font-weight:700;font-size:30px;letter-spacing:-.05em;margin-bottom:8px}
+.login-logo{font-weight:700;font-size:30px;letter-spacing:-.05em;margin-bottom:8px}
 .login-accent-bar{width:40px;height:4px;background:var(--accent);border-radius:99px;margin:0 auto 28px}
 .login-title{font-size:24px;font-weight:700;margin-bottom:8px}
 .login-sub{font-size:14px;color:var(--muted);margin-bottom:36px;line-height:1.65}
 .code-input{width:100%;padding:18px 16px;font-size:30px;font-family:var(--font-mono);letter-spacing:.4em;text-align:center;border:2px solid var(--border);border-radius:var(--r);outline:none;transition:border-color .2s;background:#fafaf7}
 .code-input:focus{border-color:var(--accent);background:#fff}
-.code-input.error{border-color:#ef4444;animation:shake .3s ease}
+.code-input.error{border-color:#ef4444;animation:shake .3s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.login-error{color:#ef4444;font-size:13px;margin:8px 0;min-height:20px;display:none}
+.login-error{color:#ef4444;font-size:13px;margin:8px 0;display:none}
 .login-btn{width:100%;padding:15px;border-radius:var(--r);background:var(--accent);color:#fff;font-size:15px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .2s;margin-top:8px}
 .login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 35%,transparent)}
 .login-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
 .login-powered{margin-top:44px;font-family:var(--font-mono);font-size:10px;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase}
 
-/* ─── PORTAL ─── */
+/* PORTAL SHELL */
 #portal{display:none;min-height:100vh;flex-direction:column}
 
-/* header */
+/* HEADER */
 .portal-header{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:16px;height:64px;position:sticky;top:0;z-index:200}
-.hdr-logo{font-family:var(--font-sans);font-weight:700;font-size:20px;letter-spacing:-.04em}
+.hdr-logo{font-weight:700;font-size:20px;letter-spacing:-.04em;flex-shrink:0}
 .hdr-logo img{height:36px;object-fit:contain;display:block}
 .hdr-sep{width:1px;height:28px;background:var(--border);flex-shrink:0}
 .hdr-client{flex:1;min-width:0}
@@ -67,9 +66,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .progress-bar-fill{height:100%;border-radius:99px;background:var(--accent);transition:width .8s cubic-bezier(.4,0,.2,1)}
 .add-task-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s;white-space:nowrap}
 .add-task-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 30%,transparent)}
-@media(max-width:600px){.portal-header{padding:0 16px}.hdr-right .hdr-pct,.progress-bar-wrap{display:none}}
+@media(max-width:600px){.portal-header{padding:0 16px}.hdr-pct,.progress-bar-wrap{display:none}}
 
-/* stats */
+/* TABS */
+.tab-bar{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:0}
+@media(max-width:600px){.tab-bar{padding:0 16px}}
+.tab-btn{padding:14px 20px;font-size:13px;font-weight:600;color:var(--muted);border:none;background:none;cursor:pointer;font-family:var(--font-sans);border-bottom:2px solid transparent;transition:all .15s;display:flex;align-items:center;gap:7px}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* STATS */
 .stats-bar{background:#fff;border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr)}
 @media(max-width:600px){.stats-bar{grid-template-columns:repeat(2,1fr)}}
 .stat-cell{padding:20px 24px;border-right:1px solid var(--border)}
@@ -77,11 +83,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .stat-number{display:block;font-size:32px;font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:4px}
 .stat-label{font-size:11px;color:var(--muted);font-family:var(--font-mono);letter-spacing:.03em;text-transform:uppercase}
 
-/* columns */
+/* KANBAN */
 .portal-columns{padding:28px 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1280px;margin:0 auto;width:100%}
 @media(max-width:960px){.portal-columns{grid-template-columns:1fr}}
 @media(max-width:600px){.portal-columns{padding:16px;gap:16px}}
-
 .col-wrap{display:flex;flex-direction:column}
 .col-header{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--border)}
 .col-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
@@ -89,8 +94,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .col-count{font-family:var(--font-mono);font-size:11px;background:var(--border);border-radius:99px;padding:2px 9px;color:var(--muted)}
 .col-body{flex:1;min-height:120px;border-radius:var(--r);transition:background .15s}
 .col-body.drag-over{background:color-mix(in srgb,var(--accent) 6%,transparent);outline:2px dashed var(--accent);outline-offset:-2px}
-
-/* task cards */
 .task-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px;cursor:grab;transition:all .18s;margin-bottom:12px;user-select:none}
 .task-card:hover{border-color:var(--accent);box-shadow:0 4px 20px color-mix(in srgb,var(--accent) 12%,transparent);transform:translateY(-2px)}
 .task-card.dragging{opacity:.4;transform:scale(.98);cursor:grabbing}
@@ -98,15 +101,81 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .task-card-meta{display:flex;flex-wrap:wrap;gap:6px}
 .task-card-notes{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .chip{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:10.5px;padding:3px 9px;border-radius:99px;white-space:nowrap}
-.chip-ok{background:#f0fdf4;color:#059669}
-.chip-soon{background:#fff7ed;color:#d97706}
-.chip-over{background:#fef2f2;color:#dc2626}
-.chip-none{background:#f4f3ee;color:var(--muted)}
-.chip-file{background:#f0f4ff;color:#4f46e5}
-.chip-comment{background:#f4f3ee;color:var(--muted)}
+.chip-ok{background:#f0fdf4;color:#059669}.chip-soon{background:#fff7ed;color:#d97706}.chip-over{background:#fef2f2;color:#dc2626}.chip-none{background:#f4f3ee;color:var(--muted)}.chip-file{background:#f0f4ff;color:#4f46e5}.chip-comment{background:#f4f3ee;color:var(--muted)}
 .empty-col{border:1.5px dashed var(--border);border-radius:var(--r-lg);padding:40px 20px;text-align:center;color:var(--muted2);font-size:13px}
 
-/* ─── MODALES ─── */
+/* ─── CONTENIDO TAB ─── */
+#tab-contenido{display:none;padding:28px 32px;max-width:1280px;margin:0 auto;width:100%}
+@media(max-width:600px){#tab-contenido{padding:16px}}
+
+.contenido-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.contenido-toolbar-title{font-size:20px;font-weight:700;flex:1}
+.view-toggle-btns{display:flex;background:#f4f3ee;border-radius:var(--r);padding:3px;gap:2px}
+.view-toggle-btn{padding:7px 14px;border:none;background:none;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;font-family:var(--font-sans);color:var(--muted);transition:all .15s;display:flex;align-items:center;gap:5px}
+.view-toggle-btn.active{background:#fff;color:var(--text);box-shadow:var(--shadow)}
+.upload-media-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s}
+.upload-media-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 30%,transparent)}
+
+/* Gallery view */
+#gallery-view{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.gallery-item{position:relative;aspect-ratio:1;border-radius:var(--r-lg);overflow:hidden;background:#f4f3ee;border:1.5px solid var(--border);cursor:pointer;group:true}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
+.gallery-item:hover img{transform:scale(1.05)}
+.gallery-item-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;padding:12px;gap:8px}
+.gallery-item:hover .gallery-item-overlay{opacity:1}
+.gallery-item-name{flex:1;font-size:12px;color:#fff;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gallery-action-btn{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s;flex-shrink:0}
+.gallery-action-btn.preview{background:rgba(255,255,255,.2);color:#fff}
+.gallery-action-btn.preview:hover{background:rgba(255,255,255,.35)}
+.gallery-action-btn.delete{background:rgba(239,68,68,.8);color:#fff}
+.gallery-action-btn.delete:hover{background:#ef4444}
+.gallery-file-icon{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:8px;color:var(--muted);font-size:32px}
+.gallery-file-name{font-size:11px;text-align:center;color:var(--muted);padding:0 8px;line-height:1.4}
+.gallery-empty{grid-column:1/-1;padding:60px 20px;text-align:center;color:var(--muted2);font-size:14px;border:1.5px dashed var(--border);border-radius:var(--r-lg)}
+
+/* Instagram view */
+#instagram-view{display:none}
+.ig-grid-wrap{max-width:614px;margin:0 auto}
+.ig-profile-bar{display:flex;align-items:center;gap:16px;padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.ig-avatar{width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;flex-shrink:0;overflow:hidden}
+.ig-avatar img{width:100%;height:100%;object-fit:cover}
+.ig-username{font-weight:700;font-size:16px}
+.ig-bio{font-size:13px;color:var(--muted);margin-top:2px}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.ig-cell{aspect-ratio:1;overflow:hidden;cursor:pointer;background:#f4f3ee;position:relative}
+.ig-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
+.ig-cell:hover img{transform:scale(1.05)}
+.ig-cell-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:16px;color:#fff;font-size:14px;font-weight:600}
+.ig-cell:hover .ig-cell-overlay{opacity:1}
+.ig-cell-placeholder{display:flex;align-items:center;justify-content:center;height:100%;font-size:28px;color:var(--muted2)}
+.ig-hint{text-align:center;font-size:12px;color:var(--muted2);font-family:var(--font-mono);margin-top:12px;letter-spacing:.05em}
+
+/* POST PREVIEW MODAL */
+#post-preview-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px}
+.phone-frame{background:#fff;border-radius:44px;width:340px;max-width:100%;box-shadow:0 0 0 12px #1a1a1a,0 0 0 14px #333,var(--shadow-lg);overflow:hidden;animation:slideUp .25s cubic-bezier(.32,0,.04,1)}
+.phone-notch{height:28px;background:#1a1a1a;display:flex;align-items:center;justify-content:center}
+.phone-notch-bar{width:100px;height:16px;background:#000;border-radius:0 0 16px 16px}
+.phone-screen{overflow-y:auto;max-height:560px;background:#fff}
+.ig-post-header{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.ig-post-avatar{width:34px;height:34px;border-radius:50%;border:2px solid transparent;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);padding:2px;flex-shrink:0}
+.ig-post-avatar-inner{width:100%;height:100%;border-radius:50%;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.ig-post-avatar-inner img{width:100%;height:100%;object-fit:cover}
+.ig-post-username{font-weight:600;font-size:13px}
+.ig-post-more{margin-left:auto;font-size:18px;color:var(--muted);line-height:1}
+.ig-post-image{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#f4f3ee}
+.ig-post-actions{padding:10px 12px 4px;display:flex;gap:14px;align-items:center}
+.ig-post-action-icon{font-size:22px;cursor:pointer;transition:transform .1s}
+.ig-post-action-icon:hover{transform:scale(1.15)}
+.ig-post-save{margin-left:auto}
+.ig-post-likes{padding:0 12px;font-size:13px;font-weight:700}
+.ig-post-caption{padding:4px 12px 12px;font-size:13px;line-height:1.5}
+.ig-post-caption span{font-weight:700}
+.ig-post-comments{padding:0 12px 8px;font-size:12px;color:var(--muted)}
+.ig-post-time{padding:0 12px 16px;font-size:10px;color:var(--muted2);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em}
+.post-preview-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);border:none;cursor:pointer;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.post-preview-close:hover{background:rgba(255,255,255,.25)}
+
+/* MODALES COMUNES */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,10,10,.5);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:flex-end;justify-content:center}
 @media(min-width:700px){.modal-overlay{align-items:center;padding:24px}}
 .modal-card{background:#fff;border-radius:28px 28px 0 0;width:100%;max-width:700px;max-height:92vh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);animation:slideUp .25s cubic-bezier(.32,0,.04,1);position:relative}
@@ -118,19 +187,37 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .modal-close:hover{background:var(--border);color:var(--text)}
 .modal-scroll{overflow-y:auto;flex:1;padding:24px 28px 0}
 @media(max-width:700px){.modal-scroll{padding:16px 20px 0}}
-
-/* task detail modal */
-.modal-status-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:99px;font-weight:600;margin-bottom:12px}
+.modal-status-badge{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:99px;font-weight:600;margin-bottom:12px}
 .modal-title{font-size:24px;font-weight:700;line-height:1.3;margin-bottom:12px}
 .modal-deadline-box{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:var(--r);font-size:13px;font-weight:500;margin-bottom:4px}
-.modal-deadline-box.ok{background:#f0fdf4;color:#059669}
-.modal-deadline-box.soon{background:#fff7ed;color:#d97706}
-.modal-deadline-box.over{background:#fef2f2;color:#dc2626}
-.modal-deadline-box.none{background:#f4f3ee;color:var(--muted)}
+.modal-deadline-box.ok{background:#f0fdf4;color:#059669}.modal-deadline-box.soon{background:#fff7ed;color:#d97706}.modal-deadline-box.over{background:#fef2f2;color:#dc2626}.modal-deadline-box.none{background:#f4f3ee;color:var(--muted)}
 .section-title{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin:24px 0 12px}
 .notes-box{font-size:14px;color:#3a3a3a;line-height:1.75;white-space:pre-wrap;padding:16px 18px;background:#f9f8f5;border-radius:var(--r);border:1px solid var(--border)}
-
-/* task form modal */
+.file-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--r);margin-bottom:7px;text-decoration:none;color:var(--text);transition:border-color .15s;background:#fff}
+.file-row:hover{border-color:var(--accent)}
+.file-row-name{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-row-meta{font-family:var(--font-mono);font-size:10px;color:var(--muted);flex-shrink:0}
+.upload-zone{border:2px dashed var(--border);border-radius:var(--r);padding:22px;text-align:center;cursor:pointer;transition:all .2s;margin-top:10px;background:#fafaf7}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:var(--accent-bg)}
+.upload-progress-wrap{height:5px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:12px;display:none}
+.upload-progress-fill{height:100%;background:var(--accent);border-radius:99px;width:0;transition:width .3s}
+.comments-list{display:flex;flex-direction:column;gap:14px}
+.comment-row{display:flex;gap:10px}
+.comment-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;flex-shrink:0;background:var(--accent)}
+.comment-avatar.is-client{background:#0ea5e9}
+.comment-content{flex:1}
+.comment-meta-row{display:flex;align-items:baseline;gap:7px;margin-bottom:4px}
+.comment-author{font-size:13px;font-weight:600}
+.comment-time{font-family:var(--font-mono);font-size:10px;color:var(--muted2)}
+.comment-text{font-size:14px;color:#3a3a3a;line-height:1.6}
+.no-comments{font-size:13px;color:var(--muted2);padding:8px 0}
+.comment-footer{padding:16px 28px 20px;border-top:1px solid var(--border);display:flex;gap:8px;background:#fff;flex-shrink:0;border-radius:0 0 28px 28px}
+@media(max-width:700px){.comment-footer{padding:12px 20px 16px;border-radius:0}}
+.comment-textarea{flex:1;border:1.5px solid var(--border);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:var(--font-sans);outline:none;resize:none;min-height:44px;max-height:120px;transition:border-color .2s}
+.comment-textarea:focus{border-color:var(--accent)}
+.comment-btn{padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-weight:600;font-size:13px;font-family:var(--font-sans);transition:all .18s;flex-shrink:0;align-self:flex-end}
+.comment-btn:hover{transform:translateY(-1px)}
+.comment-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .form-modal-card{background:#fff;border-radius:28px 28px 0 0;width:100%;max-width:560px;max-height:90vh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);animation:slideUp .25s cubic-bezier(.32,0,.04,1);position:relative}
 @media(min-width:700px){.form-modal-card{border-radius:28px;max-height:85vh}}
 .form-modal-header{padding:24px 24px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
@@ -148,51 +235,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .btn-save:hover{transform:translateY(-1px);box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 30%,transparent)}
 .btn-save:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 
-/* files */
-.files-image-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-bottom:10px}
-.img-thumb{aspect-ratio:1;border-radius:var(--r);overflow:hidden;cursor:pointer;border:1.5px solid var(--border);background:#f4f3ee;transition:all .15s;position:relative}
-.img-thumb:hover{border-color:var(--accent);transform:scale(1.04)}
-.img-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.img-thumb-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:5px;font-size:11px;color:var(--muted);text-align:center;padding:8px;line-height:1.3}
-.file-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--r);margin-bottom:7px;text-decoration:none;color:var(--text);transition:border-color .15s;background:#fff}
-.file-row:hover{border-color:var(--accent)}
-.file-row-name{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.file-row-meta{font-family:var(--font-mono);font-size:10px;color:var(--muted);flex-shrink:0}
-.upload-zone{border:2px dashed var(--border);border-radius:var(--r);padding:22px;text-align:center;cursor:pointer;transition:all .2s;margin-top:10px;background:#fafaf7}
-.upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:var(--accent-bg)}
-.upload-zone-icon{font-size:24px;margin-bottom:6px}
-.upload-zone-text{font-size:13px;font-weight:600}
-.upload-zone-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.upload-progress-wrap{height:5px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:12px;display:none}
-.upload-progress-fill{height:100%;background:var(--accent);border-radius:99px;width:0;transition:width .3s}
-
-/* comments */
-.comments-list{display:flex;flex-direction:column;gap:14px}
-.comment-row{display:flex;gap:10px}
-.comment-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;flex-shrink:0;background:var(--accent)}
-.comment-avatar.is-client{background:#0ea5e9}
-.comment-content{flex:1}
-.comment-meta-row{display:flex;align-items:baseline;gap:7px;margin-bottom:4px}
-.comment-author{font-size:13px;font-weight:600}
-.comment-time{font-family:var(--font-mono);font-size:10px;color:var(--muted2)}
-.comment-text{font-size:14px;color:#3a3a3a;line-height:1.6}
-.no-comments{font-size:13px;color:var(--muted2);padding:8px 0}
-.comment-footer{padding:16px 28px 20px;border-top:1px solid var(--border);display:flex;gap:8px;background:#fff;flex-shrink:0;border-radius:0 0 28px 28px}
-@media(max-width:700px){.comment-footer{padding:12px 20px 16px;border-radius:0}}
-.comment-textarea{flex:1;border:1.5px solid var(--border);border-radius:var(--r);padding:10px 14px;font-size:14px;font-family:var(--font-sans);outline:none;resize:none;min-height:44px;max-height:120px;transition:border-color .2s;line-height:1.5}
-.comment-textarea:focus{border-color:var(--accent)}
-.comment-btn{padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-weight:600;font-size:13px;font-family:var(--font-sans);transition:all .18s;flex-shrink:0;align-self:flex-end}
-.comment-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 30%,transparent)}
-.comment-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-
-/* lightbox */
-#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:3000;display:none;align-items:center;justify-content:center;padding:24px;animation:fadeIn .15s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+/* LIGHTBOX */
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:3000;display:none;align-items:center;justify-content:center;padding:24px}
 #lightbox img{max-width:100%;max-height:90vh;border-radius:var(--r);object-fit:contain}
-.lb-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.lb-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center}
 .lb-close:hover{background:rgba(255,255,255,.22)}
 
-/* toast */
+/* TOAST */
 #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:12px 22px;border-radius:var(--r);font-size:14px;z-index:4000;transition:transform .3s cubic-bezier(.32,0,.04,1);white-space:nowrap;pointer-events:none}
 #toast.show{transform:translateX(-50%) translateY(0)}
 
@@ -202,16 +251,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 </head>
 <body>
 
-<div id="loading-screen">
-  <div class="loading-logo">haddock</div>
-  <div class="loading-spinner"></div>
-</div>
+<div id="loading-screen"><div class="loading-logo">haddock</div><div class="loading-spinner"></div></div>
+<div id="no-client"><div class="no-client-logo">haddock</div><div>Portal no disponible</div></div>
 
-<div id="no-client">
-  <div class="no-client-logo">haddock</div>
-  <div>Portal no disponible</div>
-</div>
-
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">haddock</div>
@@ -225,6 +268,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
   </div>
 </div>
 
+<!-- PORTAL -->
 <div id="portal">
   <header class="portal-header">
     <div class="hdr-logo" id="hdr-logo">haddock</div>
@@ -236,50 +280,62 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     <div class="hdr-right">
       <div class="hdr-pct" id="hdr-pct">0% completado</div>
       <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar-fill" style="width:0%"></div></div>
-      <button class="add-task-btn" onclick="openTaskForm()">+ Nueva tarea</button>
+      <button class="add-task-btn" id="hdr-add-btn" onclick="openTaskForm()">+ Nueva tarea</button>
     </div>
   </header>
 
-  <div class="stats-bar">
-    <div class="stat-cell"><span class="stat-number" id="s-total">0</span><span class="stat-label">Tareas totales</span></div>
-    <div class="stat-cell"><span class="stat-number" id="s-proceso">0</span><span class="stat-label">En proceso</span></div>
-    <div class="stat-cell"><span class="stat-number" id="s-listas">0</span><span class="stat-label">Entregadas</span></div>
-    <div class="stat-cell"><span class="stat-number" id="s-proxima">—</span><span class="stat-label">Próxima entrega</span></div>
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tab-btn-tareas" onclick="switchTab('tareas')">📋 Tareas</button>
+    <button class="tab-btn" id="tab-btn-contenido" onclick="switchTab('contenido')">🖼 Contenido</button>
   </div>
 
-  <div class="portal-columns">
-    <div class="col-wrap">
-      <div class="col-header">
-        <span class="col-dot" style="background:#f59e0b"></span>
-        <span class="col-title" style="color:#d97706">Por hacer</span>
-        <span class="col-count" id="cnt-pend">0</span>
-      </div>
-      <div class="col-body" id="col-pendiente"
-           ondragover="onDragOver(event,'Pendiente')"
-           ondragleave="onDragLeave(event)"
-           ondrop="onDrop(event,'Pendiente')"></div>
+  <!-- TAB TAREAS -->
+  <div id="tab-tareas">
+    <div class="stats-bar">
+      <div class="stat-cell"><span class="stat-number" id="s-total">0</span><span class="stat-label">Tareas totales</span></div>
+      <div class="stat-cell"><span class="stat-number" id="s-proceso">0</span><span class="stat-label">En proceso</span></div>
+      <div class="stat-cell"><span class="stat-number" id="s-listas">0</span><span class="stat-label">Entregadas</span></div>
+      <div class="stat-cell"><span class="stat-number" id="s-proxima">—</span><span class="stat-label">Próxima entrega</span></div>
     </div>
-    <div class="col-wrap">
-      <div class="col-header">
-        <span class="col-dot" style="background:#3b82f6"></span>
-        <span class="col-title" style="color:#2563eb">En proceso</span>
-        <span class="col-count" id="cnt-work">0</span>
+    <div class="portal-columns">
+      <div class="col-wrap">
+        <div class="col-header"><span class="col-dot" style="background:#f59e0b"></span><span class="col-title" style="color:#d97706">Por hacer</span><span class="col-count" id="cnt-pend">0</span></div>
+        <div class="col-body" id="col-pendiente" ondragover="onDragOver(event,'Pendiente')" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'Pendiente')"></div>
       </div>
-      <div class="col-body" id="col-trabajando"
-           ondragover="onDragOver(event,'Trabajando')"
-           ondragleave="onDragLeave(event)"
-           ondrop="onDrop(event,'Trabajando')"></div>
+      <div class="col-wrap">
+        <div class="col-header"><span class="col-dot" style="background:#3b82f6"></span><span class="col-title" style="color:#2563eb">En proceso</span><span class="col-count" id="cnt-work">0</span></div>
+        <div class="col-body" id="col-trabajando" ondragover="onDragOver(event,'Trabajando')" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'Trabajando')"></div>
+      </div>
+      <div class="col-wrap">
+        <div class="col-header"><span class="col-dot" style="background:#10b981"></span><span class="col-title" style="color:#059669">Entregado ✓</span><span class="col-count" id="cnt-done">0</span></div>
+        <div class="col-body" id="col-resuelta" ondragover="onDragOver(event,'Resuelta')" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'Resuelta')"></div>
+      </div>
     </div>
-    <div class="col-wrap">
-      <div class="col-header">
-        <span class="col-dot" style="background:#10b981"></span>
-        <span class="col-title" style="color:#059669">Entregado ✓</span>
-        <span class="col-count" id="cnt-done">0</span>
+  </div>
+
+  <!-- TAB CONTENIDO -->
+  <div id="tab-contenido">
+    <div class="contenido-toolbar">
+      <div class="contenido-toolbar-title">Contenido</div>
+      <div class="view-toggle-btns">
+        <button class="view-toggle-btn active" id="vbtn-gallery" onclick="setContentView('gallery')">⊞ Galería</button>
+        <button class="view-toggle-btn" id="vbtn-instagram" onclick="setContentView('instagram')">📱 Instagram</button>
       </div>
-      <div class="col-body" id="col-resuelta"
-           ondragover="onDragOver(event,'Resuelta')"
-           ondragleave="onDragLeave(event)"
-           ondrop="onDrop(event,'Resuelta')"></div>
+      <button class="upload-media-btn" onclick="openMediaUpload()">☁️ Subir</button>
+    </div>
+    <div id="gallery-view"></div>
+    <div id="instagram-view">
+      <div class="ig-grid-wrap">
+        <div class="ig-profile-bar">
+          <div class="ig-avatar" id="ig-avatar-el"></div>
+          <div>
+            <div class="ig-username" id="ig-username-el"></div>
+            <div class="ig-bio" id="ig-bio-el"></div>
+          </div>
+        </div>
+        <div class="ig-grid" id="ig-grid"></div>
+        <div class="ig-hint">Click en una imagen para ver preview del post</div>
+      </div>
     </div>
   </div>
 </div>
@@ -311,34 +367,52 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
   <div class="form-modal-card">
     <div class="modal-handle"></div>
     <button class="modal-close" onclick="closeTaskForm()">×</button>
-    <div class="form-modal-header">
-      <div class="form-modal-title" id="form-modal-title">Nueva tarea</div>
-    </div>
+    <div class="form-modal-header"><div class="form-modal-title" id="form-modal-title">Nueva tarea</div></div>
     <div class="form-modal-body">
-      <div class="form-group">
-        <label class="form-label">Nombre de la tarea *</label>
-        <input class="form-input" id="ff-titulo" type="text" placeholder="¿Qué hay que hacer?">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Estado</label>
+      <div class="form-group"><label class="form-label">Nombre *</label><input class="form-input" id="ff-titulo" type="text" placeholder="¿Qué hay que hacer?"></div>
+      <div class="form-group"><label class="form-label">Estado</label>
         <select class="form-select" id="ff-estado">
           <option value="Pendiente">Por hacer</option>
           <option value="Trabajando">En proceso</option>
           <option value="Resuelta">Entregado ✓</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Fecha de entrega</label>
-        <input class="form-input" id="ff-fecha" type="date">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Descripción</label>
-        <textarea class="form-textarea" id="ff-notas" placeholder="Detalles, instrucciones..."></textarea>
-      </div>
+      <div class="form-group"><label class="form-label">Fecha de entrega</label><input class="form-input" id="ff-fecha" type="date"></div>
+      <div class="form-group"><label class="form-label">Descripción</label><textarea class="form-textarea" id="ff-notas" placeholder="Detalles..."></textarea></div>
     </div>
     <div class="form-modal-footer">
       <button class="btn-cancel" onclick="closeTaskForm()">Cancelar</button>
       <button class="btn-save" id="btn-form-save" onclick="saveTaskForm()">Guardar tarea</button>
+    </div>
+  </div>
+</div>
+
+<!-- POST PREVIEW MODAL -->
+<div id="post-preview-modal" onclick="if(event.target===this)closePostPreview()">
+  <button class="post-preview-close" onclick="closePostPreview()">×</button>
+  <div class="phone-frame">
+    <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+    <div class="phone-screen">
+      <div class="ig-post-header">
+        <div class="ig-post-avatar">
+          <div class="ig-post-avatar-inner" id="pp-avatar"></div>
+        </div>
+        <div>
+          <div class="ig-post-username" id="pp-username"></div>
+        </div>
+        <div class="ig-post-more">···</div>
+      </div>
+      <img class="ig-post-image" id="pp-image" src="" alt="">
+      <div class="ig-post-actions">
+        <span class="ig-post-action-icon">🤍</span>
+        <span class="ig-post-action-icon">💬</span>
+        <span class="ig-post-action-icon">✈️</span>
+        <span class="ig-post-action-icon ig-post-save">🔖</span>
+      </div>
+      <div class="ig-post-likes" id="pp-likes"></div>
+      <div class="ig-post-caption"><span id="pp-caption-user"></span> <span id="pp-caption-text"></span></div>
+      <div class="ig-post-comments" id="pp-comments"></div>
+      <div class="ig-post-time">Hace un momento</div>
     </div>
   </div>
 </div>
@@ -350,6 +424,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 </div>
 
 <input type="file" id="file-input" style="display:none" onchange="handleFileSelect(this.files)">
+<input type="file" id="media-file-input" style="display:none" accept="image/*,video/*" onchange="handleMediaUpload(this.files)">
 <div id="toast"></div>
 
 <script>
@@ -361,6 +436,8 @@ let editingFormId = null;
 let clientName = '';
 let clientSlug = '';
 let draggingId = null;
+let currentContentView = 'gallery';
+let activeTab = 'tareas';
 
 const urlParams = new URLSearchParams(location.search);
 clientSlug = (urlParams.get('c') || '').trim();
@@ -373,9 +450,7 @@ window.addEventListener('DOMContentLoaded', () => {
     try { hide('loading-screen'); launchPortal(JSON.parse(saved)); return; }
     catch(e) { sessionStorage.removeItem('haddock_p_' + clientSlug); }
   }
-  hide('loading-screen');
-  show('login-screen','flex');
-  setupLogin();
+  hide('loading-screen'); show('login-screen','flex'); setupLogin();
 });
 
 function setupLogin() {
@@ -391,25 +466,24 @@ async function doLogin() {
   const btn = document.getElementById('login-btn');
   const errEl = document.getElementById('login-error');
   const input = document.getElementById('code-input');
-  btn.disabled = true; btn.textContent = 'Verificando...';
-  errEl.style.display = 'none'; input.classList.remove('error');
+  btn.disabled=true; btn.textContent='Verificando...';
+  errEl.style.display='none'; input.classList.remove('error');
   try {
     const res = await fetch(`${API}?portal=1&cliente=${encodeURIComponent(clientSlug)}&codigo=${encodeURIComponent(code)}`);
     const data = await res.json();
     if (data.ok) {
-      sessionStorage.setItem('haddock_p_' + clientSlug, JSON.stringify(data));
+      sessionStorage.setItem('haddock_p_'+clientSlug, JSON.stringify(data));
       hide('login-screen'); launchPortal(data);
     } else {
       input.classList.add('error');
-      errEl.textContent = 'Código incorrecto. Intenta de nuevo.';
-      errEl.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Ingresar →';
-      setTimeout(() => input.classList.remove('error'), 500);
+      errEl.textContent='Código incorrecto. Intenta de nuevo.';
+      errEl.style.display='block';
+      btn.disabled=false; btn.textContent='Ingresar →';
+      setTimeout(()=>input.classList.remove('error'),500);
     }
   } catch(e) {
-    errEl.textContent = 'Error de conexión. Intenta de nuevo.';
-    errEl.style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Ingresar →';
+    errEl.textContent='Error de conexión.'; errEl.style.display='block';
+    btn.disabled=false; btn.textContent='Ingresar →';
   }
 }
 
@@ -418,47 +492,54 @@ function launchPortal(data) {
   clientName = data.cliente || clientSlug;
   const color = data.clientColor || '#6366f1';
   document.documentElement.style.setProperty('--accent', color);
-  document.documentElement.style.setProperty('--accent-bg', color + '15');
+  document.documentElement.style.setProperty('--accent-bg', color+'15');
 
-  // Logo
   const logoEl = document.getElementById('hdr-logo');
-  if (data.clientLogo) {
-    logoEl.innerHTML = `<img src="${data.clientLogo}" alt="${esc(clientName)}">`;
-  }
-
+  if (data.clientLogo) logoEl.innerHTML = `<img src="${data.clientLogo}" alt="${esc(clientName)}">`;
   document.getElementById('hdr-name').textContent = clientName;
   if (data.clientDesc) document.getElementById('hdr-desc').textContent = data.clientDesc;
 
+  // Instagram profile
+  document.getElementById('ig-username-el').textContent = clientName.toLowerCase().replace(/\s+/g,'_');
+  document.getElementById('ig-bio-el').textContent = data.clientDesc || '';
+  const igAvatar = document.getElementById('ig-avatar-el');
+  if (data.clientLogo) igAvatar.innerHTML = `<img src="${data.clientLogo}" alt="">`;
+  else igAvatar.textContent = clientName.charAt(0).toUpperCase();
+
   show('portal','flex');
-  document.getElementById('portal').style.flexDirection = 'column';
+  document.getElementById('portal').style.flexDirection='column';
   renderPortal();
 }
 
-// ─── RENDER ───
-function renderPortal() {
-  const pend = tasks.filter(t => t.estado === 'Pendiente');
-  const work = tasks.filter(t => t.estado === 'Trabajando');
-  const done = tasks.filter(t => t.estado === 'Resuelta');
+// ─── TABS ───
+function switchTab(tab) {
+  activeTab = tab;
+  document.getElementById('tab-tareas').style.display = tab==='tareas' ? 'block' : 'none';
+  document.getElementById('tab-contenido').style.display = tab==='contenido' ? 'block' : 'none';
+  document.getElementById('tab-btn-tareas').classList.toggle('active', tab==='tareas');
+  document.getElementById('tab-btn-contenido').classList.toggle('active', tab==='contenido');
+  document.getElementById('hdr-add-btn').style.display = tab==='tareas' ? '' : 'none';
+  if (tab==='contenido') renderGallery();
+}
 
+// ─── RENDER TAREAS ───
+function renderPortal() {
+  const pend = tasks.filter(t=>t.estado==='Pendiente');
+  const work = tasks.filter(t=>t.estado==='Trabajando');
+  const done = tasks.filter(t=>t.estado==='Resuelta');
   document.getElementById('s-total').textContent = tasks.length;
   document.getElementById('s-proceso').textContent = work.length;
   document.getElementById('s-listas').textContent = done.length;
-
   const pct = tasks.length ? Math.round((done.length/tasks.length)*100) : 0;
-  document.getElementById('hdr-pct').textContent = pct + '% completado';
-  document.getElementById('progress-bar-fill').style.width = pct + '%';
-
+  document.getElementById('hdr-pct').textContent = pct+'% completado';
+  document.getElementById('progress-bar-fill').style.width = pct+'%';
   const upcoming = tasks.filter(t=>t.fecha&&t.estado!=='Resuelta').map(t=>t.fecha).sort();
   const proxEl = document.getElementById('s-proxima');
-  if (upcoming.length) {
-    const d = daysDiff(upcoming[0]);
-    proxEl.textContent = d<0?'Vencida':d===0?'Hoy':d===1?'Mañana':'En '+d+'d';
-  } else { proxEl.textContent = '—'; }
-
-  document.getElementById('cnt-pend').textContent = pend.length;
-  document.getElementById('cnt-work').textContent = work.length;
-  document.getElementById('cnt-done').textContent = done.length;
-
+  if (upcoming.length) { const d=daysDiff(upcoming[0]); proxEl.textContent=d<0?'Vencida':d===0?'Hoy':d===1?'Mañana':'En '+d+'d'; }
+  else proxEl.textContent='—';
+  document.getElementById('cnt-pend').textContent=pend.length;
+  document.getElementById('cnt-work').textContent=work.length;
+  document.getElementById('cnt-done').textContent=done.length;
   renderCol('col-pendiente', pend);
   renderCol('col-trabajando', work);
   renderCol('col-resuelta', done);
@@ -466,300 +547,293 @@ function renderPortal() {
 
 function renderCol(id, items) {
   const el = document.getElementById(id);
-  if (!items.length) {
-    el.innerHTML = '<div class="empty-col">Sin tareas en esta etapa.</div>';
-    return;
-  }
+  if (!items.length) { el.innerHTML='<div class="empty-col">Sin tareas en esta etapa.</div>'; return; }
   el.innerHTML = items.map(taskCardHTML).join('');
   el.querySelectorAll('.task-card').forEach(card => {
-    card.addEventListener('click', () => openModal(card.dataset.id));
-    card.addEventListener('dragstart', e => { draggingId = card.dataset.id; card.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; });
-    card.addEventListener('dragend', () => { card.classList.remove('dragging'); draggingId = null; });
+    card.addEventListener('click', ()=>openModal(card.dataset.id));
+    card.addEventListener('dragstart', e=>{ draggingId=card.dataset.id; card.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; });
+    card.addEventListener('dragend', ()=>{ card.classList.remove('dragging'); draggingId=null; });
   });
 }
 
 function taskCardHTML(t) {
-  const files = (t.archivos||[]).length;
-  const comments = (t.comentarios||[]).length;
-  const noteHtml = t.notas ? `<div class="task-card-notes">${esc(t.notas)}</div>` : '';
-  const fileChip = files ? `<span class="chip chip-file">📎 ${files}</span>` : '';
-  const commentChip = comments ? `<span class="chip chip-comment">💬 ${comments}</span>` : '';
-  return `
-  <div class="task-card" data-id="${t.id}" draggable="true">
+  const files=(t.archivos||[]).length, comments=(t.comentarios||[]).length;
+  const noteHtml=t.notas?`<div class="task-card-notes">${esc(t.notas)}</div>`:'';
+  return `<div class="task-card" data-id="${t.id}" draggable="true">
     <div class="task-card-title">${esc(t.titulo)}</div>
-    <div class="task-card-meta">${dateChip(t.fecha)}${fileChip}${commentChip}</div>
-    ${noteHtml}
-  </div>`;
+    <div class="task-card-meta">${dateChip(t.fecha)}${files?`<span class="chip chip-file">📎 ${files}</span>`:''}${comments?`<span class="chip chip-comment">💬 ${comments}</span>`:''}</div>
+    ${noteHtml}</div>`;
 }
 
-function dateChip(fecha) {
-  if (!fecha) return '<span class="chip chip-none">Sin fecha</span>';
-  const d = daysDiff(fecha);
-  if (d<0)  return `<span class="chip chip-over">📅 Vencida</span>`;
-  if (d===0) return `<span class="chip chip-soon">📅 Hoy</span>`;
-  if (d<=7)  return `<span class="chip chip-soon">📅 En ${d} días</span>`;
-  return `<span class="chip chip-ok">📅 ${fmtDate(fecha)}</span>`;
-}
+function dateChip(f){if(!f)return'<span class="chip chip-none">Sin fecha</span>';const d=daysDiff(f);if(d<0)return`<span class="chip chip-over">📅 Vencida</span>`;if(d===0)return`<span class="chip chip-soon">📅 Hoy</span>`;if(d<=7)return`<span class="chip chip-soon">📅 En ${d} días</span>`;return`<span class="chip chip-ok">📅 ${fmtDate(f)}</span>`;}
 
 // ─── DRAG & DROP ───
-function onDragOver(e, estado) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  e.currentTarget.classList.add('drag-over');
+function onDragOver(e,estado){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over');}
+function onDragLeave(e){e.currentTarget.classList.remove('drag-over');}
+async function onDrop(e,nuevoEstado){
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');
+  if(!draggingId)return;
+  const task=tasks.find(t=>t.id===draggingId);
+  if(!task||task.estado===nuevoEstado)return;
+  task.estado=nuevoEstado; renderPortal();
+  try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task}));await fetch(API,{method:'POST',body:fd});showToast('Movida a '+labelEstado(nuevoEstado));}
+  catch(e){showToast('Error al guardar.');}
 }
-function onDragLeave(e) {
-  e.currentTarget.classList.remove('drag-over');
-}
-async function onDrop(e, nuevoEstado) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  if (!draggingId) return;
-  const task = tasks.find(t => t.id === draggingId);
-  if (!task || task.estado === nuevoEstado) return;
-  task.estado = nuevoEstado;
-  renderPortal();
-  try {
-    const fd = new FormData();
-    fd.append('payload', JSON.stringify({action:'update', task}));
-    await fetch(API, {method:'POST', body:fd});
-    showToast('Tarea movida a ' + labelEstado(nuevoEstado));
-  } catch(e) { showToast('Error al guardar el cambio.'); }
-}
-
-function labelEstado(e) {
-  return e==='Pendiente'?'Por hacer':e==='Trabajando'?'En proceso':'Entregado';
-}
+function labelEstado(e){return e==='Pendiente'?'Por hacer':e==='Trabajando'?'En proceso':'Entregado';}
 
 // ─── TASK FORM ───
-function openTaskForm(taskId) {
-  editingFormId = taskId || null;
-  const t = taskId ? tasks.find(x=>x.id===taskId) : null;
-  document.getElementById('form-modal-title').textContent = t ? 'Editar tarea' : 'Nueva tarea';
-  document.getElementById('ff-titulo').value = t ? t.titulo : '';
-  document.getElementById('ff-estado').value = t ? t.estado : 'Pendiente';
-  document.getElementById('ff-fecha').value = t ? (t.fecha||'') : '';
-  document.getElementById('ff-notas').value = t ? (t.notas||'') : '';
-  document.getElementById('btn-form-save').disabled = false;
-  document.getElementById('btn-form-save').textContent = 'Guardar tarea';
+function openTaskForm(taskId){
+  editingFormId=taskId||null;
+  const t=taskId?tasks.find(x=>x.id===taskId):null;
+  document.getElementById('form-modal-title').textContent=t?'Editar tarea':'Nueva tarea';
+  document.getElementById('ff-titulo').value=t?t.titulo:'';
+  document.getElementById('ff-estado').value=t?t.estado:'Pendiente';
+  document.getElementById('ff-fecha').value=t?(t.fecha||''):'';
+  document.getElementById('ff-notas').value=t?(t.notas||''):'';
+  document.getElementById('btn-form-save').disabled=false;
+  document.getElementById('btn-form-save').textContent='Guardar tarea';
   show('task-form-modal','flex');
-  setTimeout(() => document.getElementById('ff-titulo').focus(), 100);
+  setTimeout(()=>document.getElementById('ff-titulo').focus(),100);
 }
-
-function closeTaskForm() {
-  hide('task-form-modal');
-  editingFormId = null;
-}
-
-async function saveTaskForm() {
-  const titulo = document.getElementById('ff-titulo').value.trim();
-  if (!titulo) { document.getElementById('ff-titulo').focus(); return; }
-  const btn = document.getElementById('btn-form-save');
-  btn.disabled = true; btn.textContent = 'Guardando...';
-  const estado = document.getElementById('ff-estado').value;
-  const fecha = document.getElementById('ff-fecha').value;
-  const notas = document.getElementById('ff-notas').value.trim();
-
-  try {
-    if (editingFormId) {
-      const idx = tasks.findIndex(t=>t.id===editingFormId);
-      if (idx>-1) { tasks[idx] = {...tasks[idx], titulo, estado, fecha, notas}; }
-      closeTaskForm(); renderPortal();
-      const fd = new FormData();
-      fd.append('payload', JSON.stringify({action:'update', task:tasks.find(t=>t.id===editingFormId)||tasks[tasks.findIndex(t=>t.id===editingFormId)]}));
-      await fetch(API, {method:'POST', body:fd});
-    } else {
-      const newTask = {
-        id: uid(), titulo, cliente: clientName, estado, fecha, notas,
-        prioridad:'media', encargados:[], archivos:[], comentarios:[],
-        visible_cliente:'Sí', creadoPor: clientName, modificadoPor: clientName
-      };
-      tasks.push(newTask);
-      closeTaskForm(); renderPortal();
-      const fd = new FormData();
-      fd.append('payload', JSON.stringify({action:'create', task:newTask}));
-      await fetch(API, {method:'POST', body:fd});
+function closeTaskForm(){hide('task-form-modal');editingFormId=null;}
+async function saveTaskForm(){
+  const titulo=document.getElementById('ff-titulo').value.trim();
+  if(!titulo){document.getElementById('ff-titulo').focus();return;}
+  const btn=document.getElementById('btn-form-save');
+  btn.disabled=true;btn.textContent='Guardando...';
+  const estado=document.getElementById('ff-estado').value;
+  const fecha=document.getElementById('ff-fecha').value;
+  const notas=document.getElementById('ff-notas').value.trim();
+  try{
+    if(editingFormId){
+      const idx=tasks.findIndex(t=>t.id===editingFormId);
+      if(idx>-1)tasks[idx]={...tasks[idx],titulo,estado,fecha,notas};
+      closeTaskForm();renderPortal();
+      const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task:tasks[idx]}));await fetch(API,{method:'POST',body:fd});
+    }else{
+      const newTask={id:uid(),titulo,cliente:clientName,estado,fecha,notas,prioridad:'media',encargados:[],archivos:[],comentarios:[],visible_cliente:'Sí',creadoPor:clientName,modificadoPor:clientName};
+      tasks.push(newTask);closeTaskForm();renderPortal();
+      const fd=new FormData();fd.append('payload',JSON.stringify({action:'create',task:newTask}));await fetch(API,{method:'POST',body:fd});
     }
-    showToast(editingFormId ? 'Tarea actualizada ✓' : 'Tarea creada ✓');
-  } catch(e) {
-    showToast('Error al guardar. Intenta de nuevo.');
-    btn.disabled = false; btn.textContent = 'Guardar tarea';
+    showToast(editingFormId?'Tarea actualizada ✓':'Tarea creada ✓');
+  }catch(e){showToast('Error al guardar.');btn.disabled=false;btn.textContent='Guardar tarea';}
+}
+
+// ─── TASK DETAIL ───
+function openModal(taskId){
+  currentTask=tasks.find(t=>t.id===taskId);
+  if(!currentTask)return;
+  const t=currentTask;
+  const statMap={Pendiente:{label:'Por hacer',bg:'#fff7ed',color:'#d97706'},Trabajando:{label:'En proceso',bg:'#eff6ff',color:'#2563eb'},Resuelta:{label:'Entregado ✓',bg:'#f0fdf4',color:'#059669'}};
+  const s=statMap[t.estado]||{label:t.estado,bg:'#f4f3ee',color:'#666'};
+  const badge=document.getElementById('m-status-badge');badge.textContent=s.label;badge.style.cssText=`background:${s.bg};color:${s.color}`;
+  document.getElementById('m-title').textContent=t.titulo;
+  const de=document.getElementById('m-deadline');
+  if(t.fecha){const d=daysDiff(t.fecha);let cls,label;if(d<0){cls='over';label=`Venció el ${fmtDateLong(t.fecha)}`;}else if(d===0){cls='soon';label='Vence hoy';}else if(d===1){cls='soon';label='Vence mañana';}else if(d<=7){cls='soon';label=`Vence en ${d} días — ${fmtDateLong(t.fecha)}`;}else{cls='ok';label=`Entrega: ${fmtDateLong(t.fecha)}`;}de.innerHTML=`<div class="modal-deadline-box ${cls}">📅 ${label}</div>`;}else de.innerHTML='';
+  document.getElementById('m-notes').innerHTML=t.notas?`<div class="section-title">Descripción</div><div class="notes-box">${esc(t.notas)}</div>`:'';
+  renderModalFiles(t.archivos||[]);renderModalComments(t.comentarios||[]);
+  document.getElementById('comment-input').value='';autoResize(document.getElementById('comment-input'));
+  show('task-modal','flex');document.getElementById('modal-scroll').scrollTop=0;
+}
+function closeModal(){hide('task-modal');currentTask=null;}
+
+function renderModalFiles(files){
+  const el=document.getElementById('m-files');
+  const images=files.filter(f=>f.type&&f.type.startsWith('image'));
+  const others=files.filter(f=>!f.type||!f.type.startsWith('image'));
+  let html='<div class="section-title">Archivos</div>';
+  if(images.length){
+    html+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-bottom:10px">';
+    images.forEach(f=>{const thumb=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w300`:f.url;const full=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`:f.url;html+=`<div style="aspect-ratio:1;border-radius:var(--r);overflow:hidden;cursor:pointer;border:1.5px solid var(--border);background:#f4f3ee" onclick="openLightbox('${full}')"><img src="${thumb}" alt="${esc(f.name)}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:24px\\'>🖼️</div>'"></div>`;});
+    html+='</div>';
   }
+  others.forEach(f=>{const icon=f.type==='link'?'🔗':f.type&&f.type.startsWith('video')?'🎬':f.name&&f.name.endsWith('.pdf')?'📄':'📎';html+=`<a class="file-row" href="${f.url}" target="_blank" rel="noopener"><span>${icon}</span><span class="file-row-name">${esc(f.name)}</span><span class="file-row-meta">${f.size?fmtSize(f.size):'Abrir'} ↗</span></a>`;});
+  html+=`<div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)"><div style="font-size:24px;margin-bottom:6px">☁️</div><div style="font-size:13px;font-weight:600">Subir archivo</div><div style="font-size:12px;color:var(--muted);margin-top:2px">Click o arrastra · máx. 25MB</div><div class="upload-progress-wrap" id="upload-prog-wrap"><div class="upload-progress-fill" id="upload-prog-fill"></div></div></div>`;
+  el.innerHTML=html;
 }
 
-// ─── TASK DETAIL MODAL ───
-function openModal(taskId) {
-  currentTask = tasks.find(t=>t.id===taskId);
-  if (!currentTask) return;
-  const t = currentTask;
-
-  const statMap = {
-    Pendiente:{label:'Por hacer',bg:'#fff7ed',color:'#d97706'},
-    Trabajando:{label:'En proceso',bg:'#eff6ff',color:'#2563eb'},
-    Resuelta:{label:'Entregado ✓',bg:'#f0fdf4',color:'#059669'},
-  };
-  const s = statMap[t.estado]||{label:t.estado,bg:'#f4f3ee',color:'#666'};
-  const badge = document.getElementById('m-status-badge');
-  badge.textContent = s.label;
-  badge.style.cssText = `background:${s.bg};color:${s.color}`;
-  document.getElementById('m-title').textContent = t.titulo;
-
-  const deadlineEl = document.getElementById('m-deadline');
-  if (t.fecha) {
-    const d = daysDiff(t.fecha);
-    let cls, label;
-    if (d<0)      {cls='over';label=`Venció el ${fmtDateLong(t.fecha)}`;}
-    else if(d===0){cls='soon';label='Vence hoy';}
-    else if(d===1){cls='soon';label='Vence mañana';}
-    else if(d<=7) {cls='soon';label=`Vence en ${d} días — ${fmtDateLong(t.fecha)}`;}
-    else          {cls='ok';  label=`Entrega: ${fmtDateLong(t.fecha)}`;}
-    deadlineEl.innerHTML = `<div class="modal-deadline-box ${cls}">📅 ${label}</div>`;
-  } else { deadlineEl.innerHTML=''; }
-
-  document.getElementById('m-notes').innerHTML = t.notas
-    ? `<div class="section-title">Descripción</div><div class="notes-box">${esc(t.notas)}</div>` : '';
-
-  renderModalFiles(t.archivos||[]);
-  renderModalComments(t.comentarios||[]);
-  document.getElementById('comment-input').value='';
-  autoResize(document.getElementById('comment-input'));
-  show('task-modal','flex');
-  document.getElementById('modal-scroll').scrollTop=0;
+function renderModalComments(comments){
+  const el=document.getElementById('m-comments');
+  if(!comments.length){el.innerHTML='<div class="no-comments">Sin comentarios aún. ¡Escribe el primero!</div>';return;}
+  el.innerHTML=comments.map(c=>{const isCli=isClientAuthor(c.author);const name=isCli?clientName:(c.author||'Haddock');const time=c.time?fmtTime(c.time):'';return`<div class="comment-row"><div class="comment-avatar ${isCli?'is-client':''}">${name.charAt(0).toUpperCase()}</div><div class="comment-content"><div class="comment-meta-row"><span class="comment-author">${esc(name)}</span><span class="comment-time">${time}</span></div><div class="comment-text">${esc(c.text||'')}</div></div></div>`;}).join('');
 }
 
-function closeModal() {
-  hide('task-modal');
-  currentTask = null;
+function isClientAuthor(a){if(!a)return false;return a.toLowerCase()===clientName.toLowerCase()||a.startsWith('[c]')||a.startsWith('[cliente]');}
+
+async function submitComment(){
+  if(!currentTask)return;
+  const input=document.getElementById('comment-input');const text=input.value.trim();if(!text)return;
+  const btn=document.getElementById('comment-btn');btn.disabled=true;
+  const comment={author:clientName,time:new Date().toISOString(),text};
+  try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'addComment',id:currentTask.id,comment}));await fetch(API,{method:'POST',body:fd});currentTask.comentarios=[...(currentTask.comentarios||[]),comment];input.value='';autoResize(input);renderModalComments(currentTask.comentarios);updateTaskInList(currentTask);showToast('Comentario enviado ✓');}catch(e){showToast('Error al enviar.');}
+  btn.disabled=false;
 }
 
-function renderModalFiles(files) {
-  const el = document.getElementById('m-files');
-  const images = files.filter(f=>f.type&&f.type.startsWith('image'));
-  const others = files.filter(f=>!f.type||!f.type.startsWith('image'));
-  let html = '<div class="section-title">Archivos</div>';
-  if (images.length) {
-    html += '<div class="files-image-grid">';
-    images.forEach(f => {
-      const thumb = f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w300`:f.url;
-      const full  = f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`:f.url;
-      html += `<div class="img-thumb" onclick="openLightbox('${full}')">
-        <img src="${thumb}" alt="${esc(f.name)}" onerror="this.parentNode.innerHTML='<div class=\\'img-thumb-placeholder\\'>🖼️<span>${esc(f.name)}</span></div>'">
-      </div>`;
-    });
-    html += '</div>';
-  }
-  others.forEach(f => {
-    const icon = f.type==='link'?'🔗':f.type&&f.type.startsWith('video')?'🎬':f.name&&f.name.endsWith('.pdf')?'📄':'📎';
-    html += `<a class="file-row" href="${f.url}" target="_blank" rel="noopener">
-      <span>${icon}</span><span class="file-row-name">${esc(f.name)}</span>
-      <span class="file-row-meta">${f.size?fmtSize(f.size):'Abrir'} ↗</span>
-    </a>`;
-  });
-  html += `<div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()"
-       ondragover="event.preventDefault();this.classList.add('drag')"
-       ondragleave="this.classList.remove('drag')"
-       ondrop="handleDrop(event)">
-    <div class="upload-zone-icon">☁️</div>
-    <div class="upload-zone-text">Subir archivo</div>
-    <div class="upload-zone-sub">Click o arrastra aquí · máx. 25MB</div>
-    <div class="upload-progress-wrap" id="upload-prog-wrap"><div class="upload-progress-fill" id="upload-prog-fill"></div></div>
-  </div>`;
-  el.innerHTML = html;
-}
-
-function renderModalComments(comments) {
-  const el = document.getElementById('m-comments');
-  if (!comments.length) { el.innerHTML='<div class="no-comments">Sin comentarios aún. ¡Escribe el primero!</div>'; return; }
-  el.innerHTML = comments.map(c => {
-    const isCli = isClientAuthor(c.author);
-    const name = isCli ? clientName : (c.author||'Haddock');
-    const time = c.time ? fmtTime(c.time) : '';
-    return `<div class="comment-row">
-      <div class="comment-avatar ${isCli?'is-client':''}">${name.charAt(0).toUpperCase()}</div>
-      <div class="comment-content">
-        <div class="comment-meta-row"><span class="comment-author">${esc(name)}</span><span class="comment-time">${time}</span></div>
-        <div class="comment-text">${esc(c.text||'')}</div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function isClientAuthor(a) {
-  if (!a) return false;
-  return a.toLowerCase()===clientName.toLowerCase()||a.startsWith('[c]')||a.startsWith('[cliente]');
-}
-
-async function submitComment() {
-  if (!currentTask) return;
-  const input = document.getElementById('comment-input');
-  const text = input.value.trim();
-  if (!text) return;
-  const btn = document.getElementById('comment-btn');
-  btn.disabled = true;
-  const comment = {author:clientName,time:new Date().toISOString(),text};
-  try {
-    const fd = new FormData();
-    fd.append('payload', JSON.stringify({action:'addComment',id:currentTask.id,comment}));
-    await fetch(API,{method:'POST',body:fd});
-    currentTask.comentarios = [...(currentTask.comentarios||[]),comment];
-    input.value=''; autoResize(input);
-    renderModalComments(currentTask.comentarios);
-    updateTaskInList(currentTask);
-    showToast('Comentario enviado ✓');
-  } catch(e) { showToast('Error al enviar.'); }
-  btn.disabled = false;
-}
-
-// ─── UPLOAD ───
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('upload-zone').classList.remove('drag');
-  const files = e.dataTransfer&&e.dataTransfer.files;
-  if (files&&files.length) uploadFile(files[0]);
-}
-function handleFileSelect(files) {
-  if (files&&files.length) uploadFile(files[0]);
-  document.getElementById('file-input').value='';
-}
-async function uploadFile(file) {
-  if (!currentTask) return;
-  if (file.size > 25*1024*1024) { showToast('El archivo supera 25MB'); return; }
-  const zone=document.getElementById('upload-zone');
-  const pw=document.getElementById('upload-prog-wrap');
-  const pf=document.getElementById('upload-prog-fill');
-  zone.style.pointerEvents='none'; pw.style.display='block'; pf.style.width='20%';
-  const reader = new FileReader();
-  reader.onprogress = e => { if(e.lengthComputable) pf.style.width=(20+e.loaded/e.total*40)+'%'; };
-  reader.onload = async () => {
-    try {
-      pf.style.width='65%';
-      const fd=new FormData();
-      fd.append('payload',JSON.stringify({action:'uploadFile',fileName:file.name,mimeType:file.type||'application/octet-stream',fileData:reader.result.split(',')[1]}));
-      const res=await fetch(API,{method:'POST',body:fd});
-      const data=await res.json();
-      pf.style.width='100%';
-      if (data.ok) {
-        currentTask.archivos=[...(currentTask.archivos||[]),data.file];
-        const fd2=new FormData();
-        fd2.append('payload',JSON.stringify({action:'update',task:currentTask}));
-        await fetch(API,{method:'POST',body:fd2});
-        updateTaskInList(currentTask);
-        renderModalFiles(currentTask.archivos);
-        showToast('Archivo subido ✓');
-      } else { showToast('Error al subir el archivo.'); }
-    } catch(e) { showToast('Error de conexión.'); }
+// ─── UPLOAD (task) ───
+function handleDrop(e){e.preventDefault();document.getElementById('upload-zone').classList.remove('drag');const files=e.dataTransfer&&e.dataTransfer.files;if(files&&files.length)uploadFile(files[0]);}
+function handleFileSelect(files){if(files&&files.length)uploadFile(files[0]);document.getElementById('file-input').value='';}
+async function uploadFile(file){
+  if(!currentTask)return;if(file.size>25*1024*1024){showToast('El archivo supera 25MB');return;}
+  const zone=document.getElementById('upload-zone'),pw=document.getElementById('upload-prog-wrap'),pf=document.getElementById('upload-prog-fill');
+  zone.style.pointerEvents='none';pw.style.display='block';pf.style.width='20%';
+  const reader=new FileReader();
+  reader.onprogress=e=>{if(e.lengthComputable)pf.style.width=(20+e.loaded/e.total*40)+'%';};
+  reader.onload=async()=>{
+    try{pf.style.width='65%';const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:file.name,mimeType:file.type||'application/octet-stream',fileData:reader.result.split(',')[1]}));const res=await fetch(API,{method:'POST',body:fd});const data=await res.json();pf.style.width='100%';
+      if(data.ok){currentTask.archivos=[...(currentTask.archivos||[]),data.file];const fd2=new FormData();fd2.append('payload',JSON.stringify({action:'update',task:currentTask}));await fetch(API,{method:'POST',body:fd2});updateTaskInList(currentTask);renderModalFiles(currentTask.archivos);showToast('Archivo subido ✓');}
+      else showToast('Error al subir.');}
+    catch(e){showToast('Error de conexión.');}
     setTimeout(()=>{pw.style.display='none';pf.style.width='0';zone.style.pointerEvents='';},400);
   };
   reader.readAsDataURL(file);
 }
 
+// ─── CONTENIDO / GALLERY ───
+function getAllMedia() {
+  const all = [];
+  tasks.forEach(t => {
+    (t.archivos||[]).forEach(f => {
+      if (f.type && (f.type.startsWith('image') || f.type.startsWith('video'))) {
+        all.push({...f, taskId: t.id, taskTitle: t.titulo});
+      }
+    });
+  });
+  return all;
+}
+
+function renderGallery() {
+  const media = getAllMedia();
+  if (currentContentView === 'gallery') renderGalleryView(media);
+  else renderInstagramView(media);
+}
+
+function setContentView(view) {
+  currentContentView = view;
+  document.getElementById('vbtn-gallery').classList.toggle('active', view==='gallery');
+  document.getElementById('vbtn-instagram').classList.toggle('active', view==='instagram');
+  document.getElementById('gallery-view').style.display = view==='gallery' ? 'grid' : 'none';
+  document.getElementById('instagram-view').style.display = view==='instagram' ? 'block' : 'none';
+  renderGallery();
+}
+
+function renderGalleryView(media) {
+  const el = document.getElementById('gallery-view');
+  el.style.display = 'grid';
+  if (!media.length) { el.innerHTML='<div class="gallery-empty">Aún no hay imágenes ni videos.<br>Sube contenido desde una tarea o usa el botón Subir.</div>'; return; }
+  el.innerHTML = media.map((f,i) => {
+    const isImg = f.type && f.type.startsWith('image');
+    const thumb = f.id ? `https://drive.google.com/thumbnail?id=${f.id}&sz=w400` : f.url;
+    const full  = f.id ? `https://drive.google.com/thumbnail?id=${f.id}&sz=w1200` : f.url;
+    const inner = isImg
+      ? `<img src="${thumb}" alt="${esc(f.name)}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"  style="width:100%;height:100%;object-fit:cover;display:block"><div class="gallery-file-icon" style="display:none">🖼️<span class="gallery-file-name">${esc(f.name)}</span></div>`
+      : `<div class="gallery-file-icon">${f.type&&f.type.startsWith('video')?'🎬':'📎'}<span class="gallery-file-name">${esc(f.name)}</span></div>`;
+    return `<div class="gallery-item" data-idx="${i}">
+      ${inner}
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-name">${esc(f.name)}</span>
+        ${isImg?`<button class="gallery-action-btn preview" onclick="event.stopPropagation();openLightbox('${full}')" title="Ver">🔍</button>`:''}
+        <button class="gallery-action-btn delete" onclick="event.stopPropagation();deleteMedia(${i})" title="Eliminar">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderInstagramView(media) {
+  document.getElementById('instagram-view').style.display = 'block';
+  const images = media.filter(f => f.type && f.type.startsWith('image'));
+  const grid = document.getElementById('ig-grid');
+  if (!images.length) { grid.innerHTML='<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--muted2);font-size:14px">Sube imágenes para ver la grilla de Instagram</div>'; return; }
+  grid.innerHTML = images.map((f,i) => {
+    const thumb = f.id ? `https://drive.google.com/thumbnail?id=${f.id}&sz=w400` : f.url;
+    const full  = f.id ? `https://drive.google.com/thumbnail?id=${f.id}&sz=w1200` : f.url;
+    return `<div class="ig-cell" onclick="openPostPreview('${full}','${esc(f.taskTitle||'')}')">
+      <img src="${thumb}" alt="${esc(f.name)}" onerror="this.style.display='none'">
+      <div class="ig-cell-overlay">❤️ · 💬</div>
+    </div>`;
+  }).join('');
+}
+
+async function deleteMedia(idx) {
+  if (!confirm('¿Eliminar este archivo?')) return;
+  const media = getAllMedia();
+  const file = media[idx];
+  if (!file) return;
+  const task = tasks.find(t => t.id === file.taskId);
+  if (!task) return;
+  task.archivos = (task.archivos||[]).filter(f => f.url !== file.url);
+  updateTaskInList(task);
+  try {
+    const fd = new FormData();
+    fd.append('payload', JSON.stringify({action:'update', task}));
+    await fetch(API, {method:'POST', body:fd});
+    showToast('Archivo eliminado ✓');
+  } catch(e) { showToast('Error al eliminar.'); }
+  renderGallery();
+}
+
+// ─── MEDIA UPLOAD (contenido) ───
+function openMediaUpload() {
+  // Si hay tareas, subir a la primera tarea disponible o crear una nueva de tipo "Contenido"
+  document.getElementById('media-file-input').click();
+}
+
+async function handleMediaUpload(files) {
+  if (!files || !files.length) return;
+  document.getElementById('media-file-input').value = '';
+  const file = files[0];
+  if (file.size > 25*1024*1024) { showToast('El archivo supera 25MB'); return; }
+
+  // Buscar o crear tarea "Contenido" para este cliente
+  let mediaTask = tasks.find(t => t.titulo === 'Contenido' && t.cliente === clientName);
+  if (!mediaTask) {
+    mediaTask = {id:uid(), titulo:'Contenido', cliente:clientName, estado:'Trabajando', fecha:'', notas:'', prioridad:'media', encargados:[], archivos:[], comentarios:[], visible_cliente:'Sí', creadoPor:clientName, modificadoPor:clientName};
+    tasks.push(mediaTask);
+    const fd=new FormData(); fd.append('payload',JSON.stringify({action:'create',task:mediaTask})); await fetch(API,{method:'POST',body:fd});
+  }
+
+  showToast('Subiendo archivo...');
+  const reader = new FileReader();
+  reader.onload = async () => {
+    try {
+      const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:file.name,mimeType:file.type||'image/jpeg',fileData:reader.result.split(',')[1]}));
+      const res=await fetch(API,{method:'POST',body:fd});const data=await res.json();
+      if(data.ok){
+        mediaTask.archivos=[...(mediaTask.archivos||[]),data.file];updateTaskInList(mediaTask);
+        const fd2=new FormData();fd2.append('payload',JSON.stringify({action:'update',task:mediaTask}));await fetch(API,{method:'POST',body:fd2});
+        showToast('Subido ✓');renderGallery();
+      }else showToast('Error al subir.');
+    }catch(e){showToast('Error de conexión.');}
+  };
+  reader.readAsDataURL(file);
+}
+
+// ─── POST PREVIEW ───
+function openPostPreview(imgUrl, caption) {
+  const likes = Math.floor(Math.random()*900+100);
+  const comments = Math.floor(Math.random()*30+2);
+  document.getElementById('pp-image').src = imgUrl;
+  const logoEl = document.getElementById('hdr-logo');
+  const ppAvatar = document.getElementById('pp-avatar');
+  if (logoEl.querySelector('img')) ppAvatar.innerHTML = `<img src="${logoEl.querySelector('img').src}" alt="">`;
+  else ppAvatar.textContent = clientName.charAt(0).toUpperCase();
+  document.getElementById('pp-username').textContent = clientName.toLowerCase().replace(/\s+/g,'_');
+  document.getElementById('pp-likes').textContent = likes.toLocaleString() + ' Me gusta';
+  document.getElementById('pp-caption-user').textContent = clientName.toLowerCase().replace(/\s+/g,'_');
+  document.getElementById('pp-caption-text').textContent = caption || '✨';
+  document.getElementById('pp-comments').textContent = `Ver los ${comments} comentarios`;
+  show('post-preview-modal','flex');
+}
+function closePostPreview(){hide('post-preview-modal');}
+
 // ─── LIGHTBOX ───
 function openLightbox(url){document.getElementById('lb-img').src=url;show('lightbox','flex');}
 function closeLightbox(){hide('lightbox');document.getElementById('lb-img').src='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLightbox();closePostPreview();closeModal();closeTaskForm();}});
 
 // ─── HELPERS ───
 function updateTaskInList(task){const idx=tasks.findIndex(t=>t.id===task.id);if(idx>=0)tasks[idx]={...task};}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
-function daysDiff(dateStr){const t=new Date();t.setHours(0,0,0,0);return Math.round((new Date(dateStr+'T00:00:00')-t)/86400000);}
+function daysDiff(s){const t=new Date();t.setHours(0,0,0,0);return Math.round((new Date(s+'T00:00:00')-t)/86400000);}
 function fmtDate(s){const[,m,d]=s.split('-');const mo=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];return`${parseInt(d)} ${mo[parseInt(m)-1]}`;}
 function fmtDateLong(s){const[y,m,d]=s.split('-');const mo=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];return`${parseInt(d)} de ${mo[parseInt(m)-1]} ${y}`;}
 function fmtTime(iso){try{return new Date(iso).toLocaleString('es-CL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});}catch(e){return '';}}
