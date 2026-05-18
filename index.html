@@ -417,6 +417,31 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .export-opt{display:block;width:100%;padding:10px 14px;background:none;border:none;text-align:left;font-size:13px;cursor:pointer;font-family:var(--font-sans);color:var(--text);transition:background .1s}
 .export-opt:hover{background:var(--surface2)}
 
+/* ── ARCHIVO ─────────────────────────────────────────── */
+.archivo-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.archivo-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;cursor:pointer;user-select:none;transition:background .15s}
+.archivo-header:hover{background:var(--surface2)}
+.archivo-header-left{display:flex;align-items:center;gap:10px}
+.archivo-icon{font-size:16px;opacity:.6}
+.archivo-title-text{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.archivo-count{background:var(--surface2);border:1px solid var(--border);border-radius:100px;padding:1px 9px;font-size:10px;color:var(--muted);font-family:var(--font-mono)}
+.archivo-chevron{font-size:11px;color:var(--muted2);transition:transform .2s;font-family:var(--font-mono)}
+.archivo-chevron.open{transform:rotate(180deg)}
+.archivo-list{display:none;flex-direction:column;border-top:1px solid var(--border)}
+.archivo-list.open{display:flex}
+.archivo-row{display:flex;align-items:center;gap:14px;padding:11px 20px;border-bottom:1px solid var(--border);transition:background .15s}
+.archivo-row:last-child{border-bottom:none}
+.archivo-row:hover{background:var(--surface2)}
+.archivo-row-icon{font-size:15px;opacity:.4;flex-shrink:0}
+.archivo-row-info{flex:1;min-width:0;cursor:pointer}
+.archivo-row-title{font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:line-through;text-decoration-color:var(--muted2)}
+.archivo-row-meta{font-family:var(--font-mono);font-size:10px;color:var(--muted2);margin-top:2px}
+.archivo-row-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-restaurar{padding:4px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:100px;font-size:10px;font-family:var(--font-mono);color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase}
+.btn-restaurar:hover{background:var(--resuelta-bg);color:var(--resuelta-strong);border-color:#bbf7d0}
+.btn-archive{padding:10px 18px;background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .15s;margin-right:auto}
+.btn-archive:hover{background:#dcfce7}
+
 /* ── PRINT ──────────────────────────────────────────── */
 @media print{
   .sidebar,.topbar,.filters-row,.stats-row,#clients-section,.notif-banner,.view-toggle,.export-wrap{display:none!important}
@@ -605,6 +630,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       </div>
     </div>
 
+    <div id="archivo-section" style="display:none"></div>
+
   </main>
 </div>
 
@@ -633,6 +660,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
           <option value="Pendiente">Pendiente</option>
           <option value="Trabajando">Trabajando</option>
           <option value="Resuelta">Resuelta</option>
+          <option value="Archivada" style="display:none" id="opt-archivada">Archivada</option>
         </select>
       </div>
       <div class="form-group">
@@ -687,6 +715,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     </div>
     <div class="form-actions">
       <button class="btn btn-danger" id="btn-eliminar" onclick="eliminarTarea()" style="display:none;margin-right:auto">Eliminar</button>
+      <button class="btn-archive" id="btn-archivar" onclick="archivarTarea()" style="display:none">📦 Archivar</button>
       <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
       <button class="btn btn-primary" id="btn-guardar" onclick="guardarTarea()">Guardar</button>
     </div>
@@ -848,7 +877,7 @@ function dismissNotif(id){newAssignedTasks = newAssignedTasks.filter(t=>t.id!==i
 
 function getFiltered(){
   const q = (document.getElementById('search-input')?.value||'').toLowerCase();
-  let list = tasks;
+  let list = tasks.filter(t=>t.estado!=='Archivada'); // Excluir archivadas siempre
   if(currentView==='personal') list = list.filter(t=>(t.encargados||[]).includes(currentUser));
   return list.filter(t=>{
     if(filters.estado!=='all' && t.estado!==filters.estado) return false;
@@ -928,7 +957,8 @@ function renderStats(filtered){
 }
 
 function renderClientCards(){
-  const list = currentView==='personal' ? tasks.filter(t=>(t.encargados||[]).includes(currentUser)) : tasks;
+  const activeTasks = tasks.filter(t=>t.estado!=='Archivada');
+  const list = currentView==='personal' ? activeTasks.filter(t=>(t.encargados||[]).includes(currentUser)) : activeTasks;
   const groups = {};
   list.forEach(t=>{
     if(!t.cliente) return;
@@ -990,11 +1020,12 @@ function renderAll(){
   document.getElementById('view-personal').style.display=showPersonal?'flex':'none';
   document.getElementById('view-lista').style.display=currentLayout==='lista'?'block':'none';
   if(showPersonal) renderPersonalView(f); else renderKanban(f);
-  renderLista(f);renderSidebar();renderNotifications();renderClientCards();renderEquipo();
+  renderLista(f);renderSidebar();renderNotifications();renderClientCards();renderEquipo();renderArchivo();
   if(document.getElementById('cal-section').style.display!=='none') renderCalendar(f);
-  const myCount=tasks.filter(t=>(t.encargados||[]).includes(currentUser)).length;
+  const activeTasks=tasks.filter(t=>t.estado!=='Archivada');
+  const myCount=activeTasks.filter(t=>(t.encargados||[]).includes(currentUser)).length;
   document.getElementById('cnt-personal').textContent=myCount;
-  document.getElementById('cnt-general').textContent=tasks.length;
+  document.getElementById('cnt-general').textContent=activeTasks.length;
   document.getElementById('title-eyebrow').textContent=isPersonal?`Hola, ${currentUser}`:'Vista general';
   document.getElementById('page-title').textContent=filters.cliente!=='all'?filters.cliente:(isPersonal?'Mis tareas':'Todas las tareas');
   document.getElementById('page-title').className='page-title'+(isPersonal?' page-title-grad':'');
@@ -1229,6 +1260,10 @@ function openModal(id){
     });
     const canDelete = ADMINS.includes(currentUser) || t.creadoPor === currentUser;
     document.getElementById('btn-eliminar').style.display = canDelete ? 'inline-flex' : 'none';
+    const isArchivada = t.estado==='Archivada';
+    document.getElementById('btn-archivar').style.display = (t.estado==='Resuelta') ? 'inline-block' : 'none';
+    const optArch = document.getElementById('opt-archivada');
+    if(optArch) optArch.style.display = isArchivada ? '' : 'none';
   } else {
     document.getElementById('f-titulo').value='';
     document.getElementById('f-cliente').value='';
@@ -1237,6 +1272,7 @@ function openModal(id){
     document.getElementById('f-prioridad').value='media';
     document.getElementById('f-fecha').value='';
     document.getElementById('f-notas').value='';
+    document.getElementById('btn-archivar').style.display='none';
   }
   renderFiles();renderComments();renderHistorial();
   document.getElementById('modal-overlay').classList.add('open');
@@ -1476,9 +1512,77 @@ async function quickStatus(id,newStatus){
   saveLock=false;
 }
 
+// ── ARCHIVO ────────────────────────────────────────────────────
+let archivoOpen = false;
+
+async function archivarTarea(){
+  if(!editingId) return;
+  if(!confirm('¿Archivar esta tarea? La puedes restaurar desde la carpeta de archivo.')) return;
+  const task = tasks.find(t=>t.id===editingId);
+  if(!task) return;
+  task.estado = 'Archivada';
+  task.modificadoPor = currentUser;
+  saveLock = true;
+  closeModal();
+  renderAll();
+  await apiPost('update', {task});
+  saveLock = false;
+}
+
+async function restaurarTarea(id){
+  const task = tasks.find(t=>t.id===id);
+  if(!task) return;
+  task.estado = 'Resuelta';
+  task.modificadoPor = currentUser;
+  saveLock = true;
+  renderAll();
+  await apiPost('update', {task});
+  saveLock = false;
+}
+
+function toggleArchivo(){
+  archivoOpen = !archivoOpen;
+  const list = document.getElementById('archivo-list');
+  const chevron = document.getElementById('archivo-chevron');
+  if(list) list.classList.toggle('open', archivoOpen);
+  if(chevron) chevron.classList.toggle('open', archivoOpen);
+}
+
+function renderArchivo(){
+  const archivadas = tasks.filter(t=>t.estado==='Archivada');
+  const sec = document.getElementById('archivo-section');
+  if(!archivadas.length){sec.style.display='none';return;}
+  sec.style.display='block';
+  sec.innerHTML=`<div class="archivo-section">
+    <div class="archivo-header" onclick="toggleArchivo()">
+      <div class="archivo-header-left">
+        <span class="archivo-icon">📁</span>
+        <span class="archivo-title-text">Archivo</span>
+        <span class="archivo-count">${archivadas.length}</span>
+      </div>
+      <span class="archivo-chevron ${archivoOpen?'open':''}" id="archivo-chevron">▼</span>
+    </div>
+    <div class="archivo-list ${archivoOpen?'open':''}" id="archivo-list">
+      ${archivadas.map(t=>`
+        <div class="archivo-row">
+          <div class="archivo-row-icon">✓</div>
+          <div class="archivo-row-info" onclick="openModal('${t.id}')">
+            <div class="archivo-row-title">${t.titulo||''}</div>
+            <div class="archivo-row-meta">${t.cliente||''}${t.proyecto?' · '+t.proyecto:''}${t.fecha?' · '+formatDate(t.fecha):''}</div>
+          </div>
+          <div class="archivo-row-actions">
+            <div style="display:flex">${avatarHTML(t.encargados)}</div>
+            <button class="btn-restaurar" onclick="restaurarTarea('${t.id}')">↺ Restaurar</button>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
 // ── EQUIPO SIDEBAR ─────────────────────────────────────────────
 function renderEquipo(){
-  const list = currentView==='personal' ? tasks.filter(t=>(t.encargados||[]).includes(currentUser)) : tasks;
+  const activeTasks = tasks.filter(t=>t.estado!=='Archivada');
+  const list = currentView==='personal' ? activeTasks.filter(t=>(t.encargados||[]).includes(currentUser)) : activeTasks;
   const counts={};
   ENCARGADOS.forEach(e=>counts[e]={total:0,activas:0});
   list.forEach(t=>{
