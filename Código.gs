@@ -14,7 +14,7 @@ function doGet(e) {
 
   // Portal mode: autenticación por cliente + código
   if (e.parameter && e.parameter.portal === '1') {
-    return handlePortalGet(e, tasksSheet, clientsSheet);
+    return handlePortalGet(e, ss, tasksSheet, clientsSheet);
   }
 
   // Dashboard interno (comportamiento original)
@@ -39,7 +39,7 @@ function doGet(e) {
 }
 
 // ─── PORTAL GET ────────────────────────────────────────────────────
-function handlePortalGet(e, tasksSheet, clientsSheet) {
+function handlePortalGet(e, ss, tasksSheet, clientsSheet) {
   const slug   = (e.parameter.cliente || '').trim().toLowerCase();
   const codigo = (e.parameter.codigo  || '').trim();
 
@@ -90,7 +90,21 @@ function handlePortalGet(e, tasksSheet, clientsSheet) {
   // Solo tareas marcadas como visibles en portal
   const visibleTasks = tasks.filter(t => t.visible_cliente === 'Sí');
 
-  return out({ ok: true, cliente: clientName, clientColor, clientDesc, tasks: visibleTasks });
+  // Cargar estrategia del cliente
+  let estrategia = null;
+  try {
+    let estratSheet = ss.getSheetByName('Estrategia');
+    if (!estratSheet) estratSheet = ss.insertSheet('Estrategia');
+    const eData = estratSheet.getDataRange().getValues();
+    for (let i = 0; i < eData.length; i++) {
+      if (slugify(String(eData[i][0] || '')) === slug) {
+        try { estrategia = JSON.parse(eData[i][1]); } catch(_) {}
+        break;
+      }
+    }
+  } catch(_) {}
+
+  return out({ ok: true, cliente: clientName, clientColor, clientDesc, tasks: visibleTasks, estrategia });
 }
 
 // ─── POST ──────────────────────────────────────────────────────────
@@ -234,6 +248,22 @@ function doPost(e) {
       }
     }
     return out({ ok: false });
+  }
+
+  if (action === 'saveEstrategia') {
+    const clienteSlug = slugify(params.cliente || '');
+    const dataJson = JSON.stringify(params.data || {});
+    let estratSheet = ss.getSheetByName('Estrategia');
+    if (!estratSheet) estratSheet = ss.insertSheet('Estrategia');
+    const eData = estratSheet.getDataRange().getValues();
+    for (let i = 0; i < eData.length; i++) {
+      if (slugify(String(eData[i][0] || '')) === clienteSlug) {
+        estratSheet.getRange(i + 1, 2).setValue(dataJson);
+        return out({ ok: true });
+      }
+    }
+    estratSheet.appendRow([params.cliente, dataJson]);
+    return out({ ok: true });
   }
 
   return out({ ok: false, error: 'Unknown action' });
