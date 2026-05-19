@@ -938,7 +938,10 @@ function cardHTML(t){
     onclick="if(!event.defaultPrevented)openModal('${t.id}')">
     <div class="card-top">
       <div class="card-client">${t.cliente||''}</div>
-      <div class="priority-dot ${t.prioridad||'media'}" title="${t.prioridad||''}"></div>
+      <div style="display:flex;align-items:center;gap:5px">
+        ${t.visible_cliente==='Sí'?`<span title="Visible en portal del cliente" style="font-size:10px;background:#6366f115;color:#6366f1;padding:1px 6px;border-radius:99px;font-family:var(--font-mono);letter-spacing:.03em">👁 portal</span>`:''}
+        <div class="priority-dot ${t.prioridad||'media'}" title="${t.prioridad||''}"></div>
+      </div>
     </div>
     <div class="card-title">${t.titulo||''}</div>
     ${t.notas?`<div class="card-notes">${t.notas}</div>`:''}

@@ -283,19 +283,86 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .form-upload-thumb img{width:100%;height:100%;object-fit:cover}
 .form-upload-thumb-del{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.6);border:none;cursor:pointer;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center}
 
-/* ─── CONTENIDO POSTS ─── */
-.posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;max-width:614px;margin:0 auto}
-.post-cell{aspect-ratio:1;position:relative;overflow:hidden;background:#f4f3ee;cursor:pointer}
-.post-cell img,.post-cell video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
-.post-cell:hover img,.post-cell:hover video{transform:scale(1.04)}
-.post-cell-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;transition:opacity .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;gap:4px}
-.post-cell:hover .post-cell-overlay{opacity:1}
-.post-cell-copy{font-size:11px;color:#fff;text-align:center;line-height:1.4;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.post-cell-badge{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);color:#fff;font-size:9px;font-family:var(--font-mono);padding:2px 6px;border-radius:99px;letter-spacing:.05em}
-.post-cell-num{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;font-family:var(--font-mono);padding:2px 6px;border-radius:99px}
-.post-cell-empty{aspect-ratio:1;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted2);font-size:24px;cursor:pointer;transition:all .15s}
-.post-cell-empty:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
-.posts-empty{padding:60px 20px;text-align:center;color:var(--muted2);font-size:14px;border:1.5px dashed var(--border);border-radius:var(--r-lg);max-width:614px;margin:0 auto}
+/* ─── CONTENIDO: SUB-NAV & FILTERS ─── */
+.content-subnav{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px}
+.content-snav-btn{padding:10px 20px;font-size:13px;font-weight:600;color:var(--muted);border:none;background:none;cursor:pointer;font-family:var(--font-sans);border-bottom:2px solid transparent;transition:all .15s}
+.content-snav-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.content-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.filter-chip{padding:5px 12px;border-radius:99px;font-size:11px;font-weight:600;font-family:var(--font-mono);border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all .15s;white-space:nowrap;color:var(--muted)}
+.filter-chip:hover{border-color:var(--accent);color:var(--accent)}
+.filter-chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.filter-sep{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.content-view-toggle{display:flex;background:#f4f3ee;border-radius:var(--r);padding:3px;gap:2px;margin-left:auto}
+.content-vbtn{padding:5px 12px;border:none;background:none;border-radius:8px;cursor:pointer;font-size:11px;font-weight:600;font-family:var(--font-mono);color:var(--muted);transition:all .15s;white-space:nowrap}
+.content-vbtn.active{background:#fff;color:var(--text);box-shadow:var(--shadow)}
+
+/* ─── POSTS GRID (Instagram style) ─── */
+.posts-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.post-ig-cell{aspect-ratio:1;position:relative;overflow:hidden;background:#111;cursor:pointer;flex-shrink:0}
+.post-ig-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s,opacity .25s}
+.post-ig-cell:hover img{transform:scale(1.06);opacity:.75}
+.post-ig-cell-overlay{position:absolute;inset:0;opacity:0;transition:opacity .2s;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 60%)}
+.post-ig-cell:hover .post-ig-cell-overlay{opacity:1}
+.post-ig-copy{font-size:10px;color:#fff;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:4px}
+.post-ig-meta-row{display:flex;align-items:center;gap:6px}
+.post-ig-num{position:absolute;top:6px;left:7px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;font-family:var(--font-mono);padding:2px 7px;border-radius:99px;letter-spacing:.04em}
+.tipo-badge{position:absolute;top:6px;right:7px;font-size:9px;font-weight:700;font-family:var(--font-mono);padding:2px 7px;border-radius:99px;letter-spacing:.06em;text-transform:uppercase}
+.tipo-reel{background:#ff4757;color:#fff}
+.tipo-imagen{background:#3b82f6;color:#fff}
+.tipo-carrusel{background:#8b5cf6;color:#fff}
+.tipo-story{background:#f59e0b;color:#fff}
+.tipo-video{background:#10b981;color:#fff}
+.status-border-top{position:absolute;top:0;left:0;right:0;height:3px}
+.plat-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.post-ig-no-media{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#1a1a2e,#16213e)}
+.post-ig-no-media-icon{font-size:28px}
+.post-ig-no-media-copy{font-size:10px;color:rgba(255,255,255,.6);text-align:center;padding:0 10px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.posts-empty-state{padding:60px 20px;text-align:center;color:var(--muted2);font-size:14px;border:1.5px dashed var(--border);border-radius:var(--r-lg)}
+
+/* ─── POSTS LIST VIEW ─── */
+.posts-list{display:flex;flex-direction:column;gap:8px}
+.post-list-row{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--border);border-radius:var(--r-lg);padding:12px 16px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.post-list-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.post-list-row.st-borrador::before{background:#9ca3af}
+.post-list-row.st-revision::before{background:#f59e0b}
+.post-list-row.st-aprobado::before{background:#10b981}
+.post-list-row.st-publicado::before{background:var(--accent)}
+.post-list-row:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow)}
+.post-list-thumb{width:52px;height:52px;border-radius:var(--r);overflow:hidden;background:#111;flex-shrink:0}
+.post-list-thumb img{width:100%;height:100%;object-fit:cover}
+.post-list-thumb-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(135deg,#1a1a2e,#16213e)}
+.post-list-num{font-family:var(--font-mono);font-size:11px;color:var(--muted2);width:24px;flex-shrink:0;text-align:center}
+.post-list-info{flex:1;min-width:0}
+.post-list-top{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.post-list-copy{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:340px}
+.post-list-date{font-family:var(--font-mono);font-size:10px;color:var(--muted2);white-space:nowrap;flex-shrink:0}
+.status-chip{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.sc-borrador{background:#f3f4f6;color:#6b7280}
+.sc-revision{background:#fff7ed;color:#d97706}
+.sc-aprobado{background:#f0fdf4;color:#059669}
+.sc-publicado{background:var(--accent-bg);color:var(--accent)}
+.post-list-actions{display:flex;gap:4px;flex-shrink:0}
+.post-list-btn{width:30px;height:30px;border-radius:50%;border:none;background:none;cursor:pointer;font-size:14px;color:var(--muted2);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.post-list-btn:hover{background:var(--bg);color:var(--text)}
+.post-list-btn.del:hover{background:#fef2f2;color:#ef4444}
+
+/* ─── PIEZAS DE MEDIOS ─── */
+.piezas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.pieza-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:all .15s}
+.pieza-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.pieza-thumb{aspect-ratio:1;background:#f4f3ee;position:relative;overflow:hidden}
+.pieza-thumb img{width:100%;height:100%;object-fit:cover}
+.pieza-thumb-empty{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:28px;color:var(--muted)}
+.pieza-info{padding:10px}
+.pieza-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.pieza-meta{font-size:10px;color:var(--muted);font-family:var(--font-mono)}
+.pieza-tipo-badge{display:inline-block;font-size:9px;font-weight:700;font-family:var(--font-mono);padding:1px 6px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.pt-foto{background:#dbeafe;color:#1d4ed8}
+.pt-video{background:#fce7f3;color:#9d174d}
+.pt-grafica{background:#f3e8ff;color:#6d28d9}
+.pt-logo{background:#fef3c7;color:#92400e}
+.pt-audio{background:#d1fae5;color:#065f46}
+.piezas-empty{padding:40px 20px;text-align:center;color:var(--muted2);font-size:13px;border:1.5px dashed var(--border);border-radius:var(--r-lg)}
 
 /* Post preview */
 #post-preview-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px;gap:20px}
@@ -425,17 +492,49 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
   <!-- CONTENIDO -->
   <div id="tab-contenido" style="display:none">
     <div class="tab-section">
-      <div class="section-toolbar">
-        <div class="section-toolbar-title">Grilla de contenido</div>
-        <button class="action-btn" onclick="openPostEditor(null)">+ Nuevo post</button>
+      <div class="section-toolbar" style="margin-bottom:0">
+        <div class="section-toolbar-title">Contenido</div>
+        <button class="action-btn" id="content-new-btn" onclick="onContentNew()">+ Nueva publicación</button>
       </div>
-      <div style="max-width:614px;margin:0 auto">
-        <div class="ig-profile-bar">
-          <div class="ig-avatar" id="ig-avatar-el"></div>
-          <div><div class="ig-username" id="ig-username-el"></div><div class="ig-bio" id="ig-bio-el"></div></div>
+      <div class="content-subnav" style="margin-top:16px">
+        <button class="content-snav-btn active" id="csnav-posts" onclick="setContentSection('posts')">📱 Publicaciones</button>
+        <button class="content-snav-btn" id="csnav-piezas" onclick="setContentSection('piezas')">🗂 Piezas de medios</button>
+      </div>
+
+      <!-- PUBLICACIONES -->
+      <div id="content-posts-section">
+        <div class="content-filters" id="content-filters">
+          <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Plataforma</span>
+          <button class="filter-chip active" data-filter="plat" data-val="" onclick="setFilter('plat','',this)">Todas</button>
+          <button class="filter-chip" data-filter="plat" data-val="instagram" onclick="setFilter('plat','instagram',this)">📷 Instagram</button>
+          <button class="filter-chip" data-filter="plat" data-val="tiktok" onclick="setFilter('plat','tiktok',this)">🎵 TikTok</button>
+          <button class="filter-chip" data-filter="plat" data-val="facebook" onclick="setFilter('plat','facebook',this)">👍 Facebook</button>
+          <button class="filter-chip" data-filter="plat" data-val="linkedin" onclick="setFilter('plat','linkedin',this)">💼 LinkedIn</button>
+          <div class="filter-sep"></div>
+          <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Estado</span>
+          <button class="filter-chip active" data-filter="estado" data-val="" onclick="setFilter('estado','',this)">Todos</button>
+          <button class="filter-chip" data-filter="estado" data-val="borrador" onclick="setFilter('estado','borrador',this)">Borrador</button>
+          <button class="filter-chip" data-filter="estado" data-val="revision" onclick="setFilter('estado','revision',this)">En revisión</button>
+          <button class="filter-chip" data-filter="estado" data-val="aprobado" onclick="setFilter('estado','aprobado',this)">Aprobado</button>
+          <button class="filter-chip" data-filter="estado" data-val="publicado" onclick="setFilter('estado','publicado',this)">Publicado</button>
+          <div class="filter-sep"></div>
+          <div class="content-view-toggle">
+            <button class="content-vbtn active" id="cvbtn-grid" onclick="setPostsView('grid')">⊞ Grilla</button>
+            <button class="content-vbtn" id="cvbtn-list" onclick="setPostsView('list')">☰ Lista</button>
+          </div>
         </div>
+        <div id="posts-grid-wrap"></div>
+        <div id="posts-list-wrap" style="display:none"></div>
       </div>
-      <div id="posts-grid-wrap"></div>
+
+      <!-- PIEZAS DE MEDIOS -->
+      <div id="content-piezas-section" style="display:none">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+          <div style="flex:1;font-size:14px;color:var(--muted)">Archivos y recursos para campañas. Solo para uso interno del equipo.</div>
+          <button class="action-btn" onclick="openPiezaEditor(null)">+ Agregar pieza</button>
+        </div>
+        <div id="piezas-grid-wrap"></div>
+      </div>
     </div>
   </div>
 
@@ -508,7 +607,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     </div>
     <div class="comment-footer">
       <textarea class="comment-textarea" id="comment-input" placeholder="Escribe un comentario..." rows="1" oninput="autoResize(this)"></textarea>
-      <button class="comment-btn" id="comment-btn" onclick="submitComment()">Enviar</button>
+      <button class="comment-btn" id="comment-btn" onclick="submitComment()">Comentar</button>
     </div>
   </div>
 </div>
@@ -595,44 +694,121 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 
 <!-- POST EDITOR MODAL -->
 <div class="modal-overlay" id="post-editor-modal" onclick="if(event.target===this)closePostEditor()">
-  <div class="form-modal-card" style="max-width:600px">
+  <div class="form-modal-card" style="max-width:620px">
     <div class="modal-handle"></div>
     <button class="modal-close" onclick="closePostEditor()">×</button>
-    <div class="form-modal-header">
-      <div class="form-modal-title" id="post-editor-title">Nuevo post</div>
-    </div>
+    <div class="form-modal-header"><div class="form-modal-title" id="post-editor-title">Nueva publicación</div></div>
     <div class="form-modal-body">
-      <div class="form-group">
-        <label class="form-label">Tipo de post</label>
-        <div class="view-toggle-btns" style="width:fit-content">
-          <button class="view-toggle-btn active" id="ptype-single" onclick="setPostType('single')">📷 Imagen</button>
-          <button class="view-toggle-btn" id="ptype-carousel" onclick="setPostType('carousel')">🎠 Carrusel</button>
-          <button class="view-toggle-btn" id="ptype-video" onclick="setPostType('video')">🎬 Video</button>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Tipo</label>
+          <select class="form-select" id="post-tipo" onchange="onPostTipoChange()">
+            <option value="reel">🎞 Reel</option>
+            <option value="imagen">🖼 Imagen estática</option>
+            <option value="carrusel">🎠 Carrusel</option>
+            <option value="story">📖 Story</option>
+            <option value="video">🎬 Video feed</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Plataforma</label>
+          <select class="form-select" id="post-plataforma">
+            <option value="instagram">📷 Instagram</option>
+            <option value="tiktok">🎵 TikTok</option>
+            <option value="facebook">👍 Facebook</option>
+            <option value="linkedin">💼 LinkedIn</option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label" id="post-files-label">Imagen</label>
-        <div class="form-upload-zone" id="post-upload-zone" onclick="document.getElementById('post-file-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handlePostFileDrop(event)">
-          <div style="font-size:24px;margin-bottom:4px" id="post-upload-icon">📷</div>
+
+      <div class="form-group" style="margin-top:14px">
+        <label class="form-label" id="post-files-label">Archivos</label>
+        <div class="form-upload-zone" id="post-upload-zone" onclick="triggerPostFileInput()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handlePostFileDrop(event)">
+          <div style="font-size:22px;margin-bottom:4px" id="post-upload-icon">📷</div>
           <div style="font-size:13px;font-weight:600;color:var(--muted)" id="post-upload-hint">Click o arrastra la imagen aquí</div>
-          <div style="font-size:11px;color:var(--muted2);margin-top:2px">Máx. 25MB por archivo</div>
+          <div style="font-size:11px;color:var(--muted2);margin-top:2px">Imágenes: máx. 25MB · Videos: máx. 50MB o pega un link</div>
         </div>
         <div class="form-upload-preview" id="post-files-preview"></div>
+        <div id="post-video-url-wrap" style="display:none;margin-top:8px">
+          <input class="form-input" id="post-video-url" type="url" placeholder="O pega link de Drive / YouTube / Vimeo...">
+        </div>
         <div id="post-upload-status" style="font-size:12px;color:var(--muted);margin-top:6px;display:none"></div>
       </div>
+
       <div class="form-group">
         <label class="form-label">Copy / Caption <span id="post-copy-count" style="font-weight:400;color:var(--muted2)">0 / 2200</span></label>
-        <textarea class="form-textarea" id="post-copy" rows="5" placeholder="Escribe el copy del post aquí..." oninput="document.getElementById('post-copy-count').textContent=this.value.length+' / 2200'" style="min-height:120px"></textarea>
+        <textarea class="form-textarea" id="post-copy" rows="5" placeholder="Escribe el copy del post aquí..." oninput="document.getElementById('post-copy-count').textContent=this.value.length+' / 2200'" style="min-height:110px"></textarea>
       </div>
+
       <div class="form-group">
-        <label class="form-label">📅 Fecha de publicación</label>
-        <input class="form-input" id="post-date" type="date">
+        <label class="form-label">Petición de diseño</label>
+        <textarea class="form-textarea" id="post-peticion" rows="2" placeholder="Brief para el equipo de diseño: formato, referencias, colores, texto en pieza..."></textarea>
       </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">📅 Fecha de publicación</label>
+          <input class="form-input" id="post-date" type="date">
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Estado</label>
+          <select class="form-select" id="post-estado">
+            <option value="borrador">⬜ Borrador</option>
+            <option value="revision">🟡 En revisión</option>
+            <option value="aprobado">🟢 Aprobado</option>
+            <option value="publicado">🔵 Publicado</option>
+          </select>
+        </div>
+      </div>
+
     </div>
     <div class="form-modal-footer">
       <button class="btn-cancel" onclick="closePostEditor()">Cancelar</button>
       <button class="btn-cancel" onclick="previewCurrentPost()" style="background:#f0f4ff;color:var(--accent)">👁 Preview</button>
       <button class="btn-save" id="btn-post-save" onclick="savePost()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PIEZA EDITOR MODAL -->
+<div class="modal-overlay" id="pieza-editor-modal" onclick="if(event.target===this)closePiezaEditor()">
+  <div class="form-modal-card" style="max-width:500px">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closePiezaEditor()">×</button>
+    <div class="form-modal-header"><div class="form-modal-title">Pieza de medios</div></div>
+    <div class="form-modal-body">
+      <div class="form-group"><label class="form-label">Nombre *</label><input class="form-input" id="pieza-nombre" type="text" placeholder="Ej: Foto producto Bosch enero..."></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Tipo</label>
+          <select class="form-select" id="pieza-tipo">
+            <option value="foto">📷 Foto</option>
+            <option value="video">🎬 Video</option>
+            <option value="grafica">🎨 Gráfica</option>
+            <option value="logo">⭐ Logo / Marca</option>
+            <option value="audio">🔊 Audio / Música</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Campaña</label>
+          <input class="form-input" id="pieza-campana" type="text" placeholder="Ej: Junio 2026...">
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:14px">
+        <label class="form-label">Archivo</label>
+        <div class="form-upload-zone" onclick="document.getElementById('pieza-file-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handlePiezaFileDrop(event)">
+          <div style="font-size:20px;margin-bottom:4px">📁</div>
+          <div style="font-size:13px;font-weight:600;color:var(--muted)">Click o arrastra el archivo</div>
+        </div>
+        <div class="form-upload-preview" id="pieza-file-preview"></div>
+        <div id="pieza-upload-status" style="font-size:12px;color:var(--muted);margin-top:6px;display:none"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Notas</label><textarea class="form-textarea" id="pieza-notas" placeholder="Indicaciones o contexto..."></textarea></div>
+    </div>
+    <div class="form-modal-footer">
+      <button class="btn-cancel" onclick="closePiezaEditor()">Cancelar</button>
+      <button class="btn-save" id="btn-pieza-save" onclick="savePieza()">Guardar</button>
     </div>
   </div>
 </div>
@@ -647,6 +823,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 <input type="file" id="media-file-input" style="display:none" accept="image/*,video/*" onchange="handleMediaUpload(this.files)">
 <input type="file" id="form-img-input" style="display:none" accept="image/*" multiple onchange="handleFormImgSelect(this.files)">
 <input type="file" id="post-file-input" style="display:none" onchange="handlePostFileSelect(this.files)">
+<input type="file" id="pieza-file-input" style="display:none" accept="image/*,video/*,audio/*,.pdf,.ai,.psd,.eps" onchange="handlePiezaFileSelect(this.files)">
 <div id="toast"></div>
 
 <script>
@@ -740,7 +917,8 @@ function launchPortal(data) {
     matrix: saved.matrix || getDefaultMatrix(),
     roadmap: saved.roadmap || [],
     calEntries: saved.calEntries || [],
-    contentPosts: saved.contentPosts || []
+    contentPosts: saved.contentPosts || [],
+    piezasMedias: saved.piezasMedias || []
   };
 
   const now = new Date();
@@ -987,42 +1165,129 @@ async function uploadFile(file){
 
 // ─── CONTENIDO / POSTS ───
 let editingPostId = null;
-let postType = 'single';
-let pendingPostFiles = []; // {file, dataUrl, uploaded, fileObj}
-let previewingPostId = null;
+let editingPiezaId = null;
+let pendingPostFiles = [];
+let pendingPiezaFile = null;
+let previewingPost = null;
 let carouselSlide = 0;
+let contentSection = 'posts';
+let postsView = 'grid';
+let activeFilters = { plat: '', estado: '' };
+
+// helpers for content
+const TIPO_META = { reel:{label:'Reel',cls:'tipo-reel',icon:'🎞'}, imagen:{label:'Imagen',cls:'tipo-imagen',icon:'🖼'}, carrusel:{label:'Carrusel',cls:'tipo-carrusel',icon:'🎠'}, story:{label:'Story',cls:'tipo-story',icon:'📖'}, video:{label:'Video',cls:'tipo-video',icon:'🎬'} };
+const PLAT_META = { instagram:{icon:'📷',color:'#e1306c'}, tiktok:{icon:'🎵',color:'#000'}, facebook:{icon:'👍',color:'#1877f2'}, linkedin:{icon:'💼',color:'#0a66c2'} };
+const ESTADO_META = { borrador:{label:'Borrador',cls:'sc-borrador',color:'#9ca3af'}, revision:{label:'En revisión',cls:'sc-revision',color:'#f59e0b'}, aprobado:{label:'Aprobado',cls:'sc-aprobado',color:'#10b981'}, publicado:{label:'Publicado',cls:'sc-publicado',color:'var(--accent)'} };
+const PIEZA_TIPOS = { foto:{label:'Foto',cls:'pt-foto',icon:'📷'}, video:{label:'Video',cls:'pt-video',icon:'🎬'}, grafica:{label:'Gráfica',cls:'pt-grafica',icon:'🎨'}, logo:{label:'Logo',cls:'pt-logo',icon:'⭐'}, audio:{label:'Audio',cls:'pt-audio',icon:'🔊'} };
+
+function getFilteredPosts(){
+  let posts = estrategia.contentPosts || [];
+  if(activeFilters.plat) posts=posts.filter(p=>p.plataforma===activeFilters.plat);
+  if(activeFilters.estado) posts=posts.filter(p=>p.estado===activeFilters.estado);
+  return posts;
+}
+
+function setFilter(type, val, el){
+  activeFilters[type]=val;
+  document.querySelectorAll(`.filter-chip[data-filter="${type}"]`).forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderContentGrid();
+}
+
+function setContentSection(sec){
+  contentSection=sec;
+  document.getElementById('content-posts-section').style.display=sec==='posts'?'block':'none';
+  document.getElementById('content-piezas-section').style.display=sec==='piezas'?'block':'none';
+  document.getElementById('csnav-posts').classList.toggle('active',sec==='posts');
+  document.getElementById('csnav-piezas').classList.toggle('active',sec==='piezas');
+  document.getElementById('content-new-btn').textContent=sec==='posts'?'+ Nueva publicación':'+ Agregar pieza';
+  if(sec==='piezas') renderPiezasGrid();
+}
+
+function onContentNew(){
+  if(contentSection==='posts') openPostEditor(null);
+  else openPiezaEditor(null);
+}
+
+function setPostsView(view){
+  postsView=view;
+  document.getElementById('cvbtn-grid').classList.toggle('active',view==='grid');
+  document.getElementById('cvbtn-list').classList.toggle('active',view==='list');
+  document.getElementById('posts-grid-wrap').style.display=view==='grid'?'block':'none';
+  document.getElementById('posts-list-wrap').style.display=view==='list'?'block':'none';
+  renderContentGrid();
+}
 
 function renderContentGrid(){
-  const posts = estrategia.contentPosts || [];
-  const wrap = document.getElementById('posts-grid-wrap');
-  if(!posts.length){
-    wrap.innerHTML='<div class="posts-empty">Aún no hay posts.<br>Crea el primero con <strong>+ Nuevo post</strong>.</div>';
-    return;
-  }
-  let html='<div class="posts-grid">';
+  const posts=getFilteredPosts();
+  if(postsView==='grid') renderPostsGrid(posts);
+  else renderPostsList(posts);
+}
+
+function renderPostsGrid(posts){
+  const wrap=document.getElementById('posts-grid-wrap');
+  if(!posts.length){wrap.innerHTML='<div class="posts-empty-state">Sin publicaciones aún. Crea la primera con <strong>+ Nueva publicación</strong>.</div>';return;}
+  let html='<div class="posts-ig-grid">';
   posts.forEach((post,i)=>{
-    const f=post.files&&post.files[0];
-    const thumb=f?(f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url):'';
+    const f=post.archivos&&post.archivos[0];
+    const thumb=f?(f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url):post.videoUrl||'';
     const isVideo=f&&f.type&&f.type.startsWith('video');
-    const badge=post.type==='carousel'?'CARRUSEL':post.type==='video'?'VIDEO':'';
-    const copyPreview=esc((post.copy||'').slice(0,120));
-    if(thumb){
-      html+=`<div class="post-cell" onclick="openPostPreview('${post.id}')">
-        <span class="post-cell-num">${i+1}</span>
-        ${badge?`<span class="post-cell-badge">${badge}</span>`:''}
-        ${isVideo?`<video src="${f.url}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`:`<img src="${thumb}" alt="">`}
-        <div class="post-cell-overlay"><div class="post-cell-copy">${copyPreview||'Sin copy'}</div></div>
-      </div>`;
-    }else{
-      html+=`<div class="post-cell" style="background:#f4f3ee;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px" onclick="openPostPreview('${post.id}')">
-        <span class="post-cell-num">${i+1}</span>
-        <div style="font-size:28px">${post.type==='video'?'🎬':'📷'}</div>
-        <div style="font-size:10px;color:var(--muted);padding:0 8px;text-align:center">${esc((post.copy||'').slice(0,60))}</div>
-      </div>`;
-    }
+    const tipo=TIPO_META[post.tipo]||TIPO_META.imagen;
+    const plat=PLAT_META[post.plataforma]||PLAT_META.instagram;
+    const estado=ESTADO_META[post.estado]||ESTADO_META.borrador;
+    const copyPrev=esc((post.copy||'').slice(0,120));
+    const dateFmt=post.fecha?fmtDate(post.fecha):'';
+    html+=`<div class="post-ig-cell" onclick="openPostPreview('${post.id}')">
+      <div class="status-border-top" style="background:${estado.color}"></div>
+      <span class="post-ig-num">${i+1}</span>
+      <span class="tipo-badge ${tipo.cls}">${tipo.label}</span>
+      ${thumb
+        ?(isVideo?`<video src="${thumb}" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block"></video>`:`<img src="${thumb}" alt="" onerror="this.style.display='none'">`)
+        :`<div class="post-ig-no-media"><div class="post-ig-no-media-icon">${tipo.icon}</div><div class="post-ig-no-media-copy">${copyPrev||'Sin archivos aún'}</div></div>`
+      }
+      <div class="post-ig-cell-overlay">
+        <div class="post-ig-copy">${copyPrev||'Sin copy'}</div>
+        <div class="post-ig-meta-row">
+          <div class="plat-dot">${plat.icon}</div>
+          ${dateFmt?`<span style="font-size:9px;color:rgba(255,255,255,.8);font-family:var(--font-mono)">${dateFmt}</span>`:''}
+          <span class="status-chip ${estado.cls}" style="margin-left:auto">${estado.label}</span>
+        </div>
+      </div>
+    </div>`;
   });
   html+='</div>';
   wrap.innerHTML=html;
+}
+
+function renderPostsList(posts){
+  const wrap=document.getElementById('posts-list-wrap');
+  if(!posts.length){wrap.innerHTML='<div class="posts-empty-state">Sin publicaciones con estos filtros.</div>';return;}
+  wrap.innerHTML='<div class="posts-list">'+posts.map((post,i)=>{
+    const f=post.archivos&&post.archivos[0];
+    const thumb=f?(f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w200`:f.url):post.videoUrl||'';
+    const isVideo=f&&f.type&&f.type.startsWith('video');
+    const tipo=TIPO_META[post.tipo]||TIPO_META.imagen;
+    const plat=PLAT_META[post.plataforma]||PLAT_META.instagram;
+    const estado=ESTADO_META[post.estado]||ESTADO_META.borrador;
+    return`<div class="post-list-row st-${post.estado||'borrador'}" onclick="openPostPreview('${post.id}')">
+      <div class="post-list-num">${i+1}</div>
+      <div class="post-list-thumb">${thumb?(isVideo?`<div class="post-list-thumb-empty">🎬</div>`:`<img src="${thumb}" alt="" onerror="this.parentElement.innerHTML='<div class=post-list-thumb-empty>${tipo.icon}</div>'">`)`:<div class="post-list-thumb-empty">${tipo.icon}</div>`}</div>
+      <div class="post-list-info">
+        <div class="post-list-top">
+          <span class="tipo-badge ${tipo.cls}" style="position:static;font-size:9px">${tipo.label}</span>
+          <span style="font-size:12px">${plat.icon}</span>
+          ${post.peticion?`<span style="font-size:11px;color:var(--muted);font-family:var(--font-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px">${esc(post.peticion.slice(0,60))}</span>`:''}
+        </div>
+        <div class="post-list-copy">${esc((post.copy||'Sin copy').slice(0,120))}</div>
+      </div>
+      <div class="post-list-date">${post.fecha?fmtDate(post.fecha):'—'}</div>
+      <span class="status-chip ${estado.cls}">${estado.label}</span>
+      <div class="post-list-actions" onclick="event.stopPropagation()">
+        <button class="post-list-btn" onclick="openPostEditor('${post.id}')" title="Editar">✏️</button>
+        <button class="post-list-btn del" onclick="deletePost('${post.id}')" title="Eliminar">🗑</button>
+      </div>
+    </div>`;
+  }).join('')+'</div>';
 }
 
 // POST EDITOR
@@ -1030,19 +1295,22 @@ function openPostEditor(postId){
   editingPostId=postId||null;
   pendingPostFiles=[];
   const post=postId?(estrategia.contentPosts||[]).find(p=>p.id===postId):null;
-  document.getElementById('post-editor-title').textContent=post?'Editar post':'Nuevo post';
-  setPostType(post?post.type:'single');
+  document.getElementById('post-editor-title').textContent=post?'Editar publicación':'Nueva publicación';
+  document.getElementById('post-tipo').value=post?post.tipo||'imagen':'imagen';
+  document.getElementById('post-plataforma').value=post?post.plataforma||'instagram':'instagram';
   document.getElementById('post-copy').value=post?post.copy||'':'';
   document.getElementById('post-copy-count').textContent=(post?(post.copy||'').length:0)+' / 2200';
-  document.getElementById('post-date').value=post?post.date||'':'';
+  document.getElementById('post-peticion').value=post?post.peticion||'':'';
+  document.getElementById('post-date').value=post?post.fecha||'':'';
+  document.getElementById('post-estado').value=post?post.estado||'borrador':'borrador';
   document.getElementById('post-files-preview').innerHTML='';
   document.getElementById('post-upload-status').style.display='none';
   document.getElementById('btn-post-save').disabled=false;
   document.getElementById('btn-post-save').textContent='Guardar';
-  if(post&&post.files&&post.files.length){
-    post.files.forEach(f=>{
-      pendingPostFiles.push({uploaded:true,fileObj:f});
-    });
+  document.getElementById('post-video-url').value=post?post.videoUrl||'':'';
+  onPostTipoChange();
+  if(post&&post.archivos&&post.archivos.length){
+    post.archivos.forEach(f=>pendingPostFiles.push({uploaded:true,fileObj:f}));
     renderPostFilesPreview();
   }
   show('post-editor-modal','flex');
@@ -1050,45 +1318,58 @@ function openPostEditor(postId){
 }
 function closePostEditor(){hide('post-editor-modal');editingPostId=null;pendingPostFiles=[];}
 
-function setPostType(type){
-  postType=type;
-  ['single','carousel','video'].forEach(t=>{
-    document.getElementById('ptype-'+t).classList.toggle('active',t===type);
-  });
-  const multi=type==='carousel';
-  const isVid=type==='video';
-  document.getElementById('post-file-input').multiple=multi;
-  document.getElementById('post-file-input').accept=isVid?'video/*':'image/*';
-  document.getElementById('post-files-label').textContent=isVid?'Video':multi?'Imágenes (sube todas las del carrusel)':'Imagen';
-  document.getElementById('post-upload-icon').textContent=isVid?'🎬':multi?'🎠':'📷';
-  document.getElementById('post-upload-hint').textContent=isVid?'Click o arrastra el video aquí':multi?'Click o arrastra las imágenes (en orden)':'Click o arrastra la imagen aquí';
+function onPostTipoChange(){
+  const tipo=document.getElementById('post-tipo').value;
+  const isVideo=tipo==='video'||tipo==='reel';
+  const isCarrusel=tipo==='carrusel';
+  const inp=document.getElementById('post-file-input');
+  inp.multiple=isCarrusel;
+  inp.accept=isVideo?'video/*,image/*':'image/*';
+  document.getElementById('post-files-label').textContent=isVideo?'Video / Reel':isCarrusel?'Imágenes del carrusel (en orden)':'Imagen';
+  document.getElementById('post-upload-icon').textContent=isVideo?'🎬':isCarrusel?'🎠':'📷';
+  document.getElementById('post-upload-hint').textContent=isVideo?'Click o arrastra el video':isCarrusel?'Click o arrastra las imágenes en orden':'Click o arrastra la imagen';
+  document.getElementById('post-video-url-wrap').style.display=isVideo?'block':'none';
+}
+
+function triggerPostFileInput(){
+  document.getElementById('post-file-input').value='';
+  document.getElementById('post-file-input').click();
 }
 
 function handlePostFileDrop(e){
-  e.preventDefault();document.getElementById('post-upload-zone').classList.remove('drag');
+  e.preventDefault();
+  document.getElementById('post-upload-zone').classList.remove('drag');
   handlePostFileSelect(e.dataTransfer&&e.dataTransfer.files);
 }
+
 function handlePostFileSelect(files){
-  document.getElementById('post-file-input').value='';
   if(!files||!files.length)return;
-  if(postType!=='carousel')pendingPostFiles=[];
+  const tipo=document.getElementById('post-tipo').value;
+  const isCarrusel=tipo==='carrusel';
+  if(!isCarrusel) pendingPostFiles=[];
   Array.from(files).forEach(file=>{
+    if(file.size>50*1024*1024){showToast(`"${file.name}" supera 50MB — usa el campo de link para videos grandes`);return;}
     const entry={file,uploaded:false,fileObj:null,dataUrl:null};
     pendingPostFiles.push(entry);
-    const reader=new FileReader();
-    reader.onload=e=>{entry.dataUrl=e.target.result;renderPostFilesPreview();};
-    reader.readAsDataURL(file);
+    if(file.type.startsWith('image/')){
+      const reader=new FileReader();
+      reader.onload=ev=>{entry.dataUrl=ev.target.result;renderPostFilesPreview();};
+      reader.readAsDataURL(file);
+    } else {
+      renderPostFilesPreview();
+    }
   });
   renderPostFilesPreview();
 }
+
 function renderPostFilesPreview(){
   const el=document.getElementById('post-files-preview');
   el.innerHTML=pendingPostFiles.map((pf,i)=>{
     const src=pf.dataUrl||(pf.fileObj&&(pf.fileObj.id?`https://drive.google.com/thumbnail?id=${pf.fileObj.id}&sz=w200`:pf.fileObj.url))||'';
-    const isVid=pf.file?(pf.file.type||'').startsWith('video'):pf.fileObj&&(pf.fileObj.type||'').startsWith('video');
+    const isVid=(pf.file&&(pf.file.type||'').startsWith('video'))||(pf.fileObj&&(pf.fileObj.type||'').startsWith('video'));
     return`<div class="form-upload-thumb">
-      ${isVid?`<div style="width:100%;height:100%;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:22px">🎬</div>`
-              :(src?`<img src="${src}">`:'<div style="width:100%;height:100%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:20px">📷</div>')}
+      ${isVid?'<div style="width:100%;height:100%;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:22px">🎬</div>'
+             :(src?`<img src="${src}">`:'<div style="width:100%;height:100%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:20px">📷</div>')}
       <button class="form-upload-thumb-del" onclick="removePostFile(${i})">×</button>
     </div>`;
   }).join('');
@@ -1097,107 +1378,221 @@ function removePostFile(i){pendingPostFiles.splice(i,1);renderPostFilesPreview()
 
 async function savePost(){
   const copy=document.getElementById('post-copy').value;
-  const date=document.getElementById('post-date').value;
-  if(!pendingPostFiles.length&&!copy.trim()){showToast('Agrega al menos una imagen o escribe el copy');return;}
+  const tipo=document.getElementById('post-tipo').value;
+  const plataforma=document.getElementById('post-plataforma').value;
+  const peticion=document.getElementById('post-peticion').value.trim();
+  const fecha=document.getElementById('post-date').value;
+  const estado=document.getElementById('post-estado').value;
+  const videoUrl=document.getElementById('post-video-url').value.trim();
+  if(!pendingPostFiles.length&&!copy.trim()&&!videoUrl){showToast('Agrega una imagen, video o escribe el copy');return;}
   const btn=document.getElementById('btn-post-save');
   btn.disabled=true;btn.textContent='Guardando...';
   const statusEl=document.getElementById('post-upload-status');
   statusEl.style.display='block';
   try{
-    const uploadedFiles=[];
     const toUpload=pendingPostFiles.filter(pf=>!pf.uploaded&&pf.file);
-    const alreadyUploaded=pendingPostFiles.filter(pf=>pf.uploaded&&pf.fileObj).map(pf=>pf.fileObj);
+    const alreadyDone=pendingPostFiles.filter(pf=>pf.uploaded&&pf.fileObj).map(pf=>pf.fileObj);
+    const freshFiles=[];
     for(let i=0;i<toUpload.length;i++){
       const pf=toUpload[i];
       statusEl.textContent=`Subiendo archivo ${i+1} de ${toUpload.length}...`;
       const reader=new FileReader();
-      const dataUrl=await new Promise(res=>{reader.onload=e=>res(e.target.result);reader.readAsDataURL(pf.file);});
-      const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:pf.file.name,mimeType:pf.file.type,fileData:dataUrl.split(',')[1]}));
+      const dataUrl=await new Promise(res=>{reader.onload=ev=>res(ev.target.result);reader.readAsDataURL(pf.file);});
+      const fd=new FormData();
+      fd.append('payload',JSON.stringify({action:'uploadFile',fileName:pf.file.name,mimeType:pf.file.type||'application/octet-stream',fileData:dataUrl.split(',')[1]}));
       const resp=await fetch(API,{method:'POST',body:fd});
       const data=await resp.json();
-      if(data.ok)uploadedFiles.push(data.file);
+      if(data.ok) freshFiles.push(data.file);
+      else showToast(`Error subiendo ${pf.file.name}`);
     }
-    const allFiles=[...alreadyUploaded,...uploadedFiles];
     statusEl.style.display='none';
-    if(!estrategia.contentPosts)estrategia.contentPosts=[];
+    const archivos=[...alreadyDone,...freshFiles];
+    if(!estrategia.contentPosts) estrategia.contentPosts=[];
+    const postData={tipo,plataforma,archivos,videoUrl,copy,peticion,fecha,estado};
     if(editingPostId){
       const idx=estrategia.contentPosts.findIndex(p=>p.id===editingPostId);
-      if(idx>-1)estrategia.contentPosts[idx]={...estrategia.contentPosts[idx],type:postType,files:allFiles,copy,date};
+      if(idx>-1) estrategia.contentPosts[idx]={...estrategia.contentPosts[idx],...postData};
     }else{
-      estrategia.contentPosts.push({id:uid(),type:postType,files:allFiles,copy,date});
+      estrategia.contentPosts.push({id:uid(),...postData});
     }
     await doSaveEstrategia();
-    closePostEditor();
-    renderContentGrid();
-    showToast(editingPostId?'Post actualizado ✓':'Post guardado ✓');
-  }catch(e){showToast('Error al guardar.');btn.disabled=false;btn.textContent='Guardar';statusEl.style.display='none';}
+    closePostEditor();renderContentGrid();
+    showToast(editingPostId?'Publicación actualizada ✓':'Publicación guardada ✓');
+  }catch(err){showToast('Error al guardar.');btn.disabled=false;btn.textContent='Guardar';statusEl.style.display='none';}
 }
 
-// POST PREVIEW (phone)
+async function deletePost(postId){
+  if(!confirm('¿Eliminar esta publicación?'))return;
+  estrategia.contentPosts=(estrategia.contentPosts||[]).filter(p=>p.id!==postId);
+  await doSaveEstrategia();renderContentGrid();showToast('Eliminado ✓');
+}
+
+// POST PREVIEW
 function openPostPreview(postId){
-  previewingPostId=postId;
-  carouselSlide=0;
   const post=(estrategia.contentPosts||[]).find(p=>p.id===postId);
   if(!post)return;
+  previewingPost=post;carouselSlide=0;
   renderPhonePreview(post);
   show('post-preview-modal','flex');
 }
-function openPostEditorFromPreview(){closePostPreview();openPostEditor(previewingPostId);}
+function openPostEditorFromPreview(){
+  const id=previewingPost?previewingPost.id:null;
+  closePostPreview();if(id)openPostEditor(id);
+}
 
 function renderPhonePreview(post){
-  const likes=Math.floor(Math.random()*900+100);
   const logoEl=document.getElementById('hdr-logo');
   const ppAv=document.getElementById('pp-avatar');
   if(logoEl.querySelector('img'))ppAv.innerHTML=`<img src="${logoEl.querySelector('img').src}" alt="">`;
   else ppAv.textContent=clientName.charAt(0).toUpperCase();
   document.getElementById('pp-username').textContent=clientName.toLowerCase().replace(/\s+/g,'_');
-  document.getElementById('pp-likes').textContent=likes.toLocaleString()+' Me gusta';
+  document.getElementById('pp-likes').textContent=(Math.floor(Math.random()*900)+100).toLocaleString()+' Me gusta';
   document.getElementById('pp-caption-user').textContent=clientName.toLowerCase().replace(/\s+/g,'_');
   document.getElementById('pp-caption-text').textContent=post.copy||'';
-  document.getElementById('pp-date').textContent=post.date?fmtDateLong(post.date):'Hace un momento';
+  document.getElementById('pp-date').textContent=post.fecha?fmtDateLong(post.fecha):'Hace un momento';
   renderCarouselMedia(post);
 }
 
 function renderCarouselMedia(post){
   const wrap=document.getElementById('pp-media-wrap');
-  const files=post.files||[];
+  const files=post.archivos||[];
+  const videoUrl=post.videoUrl||'';
   const total=files.length;
-  const f=files[carouselSlide]||files[0];
-  if(!f){wrap.innerHTML='<div style="width:100%;aspect-ratio:1;background:#f4f3ee;display:flex;align-items:center;justify-content:center;font-size:32px">📷</div>';return;}
-  const isVideo=f.type&&f.type.startsWith('video');
-  const src=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w800`:f.url;
+  let f=files[carouselSlide]||files[0];
   let html='';
-  if(isVideo){html=`<video src="${f.url}" controls style="width:100%;aspect-ratio:1;object-fit:cover;display:block"></video>`;}
-  else{html=`<img src="${src}" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;display:block">`;}
-  if(total>1){
-    html+=`<div class="carousel-index">${carouselSlide+1} / ${total}</div>`;
-    if(carouselSlide>0)html+=`<button class="carousel-btn prev" onclick="slideCarousel(-1)">‹</button>`;
-    if(carouselSlide<total-1)html+=`<button class="carousel-btn next" onclick="slideCarousel(1)">›</button>`;
-    html+=`<div class="carousel-dots">${files.map((_,i)=>`<div class="carousel-dot${i===carouselSlide?' active':''}"></div>`).join('')}</div>`;
+  if(!f&&!videoUrl){
+    wrap.innerHTML=`<div style="width:100%;aspect-ratio:1;background:#1a1a2e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px"><div style="font-size:36px">${(TIPO_META[post.tipo]||TIPO_META.imagen).icon}</div><div style="font-size:11px;color:rgba(255,255,255,.5)">Sin archivo aún</div></div>`;
+    return;
+  }
+  if(videoUrl&&!f){
+    html=`<video src="${videoUrl}" controls style="width:100%;aspect-ratio:1;object-fit:cover;display:block"></video>`;
+  } else {
+    const isVideo=f.type&&f.type.startsWith('video');
+    const src=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w800`:f.url;
+    if(isVideo) html=`<video src="${f.url}" controls style="width:100%;aspect-ratio:1;object-fit:cover;display:block"></video>`;
+    else html=`<img src="${src}" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;display:block">`;
+    if(total>1){
+      html+=`<div class="carousel-index">${carouselSlide+1} / ${total}</div>`;
+      if(carouselSlide>0)html+=`<button class="carousel-btn prev" onclick="slideCarousel(-1)">‹</button>`;
+      if(carouselSlide<total-1)html+=`<button class="carousel-btn next" onclick="slideCarousel(1)">›</button>`;
+      html+=`<div class="carousel-dots">${files.map((_,i)=>`<div class="carousel-dot${i===carouselSlide?' active':''}"></div>`).join('')}</div>`;
+    }
   }
   wrap.innerHTML=html;
 }
+
 function slideCarousel(dir){
-  const post=(estrategia.contentPosts||[]).find(p=>p.id===previewingPostId);
-  if(!post)return;
-  const total=post.files?post.files.length:0;
+  if(!previewingPost)return;
+  const total=(previewingPost.archivos||[]).length;
   carouselSlide=Math.max(0,Math.min(total-1,carouselSlide+dir));
-  renderCarouselMedia(post);
+  renderCarouselMedia(previewingPost);
 }
 
 function previewCurrentPost(){
+  const tipo=document.getElementById('post-tipo').value;
   const copy=document.getElementById('post-copy').value;
-  const date=document.getElementById('post-date').value;
-  const files=pendingPostFiles.filter(pf=>pf.fileObj||pf.dataUrl).map(pf=>pf.fileObj||{url:pf.dataUrl,type:pf.file?pf.file.type:'image/jpeg',name:'preview'});
-  const fakePost={id:'__preview__',type:postType,files,copy,date};
-  previewingPostId='__preview__';
+  const fecha=document.getElementById('post-date').value;
+  const videoUrl=document.getElementById('post-video-url').value;
+  const archivos=pendingPostFiles.filter(pf=>pf.fileObj||pf.dataUrl).map(pf=>pf.fileObj||{url:pf.dataUrl,type:pf.file?pf.file.type:'image/jpeg',name:'preview'});
+  previewingPost={id:'__preview__',tipo,archivos,videoUrl,copy,fecha};
   carouselSlide=0;
-  renderPhonePreview(fakePost);
+  renderPhonePreview(previewingPost);
   show('post-preview-modal','flex');
 }
-function closePostPreview(){hide('post-preview-modal');previewingPostId=null;}
+function closePostPreview(){hide('post-preview-modal');previewingPost=null;}
 
-function handleMediaUpload(){}  // legacy stub
+// PIEZAS DE MEDIOS
+function renderPiezasGrid(){
+  const piezas=estrategia.piezasMedias||[];
+  const wrap=document.getElementById('piezas-grid-wrap');
+  if(!piezas.length){wrap.innerHTML='<div class="piezas-empty">Sin piezas aún. Agrega archivos de campaña con el botón de arriba.</div>';return;}
+  wrap.innerHTML='<div class="piezas-grid">'+piezas.map(p=>{
+    const f=p.archivos&&p.archivos[0];
+    const thumb=f&&f.type&&f.type.startsWith('image')?(f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w300`:f.url):'';
+    const tmeta=PIEZA_TIPOS[p.tipo]||PIEZA_TIPOS.foto;
+    return`<div class="pieza-card" onclick="openPiezaEditor('${p.id}')">
+      <div class="pieza-thumb">${thumb?`<img src="${thumb}" alt="">`:`<div class="pieza-thumb-empty"><span>${tmeta.icon}</span></div>`}</div>
+      <div class="pieza-info">
+        <div class="pieza-tipo-badge ${tmeta.cls}">${tmeta.label}</div>
+        <div class="pieza-name">${esc(p.nombre||'Sin nombre')}</div>
+        ${p.campana?`<div class="pieza-meta">📁 ${esc(p.campana)}</div>`:''}
+      </div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+function openPiezaEditor(piezaId){
+  editingPiezaId=piezaId||null;
+  pendingPiezaFile=null;
+  const p=piezaId?(estrategia.piezasMedias||[]).find(x=>x.id===piezaId):null;
+  document.getElementById('pieza-nombre').value=p?p.nombre||'':'';
+  document.getElementById('pieza-tipo').value=p?p.tipo||'foto':'foto';
+  document.getElementById('pieza-campana').value=p?p.campana||'':'';
+  document.getElementById('pieza-notas').value=p?p.notas||'':'';
+  document.getElementById('pieza-file-preview').innerHTML='';
+  document.getElementById('pieza-upload-status').style.display='none';
+  document.getElementById('btn-pieza-save').disabled=false;
+  document.getElementById('btn-pieza-save').textContent='Guardar';
+  show('pieza-editor-modal','flex');
+  setTimeout(()=>document.getElementById('pieza-nombre').focus(),100);
+}
+function closePiezaEditor(){hide('pieza-editor-modal');editingPiezaId=null;pendingPiezaFile=null;}
+
+function handlePiezaFileDrop(e){e.preventDefault();handlePiezaFileSelect(e.dataTransfer&&e.dataTransfer.files);}
+function handlePiezaFileSelect(files){
+  if(!files||!files.length)return;
+  const file=files[0];
+  pendingPiezaFile=file;
+  document.getElementById('pieza-file-input').value='';
+  const el=document.getElementById('pieza-file-preview');
+  if(file.type.startsWith('image/')){
+    const reader=new FileReader();
+    reader.onload=ev=>{el.innerHTML=`<div class="form-upload-thumb"><img src="${ev.target.result}"><button class="form-upload-thumb-del" onclick="pendingPiezaFile=null;document.getElementById('pieza-file-preview').innerHTML=''">×</button></div>`;};
+    reader.readAsDataURL(file);
+  } else {
+    el.innerHTML=`<div style="padding:8px;font-size:12px;color:var(--muted)">${esc(file.name)} (${fmtSize(file.size)})</div>`;
+  }
+}
+
+async function savePieza(){
+  const nombre=document.getElementById('pieza-nombre').value.trim();
+  if(!nombre){document.getElementById('pieza-nombre').focus();return;}
+  const tipo=document.getElementById('pieza-tipo').value;
+  const campana=document.getElementById('pieza-campana').value.trim();
+  const notas=document.getElementById('pieza-notas').value.trim();
+  const btn=document.getElementById('btn-pieza-save');
+  btn.disabled=true;btn.textContent='Guardando...';
+  const statusEl=document.getElementById('pieza-upload-status');
+  try{
+    let archivos=[];
+    const existing=editingPiezaId?(estrategia.piezasMedias||[]).find(x=>x.id===editingPiezaId):null;
+    if(existing) archivos=[...(existing.archivos||[])];
+    if(pendingPiezaFile){
+      statusEl.style.display='block';statusEl.textContent='Subiendo archivo...';
+      const reader=new FileReader();
+      const dataUrl=await new Promise(res=>{reader.onload=ev=>res(ev.target.result);reader.readAsDataURL(pendingPiezaFile);});
+      const fd=new FormData();
+      fd.append('payload',JSON.stringify({action:'uploadFile',fileName:pendingPiezaFile.name,mimeType:pendingPiezaFile.type||'application/octet-stream',fileData:dataUrl.split(',')[1]}));
+      const resp=await fetch(API,{method:'POST',body:fd});
+      const data=await resp.json();
+      if(data.ok) archivos=[data.file];
+      statusEl.style.display='none';
+    }
+    if(!estrategia.piezasMedias) estrategia.piezasMedias=[];
+    const piezaData={nombre,tipo,campana,notas,archivos};
+    if(editingPiezaId){
+      const idx=estrategia.piezasMedias.findIndex(x=>x.id===editingPiezaId);
+      if(idx>-1) estrategia.piezasMedias[idx]={...estrategia.piezasMedias[idx],...piezaData};
+    } else {
+      estrategia.piezasMedias.push({id:uid(),...piezaData});
+    }
+    await doSaveEstrategia();
+    closePiezaEditor();renderPiezasGrid();
+    showToast('Pieza guardada ✓');
+  }catch(err){showToast('Error al guardar.');btn.disabled=false;btn.textContent='Guardar';}
+}
+
+function handleMediaUpload(){} // legacy stub
 
 // ─── CALENDARIO ───
 function renderCalendar(){
