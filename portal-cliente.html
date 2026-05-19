@@ -283,9 +283,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .form-upload-thumb img{width:100%;height:100%;object-fit:cover}
 .form-upload-thumb-del{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.6);border:none;cursor:pointer;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center}
 
+/* ─── CONTENIDO POSTS ─── */
+.posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;max-width:614px;margin:0 auto}
+.post-cell{aspect-ratio:1;position:relative;overflow:hidden;background:#f4f3ee;cursor:pointer}
+.post-cell img,.post-cell video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
+.post-cell:hover img,.post-cell:hover video{transform:scale(1.04)}
+.post-cell-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;transition:opacity .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;gap:4px}
+.post-cell:hover .post-cell-overlay{opacity:1}
+.post-cell-copy{font-size:11px;color:#fff;text-align:center;line-height:1.4;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.post-cell-badge{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);color:#fff;font-size:9px;font-family:var(--font-mono);padding:2px 6px;border-radius:99px;letter-spacing:.05em}
+.post-cell-num{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;font-family:var(--font-mono);padding:2px 6px;border-radius:99px}
+.post-cell-empty{aspect-ratio:1;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted2);font-size:24px;cursor:pointer;transition:all .15s}
+.post-cell-empty:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.posts-empty{padding:60px 20px;text-align:center;color:var(--muted2);font-size:14px;border:1.5px dashed var(--border);border-radius:var(--r-lg);max-width:614px;margin:0 auto}
+
 /* Post preview */
-#post-preview-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px}
-.phone-frame{background:#fff;border-radius:44px;width:340px;max-width:100%;box-shadow:0 0 0 12px #1a1a1a,0 0 0 14px #333,var(--shadow-lg);overflow:hidden;animation:slideUp .25s cubic-bezier(.32,0,.04,1)}
+#post-preview-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px;gap:20px}
+.phone-frame{background:#fff;border-radius:44px;width:320px;max-width:100%;box-shadow:0 0 0 12px #1a1a1a,0 0 0 14px #333,var(--shadow-lg);overflow:hidden;animation:slideUp .25s cubic-bezier(.32,0,.04,1);flex-shrink:0}
 .phone-notch{height:28px;background:#1a1a1a;display:flex;align-items:center;justify-content:center}
 .phone-notch-bar{width:100px;height:16px;background:#000;border-radius:0 0 16px 16px}
 .phone-screen{overflow-y:auto;max-height:580px}
@@ -295,16 +309,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .ig-post-avatar-inner img{width:100%;height:100%;object-fit:cover}
 .ig-post-username{font-weight:700;font-size:13px;flex:1}
 .ig-post-more{font-size:18px;color:var(--muted)}
-.ig-post-image{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#f4f3ee}
+/* Carousel media area */
+.ig-post-media-wrap{position:relative;width:100%;aspect-ratio:1;background:#f4f3ee;overflow:hidden}
+.ig-post-media-wrap img,.ig-post-media-wrap video{width:100%;height:100%;object-fit:cover;display:block}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.85);border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.carousel-btn.prev{left:8px}.carousel-btn.next{right:8px}
+.carousel-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:4px}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5)}
+.carousel-dot.active{background:#fff}
+.carousel-index{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;font-size:10px;font-family:var(--font-mono);padding:2px 7px;border-radius:99px}
 .ig-post-actions{padding:10px 12px 4px;display:flex;gap:14px}
 .ig-post-action-icon{font-size:22px;cursor:pointer}
 .ig-post-save{margin-left:auto}
 .ig-post-likes{padding:0 12px;font-size:13px;font-weight:700}
-.ig-post-caption{padding:4px 12px 12px;font-size:13px;line-height:1.5}
+.ig-post-caption{padding:4px 12px 12px;font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
 .ig-post-caption span{font-weight:700}
 .ig-post-time{padding:0 12px 16px;font-size:10px;color:var(--muted2);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em}
 .post-preview-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);border:none;cursor:pointer;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center}
 .post-preview-close:hover{background:rgba(255,255,255,.25)}
+.post-preview-edit-btn{padding:10px 20px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);border-radius:var(--r);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .15s;align-self:flex-start;margin-top:60px}
+.post-preview-edit-btn:hover{background:rgba(255,255,255,.25)}
 
 /* Lightbox */
 #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:3000;display:none;align-items:center;justify-content:center;padding:24px}
@@ -402,24 +426,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
   <div id="tab-contenido" style="display:none">
     <div class="tab-section">
       <div class="section-toolbar">
-        <div class="section-toolbar-title">Contenido</div>
-        <div class="view-toggle-btns">
-          <button class="view-toggle-btn active" id="vbtn-gallery" onclick="setContentView('gallery')">⊞ Galería</button>
-          <button class="view-toggle-btn" id="vbtn-instagram" onclick="setContentView('instagram')">📱 Instagram</button>
-        </div>
-        <button class="action-btn" onclick="document.getElementById('media-file-input').click()">☁️ Subir</button>
+        <div class="section-toolbar-title">Grilla de contenido</div>
+        <button class="action-btn" onclick="openPostEditor(null)">+ Nuevo post</button>
       </div>
-      <div id="gallery-view"></div>
-      <div id="instagram-view">
-        <div class="ig-grid-wrap">
-          <div class="ig-profile-bar">
-            <div class="ig-avatar" id="ig-avatar-el"></div>
-            <div><div class="ig-username" id="ig-username-el"></div><div class="ig-bio" id="ig-bio-el"></div></div>
-          </div>
-          <div class="ig-grid" id="ig-grid"></div>
-          <div class="ig-hint">Click en una imagen para ver preview del post</div>
+      <div style="max-width:614px;margin:0 auto">
+        <div class="ig-profile-bar">
+          <div class="ig-avatar" id="ig-avatar-el"></div>
+          <div><div class="ig-username" id="ig-username-el"></div><div class="ig-bio" id="ig-bio-el"></div></div>
         </div>
       </div>
+      <div id="posts-grid-wrap"></div>
     </div>
   </div>
 
@@ -562,7 +578,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="ig-post-username" id="pp-username"></div>
         <div class="ig-post-more">···</div>
       </div>
-      <img class="ig-post-image" id="pp-image" src="" alt="">
+      <div class="ig-post-media-wrap" id="pp-media-wrap"></div>
       <div class="ig-post-actions">
         <span class="ig-post-action-icon">🤍</span>
         <span class="ig-post-action-icon">💬</span>
@@ -571,7 +587,52 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       </div>
       <div class="ig-post-likes" id="pp-likes"></div>
       <div class="ig-post-caption"><span id="pp-caption-user"></span> <span id="pp-caption-text"></span></div>
-      <div class="ig-post-time">Hace un momento</div>
+      <div class="ig-post-time" id="pp-date">Hace un momento</div>
+    </div>
+  </div>
+  <button class="post-preview-edit-btn" id="pp-edit-btn" onclick="openPostEditorFromPreview()">✏️ Editar post</button>
+</div>
+
+<!-- POST EDITOR MODAL -->
+<div class="modal-overlay" id="post-editor-modal" onclick="if(event.target===this)closePostEditor()">
+  <div class="form-modal-card" style="max-width:600px">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closePostEditor()">×</button>
+    <div class="form-modal-header">
+      <div class="form-modal-title" id="post-editor-title">Nuevo post</div>
+    </div>
+    <div class="form-modal-body">
+      <div class="form-group">
+        <label class="form-label">Tipo de post</label>
+        <div class="view-toggle-btns" style="width:fit-content">
+          <button class="view-toggle-btn active" id="ptype-single" onclick="setPostType('single')">📷 Imagen</button>
+          <button class="view-toggle-btn" id="ptype-carousel" onclick="setPostType('carousel')">🎠 Carrusel</button>
+          <button class="view-toggle-btn" id="ptype-video" onclick="setPostType('video')">🎬 Video</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" id="post-files-label">Imagen</label>
+        <div class="form-upload-zone" id="post-upload-zone" onclick="document.getElementById('post-file-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handlePostFileDrop(event)">
+          <div style="font-size:24px;margin-bottom:4px" id="post-upload-icon">📷</div>
+          <div style="font-size:13px;font-weight:600;color:var(--muted)" id="post-upload-hint">Click o arrastra la imagen aquí</div>
+          <div style="font-size:11px;color:var(--muted2);margin-top:2px">Máx. 25MB por archivo</div>
+        </div>
+        <div class="form-upload-preview" id="post-files-preview"></div>
+        <div id="post-upload-status" style="font-size:12px;color:var(--muted);margin-top:6px;display:none"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Copy / Caption <span id="post-copy-count" style="font-weight:400;color:var(--muted2)">0 / 2200</span></label>
+        <textarea class="form-textarea" id="post-copy" rows="5" placeholder="Escribe el copy del post aquí..." oninput="document.getElementById('post-copy-count').textContent=this.value.length+' / 2200'" style="min-height:120px"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">📅 Fecha de publicación</label>
+        <input class="form-input" id="post-date" type="date">
+      </div>
+    </div>
+    <div class="form-modal-footer">
+      <button class="btn-cancel" onclick="closePostEditor()">Cancelar</button>
+      <button class="btn-cancel" onclick="previewCurrentPost()" style="background:#f0f4ff;color:var(--accent)">👁 Preview</button>
+      <button class="btn-save" id="btn-post-save" onclick="savePost()">Guardar</button>
     </div>
   </div>
 </div>
@@ -585,6 +646,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 <input type="file" id="file-input" style="display:none" onchange="handleFileSelect(this.files)">
 <input type="file" id="media-file-input" style="display:none" accept="image/*,video/*" onchange="handleMediaUpload(this.files)">
 <input type="file" id="form-img-input" style="display:none" accept="image/*" multiple onchange="handleFormImgSelect(this.files)">
+<input type="file" id="post-file-input" style="display:none" onchange="handlePostFileSelect(this.files)">
 <div id="toast"></div>
 
 <script>
@@ -677,7 +739,8 @@ function launchPortal(data) {
   estrategia = {
     matrix: saved.matrix || getDefaultMatrix(),
     roadmap: saved.roadmap || [],
-    calEntries: saved.calEntries || []
+    calEntries: saved.calEntries || [],
+    contentPosts: saved.contentPosts || []
   };
 
   const now = new Date();
@@ -715,7 +778,7 @@ function switchTab(tab) {
   if (tab==='tareas') { btn.style.display=''; btn.textContent='+ Nueva tarea'; }
   else if (tab==='roadmap') { btn.style.display=''; btn.textContent='+ Hito'; }
   else { btn.style.display='none'; }
-  if (tab==='contenido') renderGallery();
+  if (tab==='contenido') renderContentGrid();
   if (tab==='calendario') renderCalendar();
   if (tab==='roadmap') renderRoadmap();
   if (tab==='estrategia') renderMatrix();
@@ -922,57 +985,167 @@ async function uploadFile(file){
   reader.readAsDataURL(file);
 }
 
-// ─── CONTENIDO ───
-function getAllMedia(){const all=[];tasks.forEach(t=>{(t.archivos||[]).forEach(f=>{if(f.type&&(f.type.startsWith('image')||f.type.startsWith('video')))all.push({...f,taskId:t.id,taskTitle:t.titulo});});});return all;}
-function renderGallery(){const media=getAllMedia();if(currentContentView==='gallery')renderGalleryView(media);else renderInstagramView(media);}
-function setContentView(view){
-  currentContentView=view;
-  document.getElementById('vbtn-gallery').classList.toggle('active',view==='gallery');
-  document.getElementById('vbtn-instagram').classList.toggle('active',view==='instagram');
-  document.getElementById('gallery-view').style.display=view==='gallery'?'grid':'none';
-  document.getElementById('instagram-view').style.display=view==='instagram'?'block':'none';
-  renderGallery();
-}
-function renderGalleryView(media){
-  const el=document.getElementById('gallery-view');el.style.display='grid';
-  if(!media.length){el.innerHTML='<div class="gallery-empty">Aún no hay imágenes.<br>Sube contenido desde una tarea o usa el botón Subir.</div>';return;}
-  el.innerHTML=media.map((f,i)=>{const isImg=f.type&&f.type.startsWith('image');const thumb=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url;const full=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`:f.url;const inner=isImg?`<img src="${thumb}" alt="${esc(f.name)}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s">`:
-    `<div class="gallery-file-icon">${f.type&&f.type.startsWith('video')?'🎬':'📎'}<span class="gallery-file-name">${esc(f.name)}</span></div>`;
-    return`<div class="gallery-item" data-idx="${i}">${inner}<div class="gallery-item-overlay"><span class="gallery-item-name">${esc(f.name)}</span>${isImg?`<button class="gallery-action-btn preview" onclick="event.stopPropagation();openLightbox('${full}')">🔍</button>`:''}<button class="gallery-action-btn delete" onclick="event.stopPropagation();deleteMedia(${i})">🗑</button></div></div>`;
-  }).join('');
-}
-function renderInstagramView(media){
-  document.getElementById('instagram-view').style.display='block';
-  const images=media.filter(f=>f.type&&f.type.startsWith('image'));
-  const grid=document.getElementById('ig-grid');
-  if(!images.length){grid.innerHTML='<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--muted2)">Sube imágenes para ver la grilla de Instagram</div>';return;}
-  grid.innerHTML=images.map((f,i)=>{const thumb=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url;const full=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`:f.url;return`<div class="ig-cell" onclick="openPostPreview('${full}','${esc(f.taskTitle||'')}')"><img src="${thumb}" alt="${esc(f.name)}" onerror="this.style.display='none'"><div class="ig-cell-overlay">❤️ &nbsp; 💬</div></div>`;}).join('');
-}
-async function deleteMedia(idx){
-  if(!confirm('¿Eliminar este archivo?'))return;
-  const media=getAllMedia();const file=media[idx];if(!file)return;
-  const task=tasks.find(t=>t.id===file.taskId);if(!task)return;
-  task.archivos=(task.archivos||[]).filter(f=>f.url!==file.url);
-  updateTaskInList(task);
-  try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task}));await fetch(API,{method:'POST',body:fd});showToast('Eliminado ✓');}catch(e){showToast('Error.');}
-  renderGallery();
-}
-async function handleMediaUpload(files){
-  if(!files||!files.length)return;
-  document.getElementById('media-file-input').value='';
-  const file=files[0];if(file.size>25*1024*1024){showToast('El archivo supera 25MB');return;}
-  let mediaTask=tasks.find(t=>t.titulo==='Contenido'&&t.cliente===clientName);
-  if(!mediaTask){mediaTask={id:uid(),titulo:'Contenido',cliente:clientName,estado:'Trabajando',fecha:'',notas:'',prioridad:'media',encargados:[],archivos:[],comentarios:[],visible_cliente:'Sí',creadoPor:clientName,modificadoPor:clientName};tasks.push(mediaTask);const fd=new FormData();fd.append('payload',JSON.stringify({action:'create',task:mediaTask}));await fetch(API,{method:'POST',body:fd});}
-  showToast('Subiendo...');
-  const reader=new FileReader();
-  reader.onload=async()=>{try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:file.name,mimeType:file.type||'image/jpeg',fileData:reader.result.split(',')[1]}));const res=await fetch(API,{method:'POST',body:fd});const data=await res.json();if(data.ok){mediaTask.archivos=[...(mediaTask.archivos||[]),data.file];updateTaskInList(mediaTask);const fd2=new FormData();fd2.append('payload',JSON.stringify({action:'update',task:mediaTask}));await fetch(API,{method:'POST',body:fd2});showToast('Subido ✓');renderGallery();}else showToast('Error al subir.');}catch(e){showToast('Error.');}};
-  reader.readAsDataURL(file);
+// ─── CONTENIDO / POSTS ───
+let editingPostId = null;
+let postType = 'single';
+let pendingPostFiles = []; // {file, dataUrl, uploaded, fileObj}
+let previewingPostId = null;
+let carouselSlide = 0;
+
+function renderContentGrid(){
+  const posts = estrategia.contentPosts || [];
+  const wrap = document.getElementById('posts-grid-wrap');
+  if(!posts.length){
+    wrap.innerHTML='<div class="posts-empty">Aún no hay posts.<br>Crea el primero con <strong>+ Nuevo post</strong>.</div>';
+    return;
+  }
+  let html='<div class="posts-grid">';
+  posts.forEach((post,i)=>{
+    const f=post.files&&post.files[0];
+    const thumb=f?(f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url):'';
+    const isVideo=f&&f.type&&f.type.startsWith('video');
+    const badge=post.type==='carousel'?'CARRUSEL':post.type==='video'?'VIDEO':'';
+    const copyPreview=esc((post.copy||'').slice(0,120));
+    if(thumb){
+      html+=`<div class="post-cell" onclick="openPostPreview('${post.id}')">
+        <span class="post-cell-num">${i+1}</span>
+        ${badge?`<span class="post-cell-badge">${badge}</span>`:''}
+        ${isVideo?`<video src="${f.url}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`:`<img src="${thumb}" alt="">`}
+        <div class="post-cell-overlay"><div class="post-cell-copy">${copyPreview||'Sin copy'}</div></div>
+      </div>`;
+    }else{
+      html+=`<div class="post-cell" style="background:#f4f3ee;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px" onclick="openPostPreview('${post.id}')">
+        <span class="post-cell-num">${i+1}</span>
+        <div style="font-size:28px">${post.type==='video'?'🎬':'📷'}</div>
+        <div style="font-size:10px;color:var(--muted);padding:0 8px;text-align:center">${esc((post.copy||'').slice(0,60))}</div>
+      </div>`;
+    }
+  });
+  html+='</div>';
+  wrap.innerHTML=html;
 }
 
-// ─── POST PREVIEW ───
-function openPostPreview(imgUrl,caption){
+// POST EDITOR
+function openPostEditor(postId){
+  editingPostId=postId||null;
+  pendingPostFiles=[];
+  const post=postId?(estrategia.contentPosts||[]).find(p=>p.id===postId):null;
+  document.getElementById('post-editor-title').textContent=post?'Editar post':'Nuevo post';
+  setPostType(post?post.type:'single');
+  document.getElementById('post-copy').value=post?post.copy||'':'';
+  document.getElementById('post-copy-count').textContent=(post?(post.copy||'').length:0)+' / 2200';
+  document.getElementById('post-date').value=post?post.date||'':'';
+  document.getElementById('post-files-preview').innerHTML='';
+  document.getElementById('post-upload-status').style.display='none';
+  document.getElementById('btn-post-save').disabled=false;
+  document.getElementById('btn-post-save').textContent='Guardar';
+  if(post&&post.files&&post.files.length){
+    post.files.forEach(f=>{
+      pendingPostFiles.push({uploaded:true,fileObj:f});
+    });
+    renderPostFilesPreview();
+  }
+  show('post-editor-modal','flex');
+  setTimeout(()=>document.getElementById('post-copy').focus(),100);
+}
+function closePostEditor(){hide('post-editor-modal');editingPostId=null;pendingPostFiles=[];}
+
+function setPostType(type){
+  postType=type;
+  ['single','carousel','video'].forEach(t=>{
+    document.getElementById('ptype-'+t).classList.toggle('active',t===type);
+  });
+  const multi=type==='carousel';
+  const isVid=type==='video';
+  document.getElementById('post-file-input').multiple=multi;
+  document.getElementById('post-file-input').accept=isVid?'video/*':'image/*';
+  document.getElementById('post-files-label').textContent=isVid?'Video':multi?'Imágenes (sube todas las del carrusel)':'Imagen';
+  document.getElementById('post-upload-icon').textContent=isVid?'🎬':multi?'🎠':'📷';
+  document.getElementById('post-upload-hint').textContent=isVid?'Click o arrastra el video aquí':multi?'Click o arrastra las imágenes (en orden)':'Click o arrastra la imagen aquí';
+}
+
+function handlePostFileDrop(e){
+  e.preventDefault();document.getElementById('post-upload-zone').classList.remove('drag');
+  handlePostFileSelect(e.dataTransfer&&e.dataTransfer.files);
+}
+function handlePostFileSelect(files){
+  document.getElementById('post-file-input').value='';
+  if(!files||!files.length)return;
+  if(postType!=='carousel')pendingPostFiles=[];
+  Array.from(files).forEach(file=>{
+    const entry={file,uploaded:false,fileObj:null,dataUrl:null};
+    pendingPostFiles.push(entry);
+    const reader=new FileReader();
+    reader.onload=e=>{entry.dataUrl=e.target.result;renderPostFilesPreview();};
+    reader.readAsDataURL(file);
+  });
+  renderPostFilesPreview();
+}
+function renderPostFilesPreview(){
+  const el=document.getElementById('post-files-preview');
+  el.innerHTML=pendingPostFiles.map((pf,i)=>{
+    const src=pf.dataUrl||(pf.fileObj&&(pf.fileObj.id?`https://drive.google.com/thumbnail?id=${pf.fileObj.id}&sz=w200`:pf.fileObj.url))||'';
+    const isVid=pf.file?(pf.file.type||'').startsWith('video'):pf.fileObj&&(pf.fileObj.type||'').startsWith('video');
+    return`<div class="form-upload-thumb">
+      ${isVid?`<div style="width:100%;height:100%;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:22px">🎬</div>`
+              :(src?`<img src="${src}">`:'<div style="width:100%;height:100%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:20px">📷</div>')}
+      <button class="form-upload-thumb-del" onclick="removePostFile(${i})">×</button>
+    </div>`;
+  }).join('');
+}
+function removePostFile(i){pendingPostFiles.splice(i,1);renderPostFilesPreview();}
+
+async function savePost(){
+  const copy=document.getElementById('post-copy').value;
+  const date=document.getElementById('post-date').value;
+  if(!pendingPostFiles.length&&!copy.trim()){showToast('Agrega al menos una imagen o escribe el copy');return;}
+  const btn=document.getElementById('btn-post-save');
+  btn.disabled=true;btn.textContent='Guardando...';
+  const statusEl=document.getElementById('post-upload-status');
+  statusEl.style.display='block';
+  try{
+    const uploadedFiles=[];
+    const toUpload=pendingPostFiles.filter(pf=>!pf.uploaded&&pf.file);
+    const alreadyUploaded=pendingPostFiles.filter(pf=>pf.uploaded&&pf.fileObj).map(pf=>pf.fileObj);
+    for(let i=0;i<toUpload.length;i++){
+      const pf=toUpload[i];
+      statusEl.textContent=`Subiendo archivo ${i+1} de ${toUpload.length}...`;
+      const reader=new FileReader();
+      const dataUrl=await new Promise(res=>{reader.onload=e=>res(e.target.result);reader.readAsDataURL(pf.file);});
+      const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:pf.file.name,mimeType:pf.file.type,fileData:dataUrl.split(',')[1]}));
+      const resp=await fetch(API,{method:'POST',body:fd});
+      const data=await resp.json();
+      if(data.ok)uploadedFiles.push(data.file);
+    }
+    const allFiles=[...alreadyUploaded,...uploadedFiles];
+    statusEl.style.display='none';
+    if(!estrategia.contentPosts)estrategia.contentPosts=[];
+    if(editingPostId){
+      const idx=estrategia.contentPosts.findIndex(p=>p.id===editingPostId);
+      if(idx>-1)estrategia.contentPosts[idx]={...estrategia.contentPosts[idx],type:postType,files:allFiles,copy,date};
+    }else{
+      estrategia.contentPosts.push({id:uid(),type:postType,files:allFiles,copy,date});
+    }
+    await doSaveEstrategia();
+    closePostEditor();
+    renderContentGrid();
+    showToast(editingPostId?'Post actualizado ✓':'Post guardado ✓');
+  }catch(e){showToast('Error al guardar.');btn.disabled=false;btn.textContent='Guardar';statusEl.style.display='none';}
+}
+
+// POST PREVIEW (phone)
+function openPostPreview(postId){
+  previewingPostId=postId;
+  carouselSlide=0;
+  const post=(estrategia.contentPosts||[]).find(p=>p.id===postId);
+  if(!post)return;
+  renderPhonePreview(post);
+  show('post-preview-modal','flex');
+}
+function openPostEditorFromPreview(){closePostPreview();openPostEditor(previewingPostId);}
+
+function renderPhonePreview(post){
   const likes=Math.floor(Math.random()*900+100);
-  document.getElementById('pp-image').src=imgUrl;
   const logoEl=document.getElementById('hdr-logo');
   const ppAv=document.getElementById('pp-avatar');
   if(logoEl.querySelector('img'))ppAv.innerHTML=`<img src="${logoEl.querySelector('img').src}" alt="">`;
@@ -980,10 +1153,51 @@ function openPostPreview(imgUrl,caption){
   document.getElementById('pp-username').textContent=clientName.toLowerCase().replace(/\s+/g,'_');
   document.getElementById('pp-likes').textContent=likes.toLocaleString()+' Me gusta';
   document.getElementById('pp-caption-user').textContent=clientName.toLowerCase().replace(/\s+/g,'_');
-  document.getElementById('pp-caption-text').textContent=caption||'✨';
+  document.getElementById('pp-caption-text').textContent=post.copy||'';
+  document.getElementById('pp-date').textContent=post.date?fmtDateLong(post.date):'Hace un momento';
+  renderCarouselMedia(post);
+}
+
+function renderCarouselMedia(post){
+  const wrap=document.getElementById('pp-media-wrap');
+  const files=post.files||[];
+  const total=files.length;
+  const f=files[carouselSlide]||files[0];
+  if(!f){wrap.innerHTML='<div style="width:100%;aspect-ratio:1;background:#f4f3ee;display:flex;align-items:center;justify-content:center;font-size:32px">📷</div>';return;}
+  const isVideo=f.type&&f.type.startsWith('video');
+  const src=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w800`:f.url;
+  let html='';
+  if(isVideo){html=`<video src="${f.url}" controls style="width:100%;aspect-ratio:1;object-fit:cover;display:block"></video>`;}
+  else{html=`<img src="${src}" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;display:block">`;}
+  if(total>1){
+    html+=`<div class="carousel-index">${carouselSlide+1} / ${total}</div>`;
+    if(carouselSlide>0)html+=`<button class="carousel-btn prev" onclick="slideCarousel(-1)">‹</button>`;
+    if(carouselSlide<total-1)html+=`<button class="carousel-btn next" onclick="slideCarousel(1)">›</button>`;
+    html+=`<div class="carousel-dots">${files.map((_,i)=>`<div class="carousel-dot${i===carouselSlide?' active':''}"></div>`).join('')}</div>`;
+  }
+  wrap.innerHTML=html;
+}
+function slideCarousel(dir){
+  const post=(estrategia.contentPosts||[]).find(p=>p.id===previewingPostId);
+  if(!post)return;
+  const total=post.files?post.files.length:0;
+  carouselSlide=Math.max(0,Math.min(total-1,carouselSlide+dir));
+  renderCarouselMedia(post);
+}
+
+function previewCurrentPost(){
+  const copy=document.getElementById('post-copy').value;
+  const date=document.getElementById('post-date').value;
+  const files=pendingPostFiles.filter(pf=>pf.fileObj||pf.dataUrl).map(pf=>pf.fileObj||{url:pf.dataUrl,type:pf.file?pf.file.type:'image/jpeg',name:'preview'});
+  const fakePost={id:'__preview__',type:postType,files,copy,date};
+  previewingPostId='__preview__';
+  carouselSlide=0;
+  renderPhonePreview(fakePost);
   show('post-preview-modal','flex');
 }
-function closePostPreview(){hide('post-preview-modal');}
+function closePostPreview(){hide('post-preview-modal');previewingPostId=null;}
+
+function handleMediaUpload(){}  // legacy stub
 
 // ─── CALENDARIO ───
 function renderCalendar(){
