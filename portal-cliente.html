@@ -1271,7 +1271,7 @@ function renderPostsList(posts){
     const estado=ESTADO_META[post.estado]||ESTADO_META.borrador;
     return`<div class="post-list-row st-${post.estado||'borrador'}" onclick="openPostPreview('${post.id}')">
       <div class="post-list-num">${i+1}</div>
-      <div class="post-list-thumb">${thumb?(isVideo?`<div class="post-list-thumb-empty">🎬</div>`:`<img src="${thumb}" alt="" onerror="this.parentElement.innerHTML='<div class=post-list-thumb-empty>${tipo.icon}</div>'">`)`:<div class="post-list-thumb-empty">${tipo.icon}</div>`}</div>
+      <div class="post-list-thumb">${thumb&&!isVideo?`<img src="${thumb}" alt="">`:(`<div class="post-list-thumb-empty">${isVideo?'🎬':tipo.icon}</div>`)}</div>
       <div class="post-list-info">
         <div class="post-list-top">
           <span class="tipo-badge ${tipo.cls}" style="position:static;font-size:9px">${tipo.label}</span>
