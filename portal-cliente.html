@@ -369,29 +369,33 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .task-card:hover .task-del-btn{opacity:1}
 .task-del-btn:hover{background:#fef2f2;color:#ef4444}
 
-/* ─── EDITORIAL CONTENT CARDS ─── */
-.posts-editorial-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.post-card{position:relative;border-radius:20px;overflow:hidden;background:#111;cursor:pointer;transition:transform .28s cubic-bezier(.4,0,.2,1),box-shadow .28s;aspect-ratio:4/5}
-.post-card:hover{transform:translateY(-6px);box-shadow:0 24px 64px rgba(0,0,0,.18)}
-.post-card-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s cubic-bezier(.4,0,.2,1);display:block}
-.post-card:hover .post-card-media{transform:scale(1.05)}
-.post-card-no-media{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 55%,#0f3460 100%)}
-.post-card-no-media-icon{font-size:44px;opacity:.65}
-.post-card-no-media-copy{font-size:12px;color:rgba(255,255,255,.45);text-align:center;padding:0 24px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.post-card-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,transparent 28%,transparent 45%,rgba(0,0,0,.88) 100%);pointer-events:none}
+/* ─── HORIZONTAL CONTENT SCROLL ─── */
+.posts-hscroll{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 24px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.posts-hscroll::-webkit-scrollbar{height:5px}
+.posts-hscroll::-webkit-scrollbar-track{background:transparent}
+.posts-hscroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+.posts-hscroll::-webkit-scrollbar-thumb:hover{background:var(--muted2)}
+.post-hcard{position:relative;flex-shrink:0;width:210px;aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#111;cursor:pointer;transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s;scroll-snap-align:start}
+.post-hcard:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 28px 60px rgba(0,0,0,.25)}
+.post-card-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.4,0,.2,1);display:block}
+.post-hcard:hover .post-card-media{transform:scale(1.07)}
+.post-card-no-media{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)}
+.post-card-no-media-icon{font-size:44px;opacity:.6}
+.post-card-no-media-copy{font-size:11px;color:rgba(255,255,255,.4);text-align:center;padding:0 20px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.post-card-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,transparent 30%,transparent 42%,rgba(0,0,0,.92) 100%);pointer-events:none}
 .post-card-status-bar{position:absolute;top:0;left:0;right:0;height:4px;z-index:2}
 .post-card-top{position:absolute;top:14px;left:14px;right:14px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;z-index:3}
-.post-card-num{font-size:9px;font-family:var(--font-mono);color:rgba(255,255,255,.6);background:rgba(0,0,0,.45);backdrop-filter:blur(4px);padding:3px 9px;border-radius:99px;letter-spacing:.04em}
-.post-card-bottom{position:absolute;bottom:0;left:0;right:0;padding:16px 16px 18px;z-index:3}
-.post-card-approve-btn{width:100%;padding:11px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-sans);transition:all .2s;margin-bottom:12px;letter-spacing:.02em;box-shadow:0 4px 14px rgba(16,185,129,.4)}
-.post-card-approve-btn:hover{background:linear-gradient(135deg,#059669,#047857);box-shadow:0 6px 20px rgba(16,185,129,.5)}
-.post-card-copy{font-size:13px;color:rgba(255,255,255,.9);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px;font-weight:500;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.post-card-num{font-size:9px;font-family:var(--font-mono);color:rgba(255,255,255,.55);background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:3px 9px;border-radius:99px;letter-spacing:.04em}
+.post-card-bottom{position:absolute;bottom:0;left:0;right:0;padding:14px 14px 18px;z-index:3}
+.post-card-approve-btn{width:100%;padding:10px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-sans);transition:all .2s;margin-bottom:10px;letter-spacing:.02em;box-shadow:0 4px 16px rgba(16,185,129,.45)}
+.post-card-approve-btn:hover{background:linear-gradient(135deg,#059669,#047857);box-shadow:0 6px 22px rgba(16,185,129,.55)}
+.post-card-copy{font-size:12px;color:rgba(255,255,255,.88);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px;font-weight:500;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .post-card-meta-row{display:flex;align-items:center;gap:8px}
-.post-card-plat{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;border:1px solid rgba(255,255,255,.2)}
-.post-card-date{font-size:10px;color:rgba(255,255,255,.65);font-family:var(--font-mono);flex:1}
-.post-card-actions{position:absolute;top:52px;right:14px;display:flex;flex-direction:column;gap:6px;opacity:0;transition:opacity .2s;z-index:4}
-.post-card:hover .post-card-actions{opacity:1}
-.post-card-action-btn{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;backdrop-filter:blur(8px);transition:all .15s}
+.post-card-plat{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.14);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;border:1px solid rgba(255,255,255,.18)}
+.post-card-date{font-size:9px;color:rgba(255,255,255,.6);font-family:var(--font-mono);flex:1}
+.post-card-actions{position:absolute;top:50px;right:12px;display:flex;flex-direction:column;gap:6px;opacity:0;transition:opacity .2s;z-index:4}
+.post-hcard:hover .post-card-actions{opacity:1}
+.post-card-action-btn{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;backdrop-filter:blur(8px);transition:all .15s}
 .post-card-action-btn.edit{background:rgba(255,255,255,.18);color:#fff}
 .post-card-action-btn.edit:hover{background:rgba(255,255,255,.32)}
 .post-card-action-btn.del{background:rgba(239,68,68,.25);color:#fff}
@@ -551,7 +555,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       </div>
       <div class="content-subnav" style="margin-top:16px">
         <button class="content-snav-btn active" id="csnav-posts" onclick="setContentSection('posts')">📱 Publicaciones</button>
-        <button class="content-snav-btn" id="csnav-parrilla" onclick="setContentSection('parrilla')">📊 Parrilla</button>
+        <button class="content-snav-btn" id="csnav-grilla" onclick="setContentSection('grilla')">📊 Grilla</button>
         <button class="content-snav-btn" id="csnav-piezas" onclick="setContentSection('piezas')">🗂 Piezas de medios</button>
       </div>
 
@@ -581,10 +585,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div id="posts-list-wrap" style="display:none"></div>
       </div>
 
-      <!-- PARRILLA DE CONTENIDO -->
-      <div id="content-parrilla-section" style="display:none">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-          <div style="flex:1;font-size:14px;color:var(--muted)">Planificación detallada de contenidos. Edita directamente en cada celda.</div>
+      <!-- GRILLA DE CONTENIDO -->
+      <div id="content-grilla-section" style="display:none">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+          <button class="cal-nav-btn" onclick="changeGrillaMonth(-1)">←</button>
+          <div style="font-size:17px;font-weight:700;text-transform:capitalize;min-width:150px;text-align:center" id="grilla-month-title">—</div>
+          <button class="cal-nav-btn" onclick="changeGrillaMonth(1)">→</button>
+          <div style="flex:1"></div>
           <button class="action-btn" onclick="addParrillaRow()">+ Agregar fila</button>
         </div>
         <div id="parrilla-wrap"></div>
@@ -983,7 +990,7 @@ function launchPortal(data) {
     calEntries: saved.calEntries || [],
     contentPosts: saved.contentPosts || [],
     piezasMedias: saved.piezasMedias || [],
-    parrilla: saved.parrilla || []
+    parrilla: (function(){let p=saved.parrilla||{};if(Array.isArray(p)){if(p.length){const k=new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,'0');const o={};o[k]=p;return o;}return{};}return p;})()
   };
 
   const now = new Date();
@@ -1237,6 +1244,18 @@ async function uploadFile(file){
 }
 
 // ─── CONTENIDO / POSTS ───
+let grillaYear = new Date().getFullYear();
+let grillaMonth = new Date().getMonth();
+const MESES_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+function grillaMonthKey(){return grillaYear+'-'+String(grillaMonth+1).padStart(2,'0');}
+function changeGrillaMonth(dir){
+  grillaMonth+=dir;
+  if(grillaMonth>11){grillaMonth=0;grillaYear++;}
+  if(grillaMonth<0){grillaMonth=11;grillaYear--;}
+  renderParrilla();
+}
+
 let editingPostId = null;
 let editingPiezaId = null;
 let pendingPostFiles = [];
@@ -1270,20 +1289,20 @@ function setFilter(type, val, el){
 function setContentSection(sec){
   contentSection=sec;
   document.getElementById('content-posts-section').style.display=sec==='posts'?'block':'none';
-  document.getElementById('content-parrilla-section').style.display=sec==='parrilla'?'block':'none';
+  document.getElementById('content-grilla-section').style.display=sec==='grilla'?'block':'none';
   document.getElementById('content-piezas-section').style.display=sec==='piezas'?'block':'none';
   document.getElementById('csnav-posts').classList.toggle('active',sec==='posts');
-  document.getElementById('csnav-parrilla').classList.toggle('active',sec==='parrilla');
+  document.getElementById('csnav-grilla').classList.toggle('active',sec==='grilla');
   document.getElementById('csnav-piezas').classList.toggle('active',sec==='piezas');
-  const labels={posts:'+ Nueva publicación',parrilla:'+ Agregar fila',piezas:'+ Agregar pieza'};
+  const labels={posts:'+ Nueva publicación',grilla:'+ Agregar fila',piezas:'+ Agregar pieza'};
   document.getElementById('content-new-btn').textContent=labels[sec]||'+ Nuevo';
   if(sec==='piezas') renderPiezasGrid();
-  if(sec==='parrilla') renderParrilla();
+  if(sec==='grilla') renderParrilla();
 }
 
 function onContentNew(){
   if(contentSection==='posts') openPostEditor(null);
-  else if(contentSection==='parrilla') addParrillaRow();
+  else if(contentSection==='grilla') addParrillaRow();
   else openPiezaEditor(null);
 }
 
@@ -1305,7 +1324,7 @@ function renderContentGrid(){
 function renderPostsGrid(posts){
   const wrap=document.getElementById('posts-grid-wrap');
   if(!posts.length){wrap.innerHTML='<div class="posts-empty-state">Sin publicaciones aún. Crea la primera con <strong>+ Nueva publicación</strong>.</div>';return;}
-  let html='<div class="posts-editorial-grid">';
+  let html='<div class="posts-hscroll">';
   posts.forEach((post,i)=>{
     const f=post.archivos&&post.archivos[0];
     const thumb=f?(f.id?'https://drive.google.com/thumbnail?id='+f.id+'&sz=w600':f.url):post.videoUrl||'';
@@ -1320,21 +1339,21 @@ function renderPostsGrid(posts){
     if(thumb&&!isVideo) mediaHtml='<img class="post-card-media" src="'+thumb+'" alt="" onerror="this.style.display=\'none\'">';
     else if(thumb&&isVideo) mediaHtml='<video class="post-card-media" src="'+thumb+'" muted playsinline></video>';
     else mediaHtml='<div class="post-card-no-media"><div class="post-card-no-media-icon">'+tipo.icon+'</div><div class="post-card-no-media-copy">'+(copyPrev||'Sin archivos aún')+'</div></div>';
-    html+='<div class="post-card" onclick="openPostPreview(\''+post.id+'\')">';
+    html+='<div class="post-hcard" onclick="openPostPreview(\''+post.id+'\')">';
     html+='<div class="post-card-status-bar" style="background:'+estado.color+'"></div>';
     html+=mediaHtml;
     html+='<div class="post-card-gradient"></div>';
-    html+='<div class="post-card-top"><span class="tipo-badge '+tipo.cls+'" style="position:static">'+tipo.label+'</span><span class="post-card-num">'+(i+1)+'</span></div>';
+    html+='<div class="post-card-top"><span class="tipo-badge '+tipo.cls+'" style="position:static;font-size:8px">'+tipo.label+'</span><span class="post-card-num">'+(i+1)+'</span></div>';
     html+='<div class="post-card-actions" onclick="event.stopPropagation()">';
     html+='<button class="post-card-action-btn edit" onclick="openPostEditor(\''+post.id+'\')" title="Editar">✏️</button>';
     html+='<button class="post-card-action-btn del" onclick="deletePost(\''+post.id+'\')" title="Eliminar">🗑</button>';
     html+='</div>';
     html+='<div class="post-card-bottom">';
-    if(isRevision) html+='<button class="post-card-approve-btn" onclick="event.stopPropagation();approvePost(\''+post.id+'\')">✓ Aprobar publicación</button>';
+    if(isRevision) html+='<button class="post-card-approve-btn" onclick="event.stopPropagation();approvePost(\''+post.id+'\')">✓ Aprobar</button>';
     html+='<div class="post-card-copy">'+(copyPrev||'Sin copy')+'</div>';
     html+='<div class="post-card-meta-row"><div class="post-card-plat">'+plat.icon+'</div>';
     if(dateFmt) html+='<span class="post-card-date">'+dateFmt+'</span>';
-    html+='<span class="status-chip '+estado.cls+'" style="margin-left:auto">'+estado.label+'</span></div>';
+    html+='<span class="status-chip '+estado.cls+'" style="margin-left:auto;font-size:8px">'+estado.label+'</span></div>';
     html+='</div></div>';
   });
   html+='</div>';
@@ -1689,7 +1708,12 @@ const MEDIO_P={instagram:{label:'Instagram',bg:'#fdf0f4',color:'#e1306c'},tiktok
 const ESTADO_P={borrador:{label:'Borrador',bg:'#f3f4f6',color:'#6b7280'},revision:{label:'Revisión',bg:'#fff7ed',color:'#d97706'},aprobado:{label:'Aprobado',bg:'#f0fdf4',color:'#059669'},publicado:{label:'Publicado',bg:'#eef2ff',color:'#4f46e5'}};
 
 function renderParrilla(){
-  const rows=estrategia.parrilla||[];
+  if(!estrategia.parrilla||Array.isArray(estrategia.parrilla))estrategia.parrilla={};
+  const key=grillaMonthKey();
+  if(!estrategia.parrilla[key])estrategia.parrilla[key]=[];
+  const rows=estrategia.parrilla[key];
+  const titleEl=document.getElementById('grilla-month-title');
+  if(titleEl)titleEl.textContent=MESES_ES[grillaMonth]+' '+grillaYear;
   const wrap=document.getElementById('parrilla-wrap');
   if(!wrap)return;
   let html='<div class="parrilla-wrap"><table class="parrilla-table">';
@@ -1723,22 +1747,29 @@ function renderParrilla(){
 }
 
 function addParrillaRow(){
-  if(!estrategia.parrilla)estrategia.parrilla=[];
-  estrategia.parrilla.push({id:uid(),descripcion:'',tipo:'estatica',fecha:'',producto:'',copy:'',medio:'instagram',estado:'borrador'});
+  if(!estrategia.parrilla||Array.isArray(estrategia.parrilla))estrategia.parrilla={};
+  const key=grillaMonthKey();
+  if(!estrategia.parrilla[key])estrategia.parrilla[key]=[];
+  estrategia.parrilla[key].push({id:uid(),descripcion:'',tipo:'estatica',fecha:'',producto:'',copy:'',medio:'instagram',estado:'borrador'});
   renderParrilla();
   scheduleStratSave();
   setTimeout(function(){const rows=document.querySelectorAll('.parrilla-table tbody tr');const last=rows[rows.length-1];if(last){const inp=last.querySelector('.parrilla-input');if(inp)inp.focus();}},80);
 }
 
 function updateParrillaField(id,field,value){
-  const row=(estrategia.parrilla||[]).find(function(r){return r.id===id;});
+  if(!estrategia.parrilla||Array.isArray(estrategia.parrilla))return;
+  const key=grillaMonthKey();
+  const rows=estrategia.parrilla[key]||[];
+  const row=rows.find(function(r){return r.id===id;});
   if(row)row[field]=value;
   scheduleStratSave();
 }
 
 function deleteParrillaRow(id){
   if(!confirm('¿Eliminar esta fila?'))return;
-  estrategia.parrilla=(estrategia.parrilla||[]).filter(function(r){return r.id!==id;});
+  if(!estrategia.parrilla||Array.isArray(estrategia.parrilla))return;
+  const key=grillaMonthKey();
+  estrategia.parrilla[key]=(estrategia.parrilla[key]||[]).filter(function(r){return r.id!==id;});
   renderParrilla();
   scheduleStratSave();
 }
