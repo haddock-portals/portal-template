@@ -905,11 +905,12 @@ function launchPortal(data) {
   document.getElementById('hdr-name').textContent = clientName;
   if (data.clientDesc) document.getElementById('hdr-desc').textContent = data.clientDesc;
 
-  document.getElementById('ig-username-el').textContent = clientName.toLowerCase().replace(/\s+/g,'_');
-  document.getElementById('ig-bio-el').textContent = data.clientDesc || '';
-  const igAv = document.getElementById('ig-avatar-el');
-  if (data.clientLogo) igAv.innerHTML = `<img src="${data.clientLogo}" alt="">`;
-  else igAv.textContent = clientName.charAt(0).toUpperCase();
+  const igUser = document.getElementById('ig-username-el');
+  const igBio  = document.getElementById('ig-bio-el');
+  const igAv   = document.getElementById('ig-avatar-el');
+  if (igUser) igUser.textContent = clientName.toLowerCase().replace(/\s+/g,'_');
+  if (igBio)  igBio.textContent  = data.clientDesc || '';
+  if (igAv) { if (data.clientLogo) igAv.innerHTML = `<img src="${data.clientLogo}" alt="">`; else igAv.textContent = clientName.charAt(0).toUpperCase(); }
 
   // Load estrategia (new matrix format)
   const saved = data.estrategia || {};
