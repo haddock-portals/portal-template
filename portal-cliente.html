@@ -176,7 +176,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .matrix-row-label-cell:hover .matrix-row-del{opacity:1}
 .matrix-row-del:hover{background:#fef2f2;color:#ef4444}
 .matrix-cell{padding:0}
-.matrix-cell-input{width:100%;padding:14px;font-size:13px;font-family:var(--font-sans);border:none;outline:none;background:transparent;color:var(--text);resize:none;min-height:80px;line-height:1.6;display:block}
+.matrix-cell-input{width:100%;padding:14px;font-size:13px;font-family:var(--font-sans);border:none;outline:none;background:transparent;color:var(--text);resize:none;min-height:80px;line-height:1.6;display:block;overflow:hidden}
 .matrix-cell-input:focus{background:var(--accent-bg)}
 .matrix-add-row{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1.5px dashed var(--border);cursor:pointer;color:var(--muted);font-size:13px;font-family:var(--font-sans);transition:all .15s;background:#fff}
 .matrix-add-row:hover{color:var(--accent);background:var(--accent-bg)}
@@ -211,7 +211,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .roadmap-status-badge.done{background:#f0fdf4;color:#059669}
 .roadmap-status-badge.pending{background:#f4f3ee;color:var(--muted)}
 .roadmap-status-badge.overdue{background:#fef2f2;color:#dc2626}
-.roadmap-card-desc{margin-top:10px;font-size:13px;color:var(--muted);outline:none;line-height:1.6;min-height:18px}
+.roadmap-card-desc{margin-top:10px;font-size:13px;color:var(--muted);outline:none;line-height:1.6;min-height:18px;white-space:pre-wrap}
 .roadmap-card-desc[contenteditable="true"]:empty:before{content:attr(placeholder);color:var(--muted2)}
 .roadmap-add-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;border:1.5px dashed var(--border);border-radius:var(--r-lg);background:none;cursor:pointer;font-size:13px;color:var(--muted);font-family:var(--font-sans);width:100%;margin-top:8px;transition:all .15s}
 .roadmap-add-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
@@ -364,6 +364,59 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .pt-audio{background:#d1fae5;color:#065f46}
 .piezas-empty{padding:40px 20px;text-align:center;color:var(--muted2);font-size:13px;border:1.5px dashed var(--border);border-radius:var(--r-lg)}
 
+/* ─── TASK DELETE BTN ─── */
+.task-del-btn{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:none;background:none;cursor:pointer;color:var(--muted2);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;line-height:1;padding:0;opacity:0}
+.task-card:hover .task-del-btn{opacity:1}
+.task-del-btn:hover{background:#fef2f2;color:#ef4444}
+
+/* ─── EDITORIAL CONTENT CARDS ─── */
+.posts-editorial-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.post-card{position:relative;border-radius:20px;overflow:hidden;background:#111;cursor:pointer;transition:transform .28s cubic-bezier(.4,0,.2,1),box-shadow .28s;aspect-ratio:4/5}
+.post-card:hover{transform:translateY(-6px);box-shadow:0 24px 64px rgba(0,0,0,.18)}
+.post-card-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s cubic-bezier(.4,0,.2,1);display:block}
+.post-card:hover .post-card-media{transform:scale(1.05)}
+.post-card-no-media{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 55%,#0f3460 100%)}
+.post-card-no-media-icon{font-size:44px;opacity:.65}
+.post-card-no-media-copy{font-size:12px;color:rgba(255,255,255,.45);text-align:center;padding:0 24px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.post-card-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,transparent 28%,transparent 45%,rgba(0,0,0,.88) 100%);pointer-events:none}
+.post-card-status-bar{position:absolute;top:0;left:0;right:0;height:4px;z-index:2}
+.post-card-top{position:absolute;top:14px;left:14px;right:14px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;z-index:3}
+.post-card-num{font-size:9px;font-family:var(--font-mono);color:rgba(255,255,255,.6);background:rgba(0,0,0,.45);backdrop-filter:blur(4px);padding:3px 9px;border-radius:99px;letter-spacing:.04em}
+.post-card-bottom{position:absolute;bottom:0;left:0;right:0;padding:16px 16px 18px;z-index:3}
+.post-card-approve-btn{width:100%;padding:11px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-sans);transition:all .2s;margin-bottom:12px;letter-spacing:.02em;box-shadow:0 4px 14px rgba(16,185,129,.4)}
+.post-card-approve-btn:hover{background:linear-gradient(135deg,#059669,#047857);box-shadow:0 6px 20px rgba(16,185,129,.5)}
+.post-card-copy{font-size:13px;color:rgba(255,255,255,.9);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px;font-weight:500;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.post-card-meta-row{display:flex;align-items:center;gap:8px}
+.post-card-plat{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;border:1px solid rgba(255,255,255,.2)}
+.post-card-date{font-size:10px;color:rgba(255,255,255,.65);font-family:var(--font-mono);flex:1}
+.post-card-actions{position:absolute;top:52px;right:14px;display:flex;flex-direction:column;gap:6px;opacity:0;transition:opacity .2s;z-index:4}
+.post-card:hover .post-card-actions{opacity:1}
+.post-card-action-btn{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;backdrop-filter:blur(8px);transition:all .15s}
+.post-card-action-btn.edit{background:rgba(255,255,255,.18);color:#fff}
+.post-card-action-btn.edit:hover{background:rgba(255,255,255,.32)}
+.post-card-action-btn.del{background:rgba(239,68,68,.25);color:#fff}
+.post-card-action-btn.del:hover{background:rgba(239,68,68,.75)}
+
+/* ─── PARRILLA ─── */
+.parrilla-wrap{overflow-x:auto;border-radius:var(--r-lg);border:1.5px solid var(--border);background:#fff}
+.parrilla-table{width:100%;border-collapse:collapse;min-width:960px}
+.parrilla-table th{background:#f9f8f5;padding:10px 14px;font-size:10px;font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);text-align:left;border-bottom:2px solid var(--border);white-space:nowrap;font-weight:600}
+.parrilla-table td{border-bottom:1px solid var(--border);padding:0;vertical-align:middle}
+.parrilla-table tr:last-child td{border-bottom:none}
+.parrilla-table tr:hover td{background:#fafaf7}
+.parrilla-num-cell{padding:10px 14px;font-size:11px;color:var(--muted2);font-family:var(--font-mono);text-align:center;width:36px}
+.parrilla-input{width:100%;padding:10px 12px;border:none;outline:none;font-size:13px;font-family:var(--font-sans);background:transparent;color:var(--text)}
+.parrilla-input:focus{background:var(--accent-bg)}
+.parrilla-date-input{padding:10px 12px;border:none;outline:none;font-size:12px;font-family:var(--font-mono);background:transparent;color:var(--text);cursor:pointer;width:144px}
+.parrilla-date-input:focus{background:var(--accent-bg)}
+.parrilla-chip-cell{padding:6px 10px;white-space:nowrap}
+.parrilla-select{border:none;outline:none;font-size:11px;font-family:var(--font-sans);cursor:pointer;padding:4px 10px;border-radius:99px;font-weight:700;-webkit-appearance:none;appearance:none}
+.parrilla-del-btn{width:30px;height:30px;border-radius:50%;border:none;background:none;cursor:pointer;color:var(--muted2);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;margin:0 8px;opacity:0}
+.parrilla-table tr:hover .parrilla-del-btn{opacity:1}
+.parrilla-del-btn:hover{background:#fef2f2;color:#ef4444}
+.parrilla-add-row{display:flex;align-items:center;gap:10px;padding:13px 16px;border-top:1.5px dashed var(--border);cursor:pointer;color:var(--muted);font-size:13px;transition:all .15s;background:#fff;border-radius:0 0 var(--r-lg) var(--r-lg)}
+.parrilla-add-row:hover{color:var(--accent);background:var(--accent-bg)}
+
 /* Post preview */
 #post-preview-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px;gap:20px}
 .phone-frame{background:#fff;border-radius:44px;width:320px;max-width:100%;box-shadow:0 0 0 12px #1a1a1a,0 0 0 14px #333,var(--shadow-lg);overflow:hidden;animation:slideUp .25s cubic-bezier(.32,0,.04,1);flex-shrink:0}
@@ -498,6 +551,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       </div>
       <div class="content-subnav" style="margin-top:16px">
         <button class="content-snav-btn active" id="csnav-posts" onclick="setContentSection('posts')">📱 Publicaciones</button>
+        <button class="content-snav-btn" id="csnav-parrilla" onclick="setContentSection('parrilla')">📊 Parrilla</button>
         <button class="content-snav-btn" id="csnav-piezas" onclick="setContentSection('piezas')">🗂 Piezas de medios</button>
       </div>
 
@@ -525,6 +579,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         </div>
         <div id="posts-grid-wrap"></div>
         <div id="posts-list-wrap" style="display:none"></div>
+      </div>
+
+      <!-- PARRILLA DE CONTENIDO -->
+      <div id="content-parrilla-section" style="display:none">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+          <div style="flex:1;font-size:14px;color:var(--muted)">Planificación detallada de contenidos. Edita directamente en cada celda.</div>
+          <button class="action-btn" onclick="addParrillaRow()">+ Agregar fila</button>
+        </div>
+        <div id="parrilla-wrap"></div>
       </div>
 
       <!-- PIEZAS DE MEDIOS -->
@@ -919,7 +982,8 @@ function launchPortal(data) {
     roadmap: saved.roadmap || [],
     calEntries: saved.calEntries || [],
     contentPosts: saved.contentPosts || [],
-    piezasMedias: saved.piezasMedias || []
+    piezasMedias: saved.piezasMedias || [],
+    parrilla: saved.parrilla || []
   };
 
   const now = new Date();
@@ -994,7 +1058,7 @@ function renderCol(id,items){
   el.innerHTML=items.map(t=>{
     const files=(t.archivos||[]).length,comments=(t.comentarios||[]).length;
     const note=t.notas?`<div class="task-card-notes">${esc(t.notas)}</div>`:'';
-    return`<div class="task-card" data-id="${t.id}" draggable="true"><div class="task-card-title">${esc(t.titulo)}</div><div class="task-card-meta">${dateChip(t.fecha)}${files?`<span class="chip chip-file">📎 ${files}</span>`:''}${comments?`<span class="chip chip-comment">💬 ${comments}</span>`:''}</div>${note}</div>`;
+    return`<div class="task-card" data-id="${t.id}" draggable="true"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:10px"><div class="task-card-title" style="margin-bottom:0">${esc(t.titulo)}</div><button class="task-del-btn" onclick="event.stopPropagation();deleteTask('${t.id}')" title="Eliminar tarea">×</button></div><div class="task-card-meta">${dateChip(t.fecha)}${files?`<span class="chip chip-file">📎 ${files}</span>`:''}${comments?`<span class="chip chip-comment">💬 ${comments}</span>`:''}</div>${note}</div>`;
   }).join('');
   el.querySelectorAll('.task-card').forEach(card=>{
     card.addEventListener('click',()=>openModal(card.dataset.id));
@@ -1015,6 +1079,14 @@ async function onDrop(e,nuevoEstado){
   task.estado=nuevoEstado;renderPortal();
   try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task}));await fetch(API,{method:'POST',body:fd});showToast('Tarea movida ✓');}
   catch(e){showToast('Error al guardar.');}
+}
+
+async function deleteTask(id){
+  if(!confirm('¿Eliminar esta tarea?'))return;
+  tasks=tasks.filter(t=>t.id!==id);
+  renderPortal();
+  try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'delete',id}));await fetch(API,{method:'POST',body:fd});showToast('Tarea eliminada');}
+  catch(e){showToast('Error al eliminar.');}
 }
 
 // ─── TASK FORM ───
@@ -1198,15 +1270,20 @@ function setFilter(type, val, el){
 function setContentSection(sec){
   contentSection=sec;
   document.getElementById('content-posts-section').style.display=sec==='posts'?'block':'none';
+  document.getElementById('content-parrilla-section').style.display=sec==='parrilla'?'block':'none';
   document.getElementById('content-piezas-section').style.display=sec==='piezas'?'block':'none';
   document.getElementById('csnav-posts').classList.toggle('active',sec==='posts');
+  document.getElementById('csnav-parrilla').classList.toggle('active',sec==='parrilla');
   document.getElementById('csnav-piezas').classList.toggle('active',sec==='piezas');
-  document.getElementById('content-new-btn').textContent=sec==='posts'?'+ Nueva publicación':'+ Agregar pieza';
+  const labels={posts:'+ Nueva publicación',parrilla:'+ Agregar fila',piezas:'+ Agregar pieza'};
+  document.getElementById('content-new-btn').textContent=labels[sec]||'+ Nuevo';
   if(sec==='piezas') renderPiezasGrid();
+  if(sec==='parrilla') renderParrilla();
 }
 
 function onContentNew(){
   if(contentSection==='posts') openPostEditor(null);
+  else if(contentSection==='parrilla') addParrillaRow();
   else openPiezaEditor(null);
 }
 
@@ -1228,33 +1305,37 @@ function renderContentGrid(){
 function renderPostsGrid(posts){
   const wrap=document.getElementById('posts-grid-wrap');
   if(!posts.length){wrap.innerHTML='<div class="posts-empty-state">Sin publicaciones aún. Crea la primera con <strong>+ Nueva publicación</strong>.</div>';return;}
-  let html='<div class="posts-ig-grid">';
+  let html='<div class="posts-editorial-grid">';
   posts.forEach((post,i)=>{
     const f=post.archivos&&post.archivos[0];
-    const thumb=f?(f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url):post.videoUrl||'';
+    const thumb=f?(f.id?'https://drive.google.com/thumbnail?id='+f.id+'&sz=w600':f.url):post.videoUrl||'';
     const isVideo=f&&f.type&&f.type.startsWith('video');
     const tipo=TIPO_META[post.tipo]||TIPO_META.imagen;
     const plat=PLAT_META[post.plataforma]||PLAT_META.instagram;
     const estado=ESTADO_META[post.estado]||ESTADO_META.borrador;
-    const copyPrev=esc((post.copy||'').slice(0,120));
+    const copyPrev=esc((post.copy||'').slice(0,100));
     const dateFmt=post.fecha?fmtDate(post.fecha):'';
-    html+=`<div class="post-ig-cell" onclick="openPostPreview('${post.id}')">
-      <div class="status-border-top" style="background:${estado.color}"></div>
-      <span class="post-ig-num">${i+1}</span>
-      <span class="tipo-badge ${tipo.cls}">${tipo.label}</span>
-      ${thumb
-        ?(isVideo?`<video src="${thumb}" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block"></video>`:`<img src="${thumb}" alt="" onerror="this.style.display='none'">`)
-        :`<div class="post-ig-no-media"><div class="post-ig-no-media-icon">${tipo.icon}</div><div class="post-ig-no-media-copy">${copyPrev||'Sin archivos aún'}</div></div>`
-      }
-      <div class="post-ig-cell-overlay">
-        <div class="post-ig-copy">${copyPrev||'Sin copy'}</div>
-        <div class="post-ig-meta-row">
-          <div class="plat-dot">${plat.icon}</div>
-          ${dateFmt?`<span style="font-size:9px;color:rgba(255,255,255,.8);font-family:var(--font-mono)">${dateFmt}</span>`:''}
-          <span class="status-chip ${estado.cls}" style="margin-left:auto">${estado.label}</span>
-        </div>
-      </div>
-    </div>`;
+    const isRevision=post.estado==='revision';
+    let mediaHtml='';
+    if(thumb&&!isVideo) mediaHtml='<img class="post-card-media" src="'+thumb+'" alt="" onerror="this.style.display=\'none\'">';
+    else if(thumb&&isVideo) mediaHtml='<video class="post-card-media" src="'+thumb+'" muted playsinline></video>';
+    else mediaHtml='<div class="post-card-no-media"><div class="post-card-no-media-icon">'+tipo.icon+'</div><div class="post-card-no-media-copy">'+(copyPrev||'Sin archivos aún')+'</div></div>';
+    html+='<div class="post-card" onclick="openPostPreview(\''+post.id+'\')">';
+    html+='<div class="post-card-status-bar" style="background:'+estado.color+'"></div>';
+    html+=mediaHtml;
+    html+='<div class="post-card-gradient"></div>';
+    html+='<div class="post-card-top"><span class="tipo-badge '+tipo.cls+'" style="position:static">'+tipo.label+'</span><span class="post-card-num">'+(i+1)+'</span></div>';
+    html+='<div class="post-card-actions" onclick="event.stopPropagation()">';
+    html+='<button class="post-card-action-btn edit" onclick="openPostEditor(\''+post.id+'\')" title="Editar">✏️</button>';
+    html+='<button class="post-card-action-btn del" onclick="deletePost(\''+post.id+'\')" title="Eliminar">🗑</button>';
+    html+='</div>';
+    html+='<div class="post-card-bottom">';
+    if(isRevision) html+='<button class="post-card-approve-btn" onclick="event.stopPropagation();approvePost(\''+post.id+'\')">✓ Aprobar publicación</button>';
+    html+='<div class="post-card-copy">'+(copyPrev||'Sin copy')+'</div>';
+    html+='<div class="post-card-meta-row"><div class="post-card-plat">'+plat.icon+'</div>';
+    if(dateFmt) html+='<span class="post-card-date">'+dateFmt+'</span>';
+    html+='<span class="status-chip '+estado.cls+'" style="margin-left:auto">'+estado.label+'</span></div>';
+    html+='</div></div>';
   });
   html+='</div>';
   wrap.innerHTML=html;
@@ -1289,6 +1370,15 @@ function renderPostsList(posts){
       </div>
     </div>`;
   }).join('')+'</div>';
+}
+
+async function approvePost(id){
+  const post=(estrategia.contentPosts||[]).find(p=>p.id===id);
+  if(!post)return;
+  post.estado='aprobado';
+  renderContentGrid();
+  await doSaveEstrategia();
+  showToast('¡Publicación aprobada! ✓');
 }
 
 // POST EDITOR
@@ -1593,6 +1683,66 @@ async function savePieza(){
   }catch(err){showToast('Error al guardar.');btn.disabled=false;btn.textContent='Guardar';}
 }
 
+// ─── PARRILLA ───
+const TIPO_P={reel:{label:'Reel',bg:'#fff0f1',color:'#ff4757'},video:{label:'Video',bg:'#f0fdf4',color:'#059669'},carrusel:{label:'Carrusel',bg:'#f5f3ff',color:'#7c3aed'},estatica:{label:'Estática',bg:'#eff6ff',color:'#2563eb'}};
+const MEDIO_P={instagram:{label:'Instagram',bg:'#fdf0f4',color:'#e1306c'},tiktok:{label:'TikTok',bg:'#f4f3ee',color:'#1a1a1a'},youtube:{label:'YouTube',bg:'#fff5f5',color:'#ff0000'},linkedin:{label:'LinkedIn',bg:'#f0f7ff',color:'#0a66c2'}};
+const ESTADO_P={borrador:{label:'Borrador',bg:'#f3f4f6',color:'#6b7280'},revision:{label:'Revisión',bg:'#fff7ed',color:'#d97706'},aprobado:{label:'Aprobado',bg:'#f0fdf4',color:'#059669'},publicado:{label:'Publicado',bg:'#eef2ff',color:'#4f46e5'}};
+
+function renderParrilla(){
+  const rows=estrategia.parrilla||[];
+  const wrap=document.getElementById('parrilla-wrap');
+  if(!wrap)return;
+  let html='<div class="parrilla-wrap"><table class="parrilla-table">';
+  html+='<thead><tr><th style="width:36px">#</th><th>Descripción publicación</th><th>Tipo</th><th>Fecha</th><th>Producto</th><th>Copy</th><th>Medio</th><th>Estado</th><th style="width:46px"></th></tr></thead><tbody>';
+  if(!rows.length){
+    html+='<tr><td colspan="9" style="padding:48px 20px;text-align:center;color:var(--muted2);font-size:14px">Sin filas aún. Agrega la primera con <strong>+ Agregar fila</strong>.</td></tr>';
+  }
+  rows.forEach(function(row,i){
+    const tipo=TIPO_P[row.tipo]||TIPO_P.estatica;
+    const medio=MEDIO_P[row.medio]||MEDIO_P.instagram;
+    const estado=ESTADO_P[row.estado]||ESTADO_P.borrador;
+    const tipoOpts=Object.keys(TIPO_P).map(function(k){return '<option value="'+k+'"'+(row.tipo===k?' selected':'')+'>'+TIPO_P[k].label+'</option>';}).join('');
+    const medioOpts=Object.keys(MEDIO_P).map(function(k){return '<option value="'+k+'"'+(row.medio===k?' selected':'')+'>'+MEDIO_P[k].label+'</option>';}).join('');
+    const estadoOpts=Object.keys(ESTADO_P).map(function(k){return '<option value="'+k+'"'+(row.estado===k?' selected':'')+'>'+ESTADO_P[k].label+'</option>';}).join('');
+    html+='<tr>';
+    html+='<td class="parrilla-num-cell">'+(i+1)+'</td>';
+    html+='<td><input class="parrilla-input" value="'+esc(row.descripcion||'')+'" placeholder="Descripción..." onchange="updateParrillaField(\''+row.id+'\',\'descripcion\',this.value)"></td>';
+    html+='<td class="parrilla-chip-cell"><select class="parrilla-select" style="background:'+tipo.bg+';color:'+tipo.color+'" onchange="updateParrillaField(\''+row.id+'\',\'tipo\',this.value)">'+tipoOpts+'</select></td>';
+    html+='<td><input class="parrilla-date-input" type="date" value="'+(row.fecha||'')+'" onchange="updateParrillaField(\''+row.id+'\',\'fecha\',this.value)"></td>';
+    html+='<td><input class="parrilla-input" value="'+esc(row.producto||'')+'" placeholder="Producto..." onchange="updateParrillaField(\''+row.id+'\',\'producto\',this.value)"></td>';
+    html+='<td><input class="parrilla-input" value="'+esc(row.copy||'')+'" placeholder="Copy out..." style="min-width:180px" onchange="updateParrillaField(\''+row.id+'\',\'copy\',this.value)"></td>';
+    html+='<td class="parrilla-chip-cell"><select class="parrilla-select" style="background:'+medio.bg+';color:'+medio.color+'" onchange="updateParrillaField(\''+row.id+'\',\'medio\',this.value)">'+medioOpts+'</select></td>';
+    html+='<td class="parrilla-chip-cell"><select class="parrilla-select" style="background:'+estado.bg+';color:'+estado.color+'" onchange="updateParrillaField(\''+row.id+'\',\'estado\',this.value)">'+estadoOpts+'</select></td>';
+    html+='<td><button class="parrilla-del-btn" onclick="deleteParrillaRow(\''+row.id+'\')">🗑</button></td>';
+    html+='</tr>';
+  });
+  html+='</tbody></table>';
+  html+='<div class="parrilla-add-row" onclick="addParrillaRow()"><span style="font-size:18px">+</span> Agregar fila</div>';
+  html+='</div>';
+  wrap.innerHTML=html;
+}
+
+function addParrillaRow(){
+  if(!estrategia.parrilla)estrategia.parrilla=[];
+  estrategia.parrilla.push({id:uid(),descripcion:'',tipo:'estatica',fecha:'',producto:'',copy:'',medio:'instagram',estado:'borrador'});
+  renderParrilla();
+  scheduleStratSave();
+  setTimeout(function(){const rows=document.querySelectorAll('.parrilla-table tbody tr');const last=rows[rows.length-1];if(last){const inp=last.querySelector('.parrilla-input');if(inp)inp.focus();}},80);
+}
+
+function updateParrillaField(id,field,value){
+  const row=(estrategia.parrilla||[]).find(function(r){return r.id===id;});
+  if(row)row[field]=value;
+  scheduleStratSave();
+}
+
+function deleteParrillaRow(id){
+  if(!confirm('¿Eliminar esta fila?'))return;
+  estrategia.parrilla=(estrategia.parrilla||[]).filter(function(r){return r.id!==id;});
+  renderParrilla();
+  scheduleStratSave();
+}
+
 function handleMediaUpload(){} // legacy stub
 
 // ─── CALENDARIO ───
@@ -1720,7 +1870,7 @@ function renderRoadmap(){
           <div class="roadmap-date">📅 <input type="date" value="${item.date||''}" onchange="updateRoadmapField('${item.id}','date',this.value)"></div>
           <div class="roadmap-status-badge ${badgeClass}" onclick="toggleRoadmapStatus('${item.id}')">${badgeText}</div>
         </div>
-        ${item.desc!==undefined?`<div class="roadmap-card-desc" contenteditable="true" placeholder="Descripción opcional..." onblur="updateRoadmapField('${item.id}','desc',this.innerText)">${esc(item.desc||'')}</div>`:''}
+        ${item.desc!==undefined?`<div class="roadmap-card-desc" contenteditable="true" placeholder="Descripción opcional..." onblur="updateRoadmapField('${item.id}','desc',this.innerText)">${escBr(item.desc||'')}</div>`:''}
       </div>
     </div>`;
   }).join('');
@@ -1752,9 +1902,11 @@ function toggleRoadmapStatus(id){
   showToast(item.status==='done'?'Hito marcado como completado ✓':'Hito marcado como pendiente');
 }
 
+function escBr(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');}
+
 function updateRoadmapField(id,field,value){
   const item=(estrategia.roadmap||[]).find(i=>i.id===id);
-  if(item)item[field]=value.trim();
+  if(item)item[field]=field==='desc'?value:value.trim();
   scheduleRoadmapSave();
 }
 
@@ -1788,12 +1940,13 @@ function renderMatrix(){
     m.cols.forEach(col=>{
       const cellKey=`${row.id}_${col.id}`;
       const val=m.cells[cellKey]||'';
-      html+=`<td class="matrix-cell"><textarea class="matrix-cell-input" rows="3" placeholder="..." onchange="updateMatrixCell('${row.id}','${col.id}',this.value)" oninput="updateMatrixCell('${row.id}','${col.id}',this.value)">${esc(val)}</textarea></td>`;
+      html+=`<td class="matrix-cell"><textarea class="matrix-cell-input" rows="3" placeholder="..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateMatrixCell('${row.id}','${col.id}',this.value)" onchange="updateMatrixCell('${row.id}','${col.id}',this.value)">${esc(val)}</textarea></td>`;
     });
     html+=`</tr>`;
   });
   html+=`</tbody>`;
   document.getElementById('matrix-table').innerHTML=html;
+  setTimeout(function(){document.querySelectorAll('.matrix-cell-input,.matrix-row-label-input').forEach(function(ta){ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});},50);
 }
 
 function updateMatrixCol(colId,label){const col=(estrategia.matrix.cols||[]).find(c=>c.id===colId);if(col)col.label=label;scheduleStratSave();}
