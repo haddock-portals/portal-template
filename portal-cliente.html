@@ -18,13 +18,11 @@
 }
 body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-size:15px;line-height:1.5;min-height:100vh}
 
-/* LOADING */
 #loading-screen{position:fixed;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:9999}
 .loading-logo{font-weight:700;font-size:32px;letter-spacing:-.05em}
 .loading-spinner{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* LOGIN */
 #login-screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px;background:linear-gradient(145deg,#fafaf7,#eeeef7)}
 .login-card{background:#fff;border-radius:28px;padding:52px 44px;max-width:440px;width:100%;box-shadow:var(--shadow-lg);text-align:center}
 .login-logo{font-weight:700;font-size:30px;letter-spacing:-.05em;margin-bottom:8px}
@@ -41,10 +39,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .login-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
 .login-powered{margin-top:44px;font-family:var(--font-mono);font-size:10px;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase}
 
-/* PORTAL */
 #portal{display:none;min-height:100vh;flex-direction:column}
 
-/* HEADER */
 .portal-header{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:16px;height:64px;position:sticky;top:0;z-index:200}
 .hdr-logo{font-weight:700;font-size:20px;letter-spacing:-.04em;flex-shrink:0}
 .hdr-logo img{height:36px;object-fit:contain;display:block}
@@ -60,7 +56,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .hdr-action-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 30%,transparent)}
 @media(max-width:600px){.portal-header{padding:0 16px}.hdr-pct,.progress-bar-wrap{display:none}}
 
-/* TABS */
 .tab-bar{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tab-bar::-webkit-scrollbar{display:none}
 @media(max-width:600px){.tab-bar{padding:0 16px}}
@@ -68,7 +63,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .tab-btn:hover{color:var(--text)}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-/* STATS */
 .stats-bar{background:#fff;border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr)}
 @media(max-width:600px){.stats-bar{grid-template-columns:repeat(2,1fr)}}
 .stat-cell{padding:20px 24px;border-right:1px solid var(--border)}
@@ -76,7 +70,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .stat-number{display:block;font-size:32px;font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:4px}
 .stat-label{font-size:11px;color:var(--muted);font-family:var(--font-mono);letter-spacing:.03em;text-transform:uppercase}
 
-/* KANBAN */
 .portal-columns{padding:28px 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1280px;margin:0 auto;width:100%}
 @media(max-width:960px){.portal-columns{grid-template-columns:1fr}}
 @media(max-width:600px){.portal-columns{padding:16px;gap:16px}}
@@ -97,7 +90,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .chip-ok{background:#f0fdf4;color:#059669}.chip-soon{background:#fff7ed;color:#d97706}.chip-over{background:#fef2f2;color:#dc2626}.chip-none{background:#f4f3ee;color:var(--muted)}.chip-file{background:#f0f4ff;color:#4f46e5}.chip-comment{background:#f4f3ee;color:var(--muted)}
 .empty-col{border:1.5px dashed var(--border);border-radius:var(--r-lg);padding:40px 20px;text-align:center;color:var(--muted2);font-size:13px}
 
-/* ─── CONTENIDO ─── */
 .tab-section{padding:28px 32px;max-width:1280px;margin:0 auto;width:100%}
 @media(max-width:600px){.tab-section{padding:16px}}
 .section-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
@@ -110,7 +102,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .action-btn.secondary{background:#f4f3ee;color:var(--text)}
 .action-btn.secondary:hover{background:var(--border);box-shadow:none}
 
-/* Gallery */
 #gallery-view{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
 .gallery-item{position:relative;aspect-ratio:1;border-radius:var(--r-lg);overflow:hidden;background:#f4f3ee;border:1.5px solid var(--border);cursor:pointer}
 .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
@@ -125,7 +116,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .gallery-file-name{font-size:11px;text-align:center;color:var(--muted);padding:0 8px;line-height:1.3}
 .gallery-empty{grid-column:1/-1;padding:60px 20px;text-align:center;color:var(--muted2);font-size:14px;border:1.5px dashed var(--border);border-radius:var(--r-lg)}
 
-/* Instagram */
 #instagram-view{display:none}
 .ig-grid-wrap{max-width:614px;margin:0 auto}
 .ig-profile-bar{display:flex;align-items:center;gap:16px;padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:16px}
@@ -148,8 +138,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .cal-nav-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
 .cal-day-label{background:#f9f8f5;padding:10px 4px;text-align:center;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2)}
-.cal-cell{background:#fff;min-height:100px;padding:8px;position:relative;vertical-align:top}
+.cal-cell{background:#fff;min-height:110px;padding:8px;position:relative;vertical-align:top;cursor:pointer;transition:background .12s}
+.cal-cell:hover{background:#f9f8f5}
 .cal-cell.other-month{background:#fafaf7}
+.cal-cell.other-month:hover{background:#f4f3ee}
 .cal-cell.today{background:color-mix(in srgb,var(--accent) 5%,transparent)}
 .cal-day-num{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%}
 .cal-cell.today .cal-day-num{background:var(--accent);color:#fff}
@@ -158,35 +150,71 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .cal-task-chip:hover{background:var(--accent);color:#fff}
 .cal-task-chip.over{background:#fef2f2;color:#dc2626}.cal-task-chip.over:hover{background:#ef4444;color:#fff}
 .cal-task-chip.soon{background:#fff7ed;color:#d97706}
-@media(max-width:700px){.cal-cell{min-height:60px;padding:4px}.cal-task-chip{display:none}.cal-cell.has-tasks::after{content:'•';position:absolute;bottom:4px;right:6px;font-size:16px;color:var(--accent)}}
+.cal-entry-chip{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:4px;cursor:default;font-family:var(--font-mono)}
+.cal-add-hint{position:absolute;bottom:4px;right:6px;font-size:10px;color:var(--muted2);opacity:0;transition:opacity .15s;pointer-events:none}
+.cal-cell:hover .cal-add-hint{opacity:1}
+@media(max-width:700px){.cal-cell{min-height:60px;padding:4px;cursor:pointer}.cal-task-chip,.cal-entry-chip{display:none}.cal-cell.has-tasks::after{content:'•';position:absolute;bottom:4px;right:6px;font-size:16px;color:var(--accent)}}
 
-/* ─── ESTRATEGIA ─── */
-.estrategia-board{display:flex;gap:16px;overflow-x:auto;padding-bottom:16px;align-items:flex-start;min-height:400px}
-.estrategia-board::-webkit-scrollbar{height:6px}
-.estrategia-board::-webkit-scrollbar-track{background:var(--border);border-radius:99px}
-.estrategia-board::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
-
-.strat-col{background:#fff;border:1.5px solid var(--border);border-radius:var(--r-lg);padding:16px;width:280px;min-width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:12px}
-.strat-col-header{display:flex;align-items:center;gap:8px}
-.strat-col-title-input{flex:1;font-size:14px;font-weight:700;border:none;outline:none;background:transparent;font-family:var(--font-sans);color:var(--text);cursor:text;padding:4px 6px;border-radius:8px;transition:background .15s}
-.strat-col-title-input:hover{background:var(--bg)}
-.strat-col-title-input:focus{background:var(--bg);outline:2px solid var(--accent);outline-offset:0}
-.strat-col-del-btn{width:28px;height:28px;border-radius:50%;border:none;background:none;cursor:pointer;color:var(--muted2);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-.strat-col-del-btn:hover{background:#fef2f2;color:#ef4444}
-.strat-cards{display:flex;flex-direction:column;gap:8px;flex:1}
-.strat-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;position:relative;group:true}
-.strat-card:hover{border-color:var(--accent)}
-.strat-card-text{font-size:13px;color:var(--text);line-height:1.5;white-space:pre-wrap;word-break:break-word;outline:none;min-height:20px}
-.strat-card-text:focus{outline:none}
-.strat-card-text[contenteditable="true"]:empty:before{content:attr(placeholder);color:var(--muted2)}
-.strat-card-del{position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;border:none;background:none;cursor:pointer;color:var(--muted2);font-size:12px;display:none;align-items:center;justify-content:center;transition:all .15s}
-.strat-card:hover .strat-card-del{display:flex}
-.strat-card-del:hover{background:#fef2f2;color:#ef4444}
-.strat-add-card-btn{width:100%;padding:8px;border:1.5px dashed var(--border);border-radius:var(--r);background:none;cursor:pointer;font-size:12px;color:var(--muted);font-family:var(--font-sans);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
-.strat-add-card-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
-.strat-add-col-btn{background:#fff;border:1.5px dashed var(--border);border-radius:var(--r-lg);padding:20px;width:200px;min-width:200px;cursor:pointer;font-size:13px;color:var(--muted);font-family:var(--font-sans);transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;flex-shrink:0;min-height:120px}
-.strat-add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+/* ─── ESTRATEGIA MATRIX ─── */
+.matrix-wrap{overflow-x:auto;border-radius:var(--r-lg);border:1.5px solid var(--border);background:#fff}
+.matrix-table{width:100%;border-collapse:collapse;min-width:600px}
+.matrix-table th,.matrix-table td{border:1px solid var(--border);padding:0}
+.matrix-th-row{background:#f9f8f5}
+.matrix-th-corner{width:160px;min-width:160px;padding:12px 16px;font-size:11px;font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);text-align:left;border-right:2px solid var(--border2)}
+.matrix-col-header{padding:0;position:relative}
+.matrix-col-input{width:100%;padding:12px 36px 12px 14px;font-size:13px;font-weight:700;font-family:var(--font-sans);border:none;outline:none;background:transparent;color:var(--text);cursor:text}
+.matrix-col-input:focus{background:var(--accent-bg)}
+.matrix-col-del{position:absolute;top:50%;right:8px;transform:translateY(-50%);width:22px;height:22px;border-radius:50%;border:none;background:none;cursor:pointer;color:var(--muted2);font-size:13px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .15s}
+.matrix-col-header:hover .matrix-col-del{opacity:1}
+.matrix-col-del:hover{background:#fef2f2;color:#ef4444}
+.matrix-row-label-cell{border-right:2px solid var(--border2);padding:0;position:relative;width:160px;min-width:160px}
+.matrix-row-label-inner{display:flex;align-items:stretch;height:100%}
+.matrix-row-color{width:6px;flex-shrink:0;border-radius:0}
+.matrix-row-label-input{flex:1;padding:14px 32px 14px 12px;font-size:14px;font-weight:700;font-family:var(--font-sans);border:none;outline:none;background:transparent;color:var(--text);cursor:text;min-height:80px;resize:none;line-height:1.4}
+.matrix-row-label-input:focus{background:#fafaf7}
+.matrix-row-del{position:absolute;top:8px;right:6px;width:22px;height:22px;border-radius:50%;border:none;background:none;cursor:pointer;color:var(--muted2);font-size:13px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .15s}
+.matrix-row-label-cell:hover .matrix-row-del{opacity:1}
+.matrix-row-del:hover{background:#fef2f2;color:#ef4444}
+.matrix-cell{padding:0}
+.matrix-cell-input{width:100%;padding:14px;font-size:13px;font-family:var(--font-sans);border:none;outline:none;background:transparent;color:var(--text);resize:none;min-height:80px;line-height:1.6;display:block}
+.matrix-cell-input:focus{background:var(--accent-bg)}
+.matrix-add-row{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1.5px dashed var(--border);cursor:pointer;color:var(--muted);font-size:13px;font-family:var(--font-sans);transition:all .15s;background:#fff}
+.matrix-add-row:hover{color:var(--accent);background:var(--accent-bg)}
+.matrix-add-col-btn{padding:8px 16px;border:1.5px dashed var(--border);border-radius:var(--r);background:none;cursor:pointer;font-size:12px;color:var(--muted);font-family:var(--font-sans);transition:all .15s;white-space:nowrap}
+.matrix-add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
 .strat-save-indicator{font-family:var(--font-mono);font-size:10px;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase;margin-left:auto}
+
+/* ─── ROADMAP ─── */
+.roadmap-wrap{position:relative;padding-left:40px}
+.roadmap-line{position:absolute;left:16px;top:0;bottom:0;width:2px;background:var(--border);border-radius:99px}
+.roadmap-item{position:relative;margin-bottom:28px;display:flex;gap:16px;align-items:flex-start}
+.roadmap-dot{position:absolute;left:-32px;width:18px;height:18px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--border);flex-shrink:0;cursor:pointer;transition:all .2s;top:14px}
+.roadmap-dot.done{background:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.roadmap-dot.pending{background:#fff;box-shadow:0 0 0 2px var(--border2)}
+.roadmap-dot.overdue{background:#ef4444;box-shadow:0 0 0 2px #ef4444}
+.roadmap-card{flex:1;background:#fff;border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;transition:border-color .15s}
+.roadmap-card:hover{border-color:var(--accent)}
+.roadmap-card.done{opacity:.65}
+.roadmap-card-header{display:flex;align-items:flex-start;gap:12px}
+.roadmap-card-title{flex:1;font-size:15px;font-weight:700;line-height:1.3;outline:none;min-height:22px}
+.roadmap-card-title[contenteditable="true"]:focus{background:var(--bg);border-radius:6px;padding:2px 6px;margin:-2px -6px}
+.roadmap-card-title[contenteditable="true"]:empty:before{content:attr(placeholder);color:var(--muted2)}
+.roadmap-card-actions{display:flex;gap:6px;flex-shrink:0}
+.rm-btn{width:28px;height:28px;border-radius:50%;border:none;background:none;cursor:pointer;font-size:14px;color:var(--muted2);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.rm-btn:hover{background:var(--bg);color:var(--text)}
+.rm-btn.del:hover{background:#fef2f2;color:#ef4444}
+.roadmap-card-meta{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.roadmap-date{font-family:var(--font-mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.roadmap-date input{border:none;font-family:var(--font-mono);font-size:11px;color:var(--muted);background:transparent;outline:none;cursor:pointer;width:110px}
+.roadmap-date input:focus{color:var(--text)}
+.roadmap-status-badge{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:99px;font-weight:600;cursor:pointer;transition:all .15s}
+.roadmap-status-badge.done{background:#f0fdf4;color:#059669}
+.roadmap-status-badge.pending{background:#f4f3ee;color:var(--muted)}
+.roadmap-status-badge.overdue{background:#fef2f2;color:#dc2626}
+.roadmap-card-desc{margin-top:10px;font-size:13px;color:var(--muted);outline:none;line-height:1.6;min-height:18px}
+.roadmap-card-desc[contenteditable="true"]:empty:before{content:attr(placeholder);color:var(--muted2)}
+.roadmap-add-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;border:1.5px dashed var(--border);border-radius:var(--r-lg);background:none;cursor:pointer;font-size:13px;color:var(--muted);font-family:var(--font-sans);width:100%;margin-top:8px;transition:all .15s}
+.roadmap-add-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
 
 /* MODALES */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,10,10,.5);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:flex-end;justify-content:center}
@@ -230,8 +258,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .comment-textarea:focus{border-color:var(--accent)}
 .comment-btn{padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-weight:600;font-size:13px;font-family:var(--font-sans);transition:all .18s;flex-shrink:0;align-self:flex-end}
 .comment-btn:disabled{opacity:.5;cursor:not-allowed}
-.form-modal-card{background:#fff;border-radius:28px 28px 0 0;width:100%;max-width:560px;max-height:90vh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);animation:slideUp .25s cubic-bezier(.32,0,.04,1);position:relative}
-@media(min-width:700px){.form-modal-card{border-radius:28px;max-height:85vh}}
+.form-modal-card{background:#fff;border-radius:28px 28px 0 0;width:100%;max-width:560px;max-height:92vh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);animation:slideUp .25s cubic-bezier(.32,0,.04,1);position:relative}
+@media(min-width:700px){.form-modal-card{border-radius:28px;max-height:88vh}}
 .form-modal-header{padding:24px 24px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
 .form-modal-title{font-size:20px;font-weight:700}
 .form-modal-body{overflow-y:auto;flex:1;padding:20px 24px}
@@ -246,6 +274,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .btn-save{padding:10px 24px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s}
 .btn-save:hover{transform:translateY(-1px);box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 30%,transparent)}
 .btn-save:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Form upload zone */
+.form-upload-zone{border:2px dashed var(--border);border-radius:var(--r);padding:16px;text-align:center;cursor:pointer;transition:all .2s;background:#fafaf7;margin-top:4px}
+.form-upload-zone:hover{border-color:var(--accent);background:var(--accent-bg)}
+.form-upload-preview{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.form-upload-thumb{position:relative;width:64px;height:64px;border-radius:var(--r);overflow:hidden;border:1.5px solid var(--border)}
+.form-upload-thumb img{width:100%;height:100%;object-fit:cover}
+.form-upload-thumb-del{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.6);border:none;cursor:pointer;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center}
 
 /* Post preview */
 #post-preview-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px}
@@ -275,6 +311,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 #lightbox img{max-width:100%;max-height:90vh;border-radius:var(--r);object-fit:contain}
 .lb-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:none;cursor:pointer;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center}
 .lb-close:hover{background:rgba(255,255,255,.22)}
+
+/* Calendar entry modal */
+#cal-entry-modal{position:fixed;inset:0;background:rgba(10,10,10,.4);backdrop-filter:blur(4px);z-index:1500;display:none;align-items:center;justify-content:center;padding:24px}
+.cal-entry-card{background:#fff;border-radius:var(--r-lg);padding:24px;width:100%;max-width:400px;box-shadow:var(--shadow-lg);animation:slideUp .2s cubic-bezier(.32,0,.04,1)}
+.cal-entry-card h3{font-size:16px;font-weight:700;margin-bottom:16px}
+.cal-entry-colors{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.cal-color-btn{width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:border-color .15s}
+.cal-color-btn.selected{border-color:var(--text)}
+.cal-entries-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto}
+.cal-entry-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r);background:var(--bg)}
+.cal-entry-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.cal-entry-text{flex:1;font-size:13px}
+.cal-entry-del{width:22px;height:22px;border-radius:50%;border:none;background:none;cursor:pointer;color:var(--muted2);font-size:12px;display:flex;align-items:center;justify-content:center}
+.cal-entry-del:hover{background:#fef2f2;color:#ef4444}
 
 /* Toast */
 #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:12px 22px;border-radius:var(--r);font-size:14px;z-index:4000;transition:transform .3s cubic-bezier(.32,0,.04,1);white-space:nowrap;pointer-events:none}
@@ -317,9 +367,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
   </header>
 
   <div class="tab-bar">
-    <button class="tab-btn active" id="tab-btn-tareas"    onclick="switchTab('tareas')">📋 Tareas</button>
-    <button class="tab-btn"        id="tab-btn-contenido" onclick="switchTab('contenido')">🖼 Contenido</button>
+    <button class="tab-btn active" id="tab-btn-tareas"     onclick="switchTab('tareas')">📋 Tareas</button>
+    <button class="tab-btn"        id="tab-btn-contenido"  onclick="switchTab('contenido')">🖼 Contenido</button>
     <button class="tab-btn"        id="tab-btn-calendario" onclick="switchTab('calendario')">📅 Calendario</button>
+    <button class="tab-btn"        id="tab-btn-roadmap"    onclick="switchTab('roadmap')">🗺 Roadmap</button>
     <button class="tab-btn"        id="tab-btn-estrategia" onclick="switchTab('estrategia')">🎯 Estrategia</button>
   </div>
 
@@ -380,7 +431,29 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="cal-nav-title" id="cal-title"></div>
         <button class="cal-nav-btn" onclick="changeMonth(1)">→</button>
       </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent)"></span> Entrega de tarea
+        &nbsp;<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b"></span> Post / evento
+        &nbsp;<span style="font-size:11px;color:var(--muted2)">Click en cualquier día para agregar</span>
+      </div>
       <div class="cal-grid" id="cal-grid"></div>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div id="tab-roadmap" style="display:none">
+    <div class="tab-section">
+      <div class="section-toolbar">
+        <div class="section-toolbar-title">Roadmap de trabajo</div>
+        <div class="strat-save-indicator" id="roadmap-save-indicator"></div>
+      </div>
+      <div class="roadmap-wrap" id="roadmap-wrap">
+        <div class="roadmap-line"></div>
+        <div id="roadmap-items"></div>
+        <button class="roadmap-add-btn" onclick="addRoadmapItem()">
+          <span style="font-size:18px">+</span> Agregar hito
+        </button>
+      </div>
     </div>
   </div>
 
@@ -389,9 +462,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     <div class="tab-section">
       <div class="section-toolbar">
         <div class="section-toolbar-title">Estrategia</div>
+        <button class="matrix-add-col-btn" onclick="addMatrixCol()">+ Columna</button>
         <div class="strat-save-indicator" id="strat-save-indicator"></div>
       </div>
-      <div class="estrategia-board" id="estrategia-board"></div>
+      <div class="matrix-wrap">
+        <table class="matrix-table" id="matrix-table"></table>
+        <div class="matrix-add-row" onclick="addMatrixRow()">
+          <span style="font-size:18px">+</span> Agregar fila
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -433,12 +512,41 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
           <option value="Resuelta">Entregado ✓</option>
         </select>
       </div>
-      <div class="form-group"><label class="form-label">Fecha de entrega</label><input class="form-input" id="ff-fecha" type="date"></div>
+      <div class="form-group"><label class="form-label">📅 Fecha de entrega</label><input class="form-input" id="ff-fecha" type="date"></div>
       <div class="form-group"><label class="form-label">Descripción</label><textarea class="form-textarea" id="ff-notas" placeholder="Detalles..."></textarea></div>
+      <div class="form-group">
+        <label class="form-label">🖼 Imágenes</label>
+        <div class="form-upload-zone" onclick="document.getElementById('form-img-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleFormImgDrop(event)">
+          <div style="font-size:20px;margin-bottom:4px">📷</div>
+          <div style="font-size:13px;font-weight:600;color:var(--muted)">Click o arrastra imágenes</div>
+        </div>
+        <div class="form-upload-preview" id="form-img-preview"></div>
+        <div id="form-upload-status" style="font-size:12px;color:var(--muted);margin-top:6px;display:none"></div>
+      </div>
     </div>
     <div class="form-modal-footer">
       <button class="btn-cancel" onclick="closeTaskForm()">Cancelar</button>
       <button class="btn-save" id="btn-form-save" onclick="saveTaskForm()">Guardar tarea</button>
+    </div>
+  </div>
+</div>
+
+<!-- CALENDAR ENTRY MODAL -->
+<div id="cal-entry-modal" onclick="if(event.target===this)closeCalEntry()">
+  <div class="cal-entry-card">
+    <h3 id="cal-entry-date-title">Agregar al calendario</h3>
+    <div class="form-group">
+      <label class="form-label">Descripción</label>
+      <input class="form-input" id="cal-entry-text" type="text" placeholder="Ej: Post educativo, Reunión cliente...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Color</label>
+      <div class="cal-entry-colors" id="cal-entry-colors"></div>
+    </div>
+    <div id="cal-existing-entries"></div>
+    <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end">
+      <button class="btn-cancel" onclick="closeCalEntry()">Cerrar</button>
+      <button class="btn-save" onclick="saveCalEntry()">Agregar</button>
     </div>
   </div>
 </div>
@@ -476,13 +584,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 
 <input type="file" id="file-input" style="display:none" onchange="handleFileSelect(this.files)">
 <input type="file" id="media-file-input" style="display:none" accept="image/*,video/*" onchange="handleMediaUpload(this.files)">
+<input type="file" id="form-img-input" style="display:none" accept="image/*" multiple onchange="handleFormImgSelect(this.files)">
 <div id="toast"></div>
 
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbx8zgrXs4fKDBX_atEt-bdp6nj-vs2t7MCKdDi6uuSuitL7ASa1oA6fjKCN_T4gFqKb/exec';
 
 let tasks = [];
-let estrategia = { columns: [] };
+let estrategia = { matrix: null, roadmap: [], calEntries: [] };
 let currentTask = null;
 let editingFormId = null;
 let clientName = '';
@@ -492,6 +601,11 @@ let activeTab = 'tareas';
 let currentContentView = 'gallery';
 let calYear, calMonth;
 let estrategiaSaveTimer = null;
+let roadmapSaveTimer = null;
+let pendingFormFiles = []; // files staged in task form
+let calEntryDate = null;
+
+const ENTRY_COLORS = ['#f59e0b','#10b981','#6366f1','#ec4899','#ef4444','#0ea5e9','#8b5cf6','#14b8a6'];
 
 const urlParams = new URLSearchParams(location.search);
 clientSlug = (urlParams.get('c') || '').trim();
@@ -558,16 +672,13 @@ function launchPortal(data) {
   if (data.clientLogo) igAv.innerHTML = `<img src="${data.clientLogo}" alt="">`;
   else igAv.textContent = clientName.charAt(0).toUpperCase();
 
-  // Estrategia: cargar guardada o defaults
-  if (data.estrategia && data.estrategia.columns) {
-    estrategia = data.estrategia;
-  } else {
-    estrategia = { columns: [
-      { id: uid(), title: 'Pilares', cards: [] },
-      { id: uid(), title: 'Objetivos', cards: [] },
-      { id: uid(), title: 'Piezas a grabar', cards: [] },
-    ]};
-  }
+  // Load estrategia (new matrix format)
+  const saved = data.estrategia || {};
+  estrategia = {
+    matrix: saved.matrix || getDefaultMatrix(),
+    roadmap: saved.roadmap || [],
+    calEntries: saved.calEntries || []
+  };
 
   const now = new Date();
   calYear = now.getFullYear(); calMonth = now.getMonth();
@@ -577,25 +688,42 @@ function launchPortal(data) {
   renderPortal();
 }
 
+function getDefaultMatrix() {
+  return {
+    rows: [
+      { id: uid(), label: 'Educación', color: '#dbeafe' },
+      { id: uid(), label: 'Inbound',   color: '#fef9c3' },
+      { id: uid(), label: 'Decisión',  color: '#fde8d5' },
+    ],
+    cols: [
+      { id: uid(), label: 'Descripción' },
+      { id: uid(), label: 'Objetivo' },
+      { id: uid(), label: 'Piezas' },
+    ],
+    cells: {}
+  };
+}
+
 // ─── TABS ───
 function switchTab(tab) {
   activeTab = tab;
-  ['tareas','contenido','calendario','estrategia'].forEach(t => {
+  ['tareas','contenido','calendario','roadmap','estrategia'].forEach(t => {
     document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
     document.getElementById('tab-btn-'+t).classList.toggle('active', t===tab);
   });
   const btn = document.getElementById('hdr-action-btn');
   if (tab==='tareas') { btn.style.display=''; btn.textContent='+ Nueva tarea'; }
-  else if (tab==='estrategia') { btn.style.display=''; btn.textContent='+ Columna'; }
+  else if (tab==='roadmap') { btn.style.display=''; btn.textContent='+ Hito'; }
   else { btn.style.display='none'; }
   if (tab==='contenido') renderGallery();
   if (tab==='calendario') renderCalendar();
-  if (tab==='estrategia') renderEstrategia();
+  if (tab==='roadmap') renderRoadmap();
+  if (tab==='estrategia') renderMatrix();
 }
 
 function onHdrAction() {
   if (activeTab==='tareas') openTaskForm();
-  else if (activeTab==='estrategia') addStratColumn();
+  else if (activeTab==='roadmap') addRoadmapItem();
 }
 
 // ─── TAREAS ───
@@ -650,6 +778,7 @@ async function onDrop(e,nuevoEstado){
 // ─── TASK FORM ───
 function openTaskForm(taskId){
   editingFormId=taskId||null;
+  pendingFormFiles=[];
   const t=taskId?tasks.find(x=>x.id===taskId):null;
   document.getElementById('form-modal-title').textContent=t?'Editar tarea':'Nueva tarea';
   document.getElementById('ff-titulo').value=t?t.titulo:'';
@@ -658,10 +787,43 @@ function openTaskForm(taskId){
   document.getElementById('ff-notas').value=t?(t.notas||''):'';
   document.getElementById('btn-form-save').disabled=false;
   document.getElementById('btn-form-save').textContent='Guardar tarea';
+  document.getElementById('form-img-preview').innerHTML='';
+  document.getElementById('form-upload-status').style.display='none';
   show('task-form-modal','flex');
   setTimeout(()=>document.getElementById('ff-titulo').focus(),100);
 }
-function closeTaskForm(){hide('task-form-modal');editingFormId=null;}
+function closeTaskForm(){hide('task-form-modal');editingFormId=null;pendingFormFiles=[];}
+
+function handleFormImgDrop(e){
+  e.preventDefault();e.currentTarget.classList.remove('drag');
+  const files=e.dataTransfer&&e.dataTransfer.files;
+  if(files&&files.length)handleFormImgSelect(files);
+}
+function handleFormImgSelect(files){
+  document.getElementById('form-img-input').value='';
+  Array.from(files).forEach(f=>{
+    if(!f.type.startsWith('image/'))return;
+    const tempId=uid();
+    pendingFormFiles.push({tempId,file:f,uploaded:false,fileData:null});
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const idx=pendingFormFiles.findIndex(x=>x.tempId===tempId);
+      if(idx>-1)pendingFormFiles[idx].dataUrl=e.target.result;
+      renderFormImgPreview();
+    };
+    reader.readAsDataURL(f);
+  });
+}
+function renderFormImgPreview(){
+  const el=document.getElementById('form-img-preview');
+  el.innerHTML=pendingFormFiles.map((pf,i)=>`
+    <div class="form-upload-thumb">
+      ${pf.dataUrl?`<img src="${pf.dataUrl}">`:'<div style="width:100%;height:100%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:20px">📷</div>'}
+      <button class="form-upload-thumb-del" onclick="removeFormImg(${i})">×</button>
+    </div>`).join('');
+}
+function removeFormImg(i){pendingFormFiles.splice(i,1);renderFormImgPreview();}
+
 async function saveTaskForm(){
   const titulo=document.getElementById('ff-titulo').value.trim();
   if(!titulo){document.getElementById('ff-titulo').focus();return;}
@@ -671,16 +833,35 @@ async function saveTaskForm(){
   const fecha=document.getElementById('ff-fecha').value;
   const notas=document.getElementById('ff-notas').value.trim();
   try{
+    let archivosNuevos=[];
+    if(pendingFormFiles.length){
+      const statusEl=document.getElementById('form-upload-status');
+      statusEl.style.display='block';
+      for(let i=0;i<pendingFormFiles.length;i++){
+        const pf=pendingFormFiles[i];
+        statusEl.textContent=`Subiendo imagen ${i+1} de ${pendingFormFiles.length}...`;
+        const reader=new FileReader();
+        const fileData=await new Promise(res=>{reader.onload=e=>res(e.target.result);reader.readAsDataURL(pf.file);});
+        const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:pf.file.name,mimeType:pf.file.type,fileData:fileData.split(',')[1]}));
+        const resp=await fetch(API,{method:'POST',body:fd});
+        const data=await resp.json();
+        if(data.ok)archivosNuevos.push(data.file);
+      }
+      statusEl.textContent='';statusEl.style.display='none';
+    }
     if(editingFormId){
       const idx=tasks.findIndex(t=>t.id===editingFormId);
-      if(idx>-1)tasks[idx]={...tasks[idx],titulo,estado,fecha,notas};
-      closeTaskForm();renderPortal();
-      const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task:tasks.find(t=>t.id===editingFormId)||tasks[tasks.findIndex(t=>t.id===editingFormId)]}));await fetch(API,{method:'POST',body:fd});
+      if(idx>-1){
+        const existing=tasks[idx];
+        tasks[idx]={...existing,titulo,estado,fecha,notas,archivos:[...(existing.archivos||[]),...archivosNuevos]};
+        const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task:tasks[idx]}));await fetch(API,{method:'POST',body:fd});
+      }
     }else{
-      const newTask={id:uid(),titulo,cliente:clientName,estado,fecha,notas,prioridad:'media',encargados:[],archivos:[],comentarios:[],visible_cliente:'Sí',creadoPor:clientName,modificadoPor:clientName};
-      tasks.push(newTask);closeTaskForm();renderPortal();
+      const newTask={id:uid(),titulo,cliente:clientName,estado,fecha,notas,prioridad:'media',encargados:[],archivos:archivosNuevos,comentarios:[],visible_cliente:'Sí',creadoPor:clientName,modificadoPor:clientName};
+      tasks.push(newTask);
       const fd=new FormData();fd.append('payload',JSON.stringify({action:'create',task:newTask}));await fetch(API,{method:'POST',body:fd});
     }
+    closeTaskForm();renderPortal();
     showToast(editingFormId?'Actualizada ✓':'Tarea creada ✓');
   }catch(e){showToast('Error al guardar.');btn.disabled=false;btn.textContent='Guardar tarea';}
 }
@@ -729,7 +910,7 @@ async function submitComment(){
   btn.disabled=false;
 }
 
-// ─── UPLOAD (task) ───
+// ─── UPLOAD (task detail) ───
 function handleDrop(e){e.preventDefault();document.getElementById('upload-zone').classList.remove('drag');const f=e.dataTransfer&&e.dataTransfer.files;if(f&&f.length)uploadFile(f[0]);}
 function handleFileSelect(files){if(files&&files.length)uploadFile(files[0]);document.getElementById('file-input').value='';}
 async function uploadFile(file){
@@ -737,16 +918,13 @@ async function uploadFile(file){
   const zone=document.getElementById('upload-zone'),pw=document.getElementById('upload-prog-wrap'),pf=document.getElementById('upload-prog-fill');
   zone.style.pointerEvents='none';pw.style.display='block';pf.style.width='20%';
   const reader=new FileReader();
-  reader.onprogress=e=>{if(e.lengthComputable)pf.style.width=(20+e.loaded/e.total*40)+'%';};
   reader.onload=async()=>{try{pf.style.width='65%';const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:file.name,mimeType:file.type||'application/octet-stream',fileData:reader.result.split(',')[1]}));const res=await fetch(API,{method:'POST',body:fd});const data=await res.json();pf.style.width='100%';if(data.ok){currentTask.archivos=[...(currentTask.archivos||[]),data.file];const fd2=new FormData();fd2.append('payload',JSON.stringify({action:'update',task:currentTask}));await fetch(API,{method:'POST',body:fd2});updateTaskInList(currentTask);renderModalFiles(currentTask.archivos);showToast('Archivo subido ✓');}else showToast('Error al subir.');}catch(e){showToast('Error de conexión.');}setTimeout(()=>{pw.style.display='none';pf.style.width='0';zone.style.pointerEvents='';},400);};
   reader.readAsDataURL(file);
 }
 
 // ─── CONTENIDO ───
 function getAllMedia(){const all=[];tasks.forEach(t=>{(t.archivos||[]).forEach(f=>{if(f.type&&(f.type.startsWith('image')||f.type.startsWith('video')))all.push({...f,taskId:t.id,taskTitle:t.titulo});});});return all;}
-
 function renderGallery(){const media=getAllMedia();if(currentContentView==='gallery')renderGalleryView(media);else renderInstagramView(media);}
-
 function setContentView(view){
   currentContentView=view;
   document.getElementById('vbtn-gallery').classList.toggle('active',view==='gallery');
@@ -755,20 +933,14 @@ function setContentView(view){
   document.getElementById('instagram-view').style.display=view==='instagram'?'block':'none';
   renderGallery();
 }
-
 function renderGalleryView(media){
   const el=document.getElementById('gallery-view');el.style.display='grid';
   if(!media.length){el.innerHTML='<div class="gallery-empty">Aún no hay imágenes.<br>Sube contenido desde una tarea o usa el botón Subir.</div>';return;}
-  el.innerHTML=media.map((f,i)=>{
-    const isImg=f.type&&f.type.startsWith('image');
-    const thumb=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url;
-    const full=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`:f.url;
-    const inner=isImg?`<img src="${thumb}" alt="${esc(f.name)}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s">`:
-      `<div class="gallery-file-icon">${f.type&&f.type.startsWith('video')?'🎬':'📎'}<span class="gallery-file-name">${esc(f.name)}</span></div>`;
+  el.innerHTML=media.map((f,i)=>{const isImg=f.type&&f.type.startsWith('image');const thumb=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url;const full=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`:f.url;const inner=isImg?`<img src="${thumb}" alt="${esc(f.name)}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s">`:
+    `<div class="gallery-file-icon">${f.type&&f.type.startsWith('video')?'🎬':'📎'}<span class="gallery-file-name">${esc(f.name)}</span></div>`;
     return`<div class="gallery-item" data-idx="${i}">${inner}<div class="gallery-item-overlay"><span class="gallery-item-name">${esc(f.name)}</span>${isImg?`<button class="gallery-action-btn preview" onclick="event.stopPropagation();openLightbox('${full}')">🔍</button>`:''}<button class="gallery-action-btn delete" onclick="event.stopPropagation();deleteMedia(${i})">🗑</button></div></div>`;
   }).join('');
 }
-
 function renderInstagramView(media){
   document.getElementById('instagram-view').style.display='block';
   const images=media.filter(f=>f.type&&f.type.startsWith('image'));
@@ -776,7 +948,6 @@ function renderInstagramView(media){
   if(!images.length){grid.innerHTML='<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--muted2)">Sube imágenes para ver la grilla de Instagram</div>';return;}
   grid.innerHTML=images.map((f,i)=>{const thumb=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w400`:f.url;const full=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`:f.url;return`<div class="ig-cell" onclick="openPostPreview('${full}','${esc(f.taskTitle||'')}')"><img src="${thumb}" alt="${esc(f.name)}" onerror="this.style.display='none'"><div class="ig-cell-overlay">❤️ &nbsp; 💬</div></div>`;}).join('');
 }
-
 async function deleteMedia(idx){
   if(!confirm('¿Eliminar este archivo?'))return;
   const media=getAllMedia();const file=media[idx];if(!file)return;
@@ -786,7 +957,6 @@ async function deleteMedia(idx){
   try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task}));await fetch(API,{method:'POST',body:fd});showToast('Eliminado ✓');}catch(e){showToast('Error.');}
   renderGallery();
 }
-
 async function handleMediaUpload(files){
   if(!files||!files.length)return;
   document.getElementById('media-file-input').value='';
@@ -824,6 +994,9 @@ function renderCalendar(){
   const tasksByDate={};
   tasks.forEach(t=>{if(t.fecha){if(!tasksByDate[t.fecha])tasksByDate[t.fecha]=[];tasksByDate[t.fecha].push(t);}});
 
+  const entriesByDate={};
+  (estrategia.calEntries||[]).forEach(e=>{if(!entriesByDate[e.date])entriesByDate[e.date]=[];entriesByDate[e.date].push(e);});
+
   const firstDay=new Date(calYear,calMonth,1);
   let startDow=firstDay.getDay()-1;if(startDow<0)startDow=6;
   const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
@@ -837,19 +1010,21 @@ function renderCalendar(){
   for(let i=0;i<totalCells;i++){
     if(i<startDow){
       const d=daysInPrev-startDow+i+1;
-      html+=`<div class="cal-cell other-month"><div class="cal-day-num">${d}</div></div>`;
+      html+=`<div class="cal-cell other-month" onclick="openCalEntry('${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}')"><div class="cal-day-num">${d}</div><span class="cal-add-hint">+ agregar</span></div>`;
     }else if(day<=daysInMonth){
       const dateStr=calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
       const cellDate=new Date(calYear,calMonth,day);
       const isToday=cellDate.getTime()===today.getTime();
       const tasksOnDay=tasksByDate[dateStr]||[];
-      const hasT=tasksOnDay.length>0;
-      let chips=tasksOnDay.slice(0,3).map(t=>{const d=daysDiff(t.fecha);const cls=d<0?'over':d<=3?'soon':'';return`<div class="cal-task-chip ${cls}" onclick="openModal('${t.id}')" title="${esc(t.titulo)}">${esc(t.titulo)}</div>`;}).join('');
-      if(tasksOnDay.length>3)chips+=`<div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);padding:2px 7px">+${tasksOnDay.length-3} más</div>`;
-      html+=`<div class="cal-cell${isToday?' today':''}${hasT?' has-tasks':''}"><div class="cal-day-num">${day}</div>${chips}</div>`;
+      const entriesOnDay=entriesByDate[dateStr]||[];
+      const hasT=tasksOnDay.length>0||entriesOnDay.length>0;
+      let chips=tasksOnDay.slice(0,2).map(t=>{const d=daysDiff(t.fecha);const cls=d<0?'over':d<=3?'soon':'';return`<div class="cal-task-chip ${cls}" onclick="event.stopPropagation();openModal('${t.id}')" title="${esc(t.titulo)}">${esc(t.titulo)}</div>`;}).join('');
+      chips+=entriesOnDay.slice(0,2).map(e=>`<div class="cal-entry-chip" style="background:${e.color}20;color:${e.color}"><span style="width:6px;height:6px;border-radius:50%;background:${e.color};flex-shrink:0;display:inline-block"></span>${esc(e.text)}</div>`).join('');
+      if(tasksOnDay.length+entriesOnDay.length>3)chips+=`<div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);padding:2px 7px">+${tasksOnDay.length+entriesOnDay.length-3} más</div>`;
+      html+=`<div class="cal-cell${isToday?' today':''}${hasT?' has-tasks':''}" onclick="openCalEntry('${dateStr}')"><div class="cal-day-num">${day}</div>${chips}<span class="cal-add-hint">+ agregar</span></div>`;
       day++;
     }else{
-      html+=`<div class="cal-cell other-month"><div class="cal-day-num">${nextDay++}</div></div>`;
+      html+=`<div class="cal-cell other-month" onclick="openCalEntry('${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(nextDay).padStart(2,'0')}')"><div class="cal-day-num">${nextDay++}</div><span class="cal-add-hint">+ agregar</span></div>`;
     }
   }
   document.getElementById('cal-grid').innerHTML=html;
@@ -862,84 +1037,210 @@ function changeMonth(dir){
   renderCalendar();
 }
 
-// ─── ESTRATEGIA ───
-function renderEstrategia(){
-  const board=document.getElementById('estrategia-board');
-  let html=estrategia.columns.map(col=>`
-  <div class="strat-col" data-col="${col.id}">
-    <div class="strat-col-header">
-      <input class="strat-col-title-input" value="${esc(col.title)}" placeholder="Título..." onchange="updateColTitle('${col.id}',this.value)" oninput="updateColTitle('${col.id}',this.value)">
-      <button class="strat-col-del-btn" onclick="deleteStratColumn('${col.id}')" title="Eliminar columna">×</button>
-    </div>
-    <div class="strat-cards" id="strat-cards-${col.id}">
-      ${col.cards.map(card=>`
-      <div class="strat-card" data-card="${card.id}">
-        <div class="strat-card-text" contenteditable="true" placeholder="Escribe aquí..." onblur="updateCard('${col.id}','${card.id}',this.innerText)">${esc(card.text)}</div>
-        <button class="strat-card-del" onclick="deleteStratCard('${col.id}','${card.id}')">×</button>
-      </div>`).join('')}
-    </div>
-    <button class="strat-add-card-btn" onclick="addStratCard('${col.id}')">+ Agregar tarjeta</button>
-  </div>`).join('');
-  html+=`<button class="strat-add-col-btn" onclick="addStratColumn()"><div style="font-size:24px">+</div><div style="font-size:13px;font-weight:600">Nueva columna</div></button>`;
-  board.innerHTML=html;
+// ─── CALENDAR ENTRY MODAL ───
+function openCalEntry(dateStr){
+  calEntryDate=dateStr;
+  const[y,m,d]=dateStr.split('-');
+  const months=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  document.getElementById('cal-entry-date-title').textContent=`${parseInt(d)} de ${months[parseInt(m)-1]} ${y}`;
+  document.getElementById('cal-entry-text').value='';
+  // Color buttons
+  const colEl=document.getElementById('cal-entry-colors');
+  colEl.innerHTML=ENTRY_COLORS.map((c,i)=>`<div class="cal-color-btn${i===0?' selected':''}" style="background:${c}" data-color="${c}" onclick="selectEntryColor(this)"></div>`).join('');
+  // Existing entries for this day
+  renderCalExistingEntries(dateStr);
+  show('cal-entry-modal','flex');
+  setTimeout(()=>document.getElementById('cal-entry-text').focus(),100);
+}
+function closeCalEntry(){hide('cal-entry-modal');calEntryDate=null;}
+function selectEntryColor(el){document.querySelectorAll('.cal-color-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');}
+function renderCalExistingEntries(dateStr){
+  const entries=(estrategia.calEntries||[]).filter(e=>e.date===dateStr);
+  const el=document.getElementById('cal-existing-entries');
+  if(!entries.length){el.innerHTML='';return;}
+  el.innerHTML=`<div class="form-label" style="margin-top:12px;margin-bottom:8px">Entradas guardadas</div><div class="cal-entries-list">`+
+    entries.map(e=>`<div class="cal-entry-row">
+      <div class="cal-entry-dot" style="background:${e.color}"></div>
+      <div class="cal-entry-text">${esc(e.text)}</div>
+      <button class="cal-entry-del" onclick="deleteCalEntry('${e.id}')">×</button>
+    </div>`).join('')+'</div>';
+}
+function saveCalEntry(){
+  const text=document.getElementById('cal-entry-text').value.trim();
+  if(!text||!calEntryDate)return;
+  const selectedColor=document.querySelector('.cal-color-btn.selected');
+  const color=selectedColor?selectedColor.dataset.color:ENTRY_COLORS[0];
+  const entry={id:uid(),date:calEntryDate,text,color};
+  if(!estrategia.calEntries)estrategia.calEntries=[];
+  estrategia.calEntries.push(entry);
+  document.getElementById('cal-entry-text').value='';
+  renderCalExistingEntries(calEntryDate);
+  renderCalendar();
+  scheduleStratSave();
+  showToast('Agregado ✓');
+}
+function deleteCalEntry(id){
+  estrategia.calEntries=(estrategia.calEntries||[]).filter(e=>e.id!==id);
+  renderCalExistingEntries(calEntryDate);
+  renderCalendar();
+  scheduleStratSave();
 }
 
-function updateColTitle(colId,title){
-  const col=estrategia.columns.find(c=>c.id===colId);if(col)col.title=title;
+// ─── ROADMAP ───
+function renderRoadmap(){
+  const items=estrategia.roadmap||[];
+  const el=document.getElementById('roadmap-items');
+  if(!items.length){el.innerHTML='<div style="padding:32px 0;color:var(--muted2);font-size:14px">Sin hitos aún. Agrega el primero con el botón de arriba.</div>';return;}
+  el.innerHTML=items.map(item=>{
+    const d=item.date?daysDiff(item.date):null;
+    let status=item.status||'pending';
+    let dotClass='pending',badgeClass='pending',badgeText='Pendiente';
+    if(status==='done'){dotClass='done';badgeClass='done';badgeText='Completado ✓';}
+    else if(d!==null&&d<0&&status!=='done'){dotClass='overdue';badgeClass='overdue';badgeText='Vencido';}
+    return`<div class="roadmap-item" data-id="${item.id}">
+      <div class="roadmap-dot ${dotClass}" onclick="toggleRoadmapStatus('${item.id}')" title="Click para marcar como ${status==='done'?'pendiente':'completado'}"></div>
+      <div class="roadmap-card${status==='done'?' done':''}">
+        <div class="roadmap-card-header">
+          <div class="roadmap-card-title" contenteditable="true" placeholder="Nombre del hito..." onblur="updateRoadmapField('${item.id}','title',this.innerText)">${esc(item.title||'')}</div>
+          <div class="roadmap-card-actions">
+            <button class="rm-btn del" onclick="deleteRoadmapItem('${item.id}')" title="Eliminar">🗑</button>
+          </div>
+        </div>
+        <div class="roadmap-card-meta">
+          <div class="roadmap-date">📅 <input type="date" value="${item.date||''}" onchange="updateRoadmapField('${item.id}','date',this.value)"></div>
+          <div class="roadmap-status-badge ${badgeClass}" onclick="toggleRoadmapStatus('${item.id}')">${badgeText}</div>
+        </div>
+        ${item.desc!==undefined?`<div class="roadmap-card-desc" contenteditable="true" placeholder="Descripción opcional..." onblur="updateRoadmapField('${item.id}','desc',this.innerText)">${esc(item.desc||'')}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addRoadmapItem(){
+  if(!estrategia.roadmap)estrategia.roadmap=[];
+  const item={id:uid(),title:'',date:'',status:'pending',desc:''};
+  estrategia.roadmap.push(item);
+  renderRoadmap();
   scheduleStratSave();
+  setTimeout(()=>{
+    const el=document.querySelector(`[data-id="${item.id}"] .roadmap-card-title`);
+    if(el){el.focus();const range=document.createRange();range.selectNodeContents(el);window.getSelection().removeAllRanges();window.getSelection().addRange(range);}
+  },100);
 }
-function addStratColumn(){
-  estrategia.columns.push({id:uid(),title:'Nueva sección',cards:[]});
-  renderEstrategia();scheduleStratSave();
-  // Focus the new title
-  setTimeout(()=>{const inputs=document.querySelectorAll('.strat-col-title-input');const last=inputs[inputs.length-2];if(last){last.focus();last.select();}},100);
+
+function deleteRoadmapItem(id){
+  if(!confirm('¿Eliminar este hito?'))return;
+  estrategia.roadmap=(estrategia.roadmap||[]).filter(i=>i.id!==id);
+  renderRoadmap();scheduleStratSave();
 }
-function deleteStratColumn(colId){
-  if(!confirm('¿Eliminar esta columna y todas sus tarjetas?'))return;
-  estrategia.columns=estrategia.columns.filter(c=>c.id!==colId);
-  renderEstrategia();scheduleStratSave();
+
+function toggleRoadmapStatus(id){
+  const item=(estrategia.roadmap||[]).find(i=>i.id===id);
+  if(!item)return;
+  item.status=item.status==='done'?'pending':'done';
+  renderRoadmap();scheduleStratSave();
+  showToast(item.status==='done'?'Hito marcado como completado ✓':'Hito marcado como pendiente');
 }
-function addStratCard(colId){
-  const col=estrategia.columns.find(c=>c.id===colId);if(!col)return;
-  const card={id:uid(),text:''};
-  col.cards.push(card);
-  renderEstrategia();
-  // Focus new card
-  setTimeout(()=>{const el=document.querySelector(`[data-card="${card.id}"] .strat-card-text`);if(el)el.focus();},100);
-  scheduleStratSave();
+
+function updateRoadmapField(id,field,value){
+  const item=(estrategia.roadmap||[]).find(i=>i.id===id);
+  if(item)item[field]=value.trim();
+  scheduleRoadmapSave();
 }
-function deleteStratCard(colId,cardId){
-  const col=estrategia.columns.find(c=>c.id===colId);if(!col)return;
-  col.cards=col.cards.filter(c=>c.id!==cardId);
-  renderEstrategia();scheduleStratSave();
+
+function scheduleRoadmapSave(){
+  const ind=document.getElementById('roadmap-save-indicator');
+  if(ind)ind.textContent='Guardando...';
+  clearTimeout(roadmapSaveTimer);
+  roadmapSaveTimer=setTimeout(async()=>{
+    await doSaveEstrategia();
+    if(ind){ind.textContent='Guardado ✓';setTimeout(()=>{ind.textContent='';},2000);}
+  },2000);
 }
-function updateCard(colId,cardId,text){
-  const col=estrategia.columns.find(c=>c.id===colId);if(!col)return;
-  const card=col.cards.find(c=>c.id===cardId);if(card)card.text=text.trim();
-  scheduleStratSave();
+
+// ─── ESTRATEGIA MATRIX ───
+function renderMatrix(){
+  const m=estrategia.matrix;
+  if(!m||!m.rows)return;
+  let html=`<thead><tr><th class="matrix-th-corner">Etapa / Pilar</th>`;
+  m.cols.forEach(col=>{
+    html+=`<th class="matrix-col-header"><input class="matrix-col-input" value="${esc(col.label)}" placeholder="Columna..." onchange="updateMatrixCol('${col.id}',this.value)" oninput="updateMatrixCol('${col.id}',this.value)"><button class="matrix-col-del" onclick="deleteMatrixCol('${col.id}')" title="Eliminar columna">×</button></th>`;
+  });
+  html+=`</tr></thead><tbody>`;
+  m.rows.forEach(row=>{
+    html+=`<tr><td class="matrix-row-label-cell">
+      <div class="matrix-row-label-inner">
+        <div class="matrix-row-color" style="background:${row.color||'#e5e7eb'}"></div>
+        <textarea class="matrix-row-label-input" rows="2" placeholder="Etapa..." onchange="updateMatrixRow('${row.id}','label',this.value)" oninput="updateMatrixRow('${row.id}','label',this.value)">${esc(row.label)}</textarea>
+        <button class="matrix-row-del" onclick="deleteMatrixRow('${row.id}')" title="Eliminar fila">×</button>
+      </div>
+    </td>`;
+    m.cols.forEach(col=>{
+      const cellKey=`${row.id}_${col.id}`;
+      const val=m.cells[cellKey]||'';
+      html+=`<td class="matrix-cell"><textarea class="matrix-cell-input" rows="3" placeholder="..." onchange="updateMatrixCell('${row.id}','${col.id}',this.value)" oninput="updateMatrixCell('${row.id}','${col.id}',this.value)">${esc(val)}</textarea></td>`;
+    });
+    html+=`</tr>`;
+  });
+  html+=`</tbody>`;
+  document.getElementById('matrix-table').innerHTML=html;
+}
+
+function updateMatrixCol(colId,label){const col=(estrategia.matrix.cols||[]).find(c=>c.id===colId);if(col)col.label=label;scheduleStratSave();}
+function updateMatrixRow(rowId,field,value){const row=(estrategia.matrix.rows||[]).find(r=>r.id===rowId);if(row)row[field]=value;scheduleStratSave();}
+function updateMatrixCell(rowId,colId,value){if(!estrategia.matrix.cells)estrategia.matrix.cells={};estrategia.matrix.cells[`${rowId}_${colId}`]=value;scheduleStratSave();}
+
+function addMatrixCol(){
+  if(!estrategia.matrix.cols)estrategia.matrix.cols=[];
+  estrategia.matrix.cols.push({id:uid(),label:'Nueva columna'});
+  renderMatrix();scheduleStratSave();
+  setTimeout(()=>{const inputs=document.querySelectorAll('.matrix-col-input');const last=inputs[inputs.length-1];if(last){last.focus();last.select();}},100);
+}
+function deleteMatrixCol(colId){
+  if(!confirm('¿Eliminar esta columna?'))return;
+  estrategia.matrix.cols=(estrategia.matrix.cols||[]).filter(c=>c.id!==colId);
+  // clean cells
+  Object.keys(estrategia.matrix.cells||{}).forEach(k=>{if(k.endsWith('_'+colId))delete estrategia.matrix.cells[k];});
+  renderMatrix();scheduleStratSave();
+}
+function addMatrixRow(){
+  if(!estrategia.matrix.rows)estrategia.matrix.rows=[];
+  const colors=['#dbeafe','#fef9c3','#fde8d5','#dcfce7','#fce7f3','#ede9fe'];
+  const color=colors[estrategia.matrix.rows.length%colors.length];
+  estrategia.matrix.rows.push({id:uid(),label:'Nueva etapa',color});
+  renderMatrix();scheduleStratSave();
+  setTimeout(()=>{const inputs=document.querySelectorAll('.matrix-row-label-input');const last=inputs[inputs.length-1];if(last){last.focus();last.select();}},100);
+}
+function deleteMatrixRow(rowId){
+  if(!confirm('¿Eliminar esta fila?'))return;
+  estrategia.matrix.rows=(estrategia.matrix.rows||[]).filter(r=>r.id!==rowId);
+  Object.keys(estrategia.matrix.cells||{}).forEach(k=>{if(k.startsWith(rowId+'_'))delete estrategia.matrix.cells[k];});
+  renderMatrix();scheduleStratSave();
 }
 
 function scheduleStratSave(){
   const ind=document.getElementById('strat-save-indicator');
-  ind.textContent='Guardando...';
+  if(ind)ind.textContent='Guardando...';
   clearTimeout(estrategiaSaveTimer);
-  estrategiaSaveTimer=setTimeout(saveEstrategia,2000);
+  estrategiaSaveTimer=setTimeout(async()=>{
+    await doSaveEstrategia();
+    const ind2=document.getElementById('strat-save-indicator');
+    if(ind2){ind2.textContent='Guardado ✓';setTimeout(()=>{ind2.textContent='';},2000);}
+  },2000);
 }
 
-async function saveEstrategia(){
+async function doSaveEstrategia(){
   try{
     const fd=new FormData();
     fd.append('payload',JSON.stringify({action:'saveEstrategia',cliente:clientName,data:estrategia}));
     await fetch(API,{method:'POST',body:fd});
-    document.getElementById('strat-save-indicator').textContent='Guardado ✓';
-    setTimeout(()=>{document.getElementById('strat-save-indicator').textContent='';},2000);
-  }catch(e){document.getElementById('strat-save-indicator').textContent='Error al guardar';}
+  }catch(e){console.error('Save estrategia error',e);}
 }
 
 // ─── LIGHTBOX ───
 function openLightbox(url){document.getElementById('lb-img').src=url;show('lightbox','flex');}
 function closeLightbox(){hide('lightbox');document.getElementById('lb-img').src='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLightbox();closePostPreview();closeModal();closeTaskForm();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLightbox();closePostPreview();closeModal();closeTaskForm();closeCalEntry();}});
 
 // ─── HELPERS ───
 function updateTaskInList(task){const idx=tasks.findIndex(t=>t.id===task.id);if(idx>=0)tasks[idx]={...task};}
