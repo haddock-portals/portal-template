@@ -510,6 +510,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     <div class="hdr-right">
       <div class="hdr-pct" id="hdr-pct">0% completado</div>
       <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar-fill" style="width:0%"></div></div>
+      <button id="refresh-btn" onclick="refreshPortal()" title="Actualizar datos" style="width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0">↻</button>
       <button class="hdr-action-btn" id="hdr-action-btn" onclick="onHdrAction()">+ Nueva tarea</button>
     </div>
   </header>
@@ -920,15 +921,50 @@ const urlParams = new URLSearchParams(location.search);
 clientSlug = (urlParams.get('c') || '').trim();
 
 // ─── INIT ───
+let storedCode = '';
+
 window.addEventListener('DOMContentLoaded', () => {
   if (!clientSlug) { hide('loading-screen'); show('no-client','flex'); return; }
-  const saved = sessionStorage.getItem('haddock_p_' + clientSlug);
-  if (saved) {
-    try { hide('loading-screen'); launchPortal(JSON.parse(saved)); return; }
-    catch(e) { sessionStorage.removeItem('haddock_p_' + clientSlug); }
+  // Solo guardamos el código de acceso, nunca los datos (siempre frescos del servidor)
+  const savedAuth = sessionStorage.getItem('haddock_auth_' + clientSlug);
+  if (savedAuth) {
+    try {
+      const auth = JSON.parse(savedAuth);
+      storedCode = auth.codigo || '';
+      fetchAndLaunch(storedCode);
+      return;
+    } catch(e) { sessionStorage.removeItem('haddock_auth_' + clientSlug); }
   }
   hide('loading-screen'); show('login-screen','flex'); setupLogin();
 });
+
+async function fetchAndLaunch(code) {
+  show('loading-screen'); hide('portal'); hide('login-screen');
+  try {
+    const res = await fetch(API+'?portal=1&cliente='+encodeURIComponent(clientSlug)+'&codigo='+encodeURIComponent(code));
+    const data = await res.json();
+    if (data.ok) {
+      hide('loading-screen'); launchPortal(data);
+    } else {
+      sessionStorage.removeItem('haddock_auth_' + clientSlug);
+      hide('loading-screen'); show('login-screen','flex'); setupLogin();
+    }
+  } catch(e) {
+    hide('loading-screen'); show('login-screen','flex'); setupLogin();
+  }
+}
+
+async function refreshPortal() {
+  if (!storedCode) return;
+  const btn = document.getElementById('refresh-btn');
+  if (btn) { btn.style.opacity='.4'; btn.style.pointerEvents='none'; }
+  try {
+    const res = await fetch(API+'?portal=1&cliente='+encodeURIComponent(clientSlug)+'&codigo='+encodeURIComponent(storedCode));
+    const data = await res.json();
+    if (data.ok) { launchPortal(data); showToast('Portal actualizado ✓'); }
+  } catch(e) { showToast('Error al actualizar.'); }
+  if (btn) { btn.style.opacity=''; btn.style.pointerEvents=''; }
+}
 
 function setupLogin() {
   const input = document.getElementById('code-input');
@@ -946,10 +982,13 @@ async function doLogin() {
   btn.disabled=true; btn.textContent='Verificando...';
   errEl.style.display='none'; input.classList.remove('error');
   try {
-    const res = await fetch(`${API}?portal=1&cliente=${encodeURIComponent(clientSlug)}&codigo=${encodeURIComponent(code)}`);
+    const res = await fetch(API+'?portal=1&cliente='+encodeURIComponent(clientSlug)+'&codigo='+encodeURIComponent(code));
     const data = await res.json();
     if (data.ok) {
-      sessionStorage.setItem('haddock_p_'+clientSlug, JSON.stringify(data));
+      storedCode = code;
+      // Guardar solo el código, nunca los datos
+      sessionStorage.setItem('haddock_auth_'+clientSlug, JSON.stringify({codigo: code}));
+      sessionStorage.removeItem('haddock_p_'+clientSlug); // limpiar caché viejo
       hide('login-screen'); launchPortal(data);
     } else {
       input.classList.add('error');
