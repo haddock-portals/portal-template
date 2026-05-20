@@ -229,36 +229,54 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .matrix-add-col-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
 .strat-save-indicator{font-family:var(--font-mono);font-size:10px;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase;margin-left:auto}
 
-/* ─── ROADMAP ─── */
-.roadmap-wrap{position:relative;padding-left:40px}
-.roadmap-line{position:absolute;left:16px;top:0;bottom:0;width:2px;background:var(--border);border-radius:99px}
-.roadmap-item{position:relative;margin-bottom:28px;display:flex;gap:16px;align-items:flex-start}
-.roadmap-dot{position:absolute;left:-32px;width:18px;height:18px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--border);flex-shrink:0;cursor:pointer;transition:all .2s;top:14px}
-.roadmap-dot.done{background:var(--accent);box-shadow:0 0 0 2px var(--accent)}
-.roadmap-dot.pending{background:#fff;box-shadow:0 0 0 2px var(--border2)}
-.roadmap-dot.overdue{background:#ef4444;box-shadow:0 0 0 2px #ef4444}
-.roadmap-card{flex:1;background:#fff;border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;transition:border-color .15s}
-.roadmap-card:hover{border-color:var(--accent)}
-.roadmap-card.done{opacity:.65}
-.roadmap-card-header{display:flex;align-items:flex-start;gap:12px}
-.roadmap-card-title{flex:1;font-size:15px;font-weight:700;line-height:1.3;outline:none;min-height:22px}
-.roadmap-card-title[contenteditable="true"]:focus{background:var(--bg);border-radius:6px;padding:2px 6px;margin:-2px -6px}
-.roadmap-card-title[contenteditable="true"]:empty:before{content:attr(placeholder);color:var(--muted2)}
-.roadmap-card-actions{display:flex;gap:6px;flex-shrink:0}
-.rm-btn{width:28px;height:28px;border-radius:50%;border:none;background:none;cursor:pointer;font-size:14px;color:var(--muted2);display:flex;align-items:center;justify-content:center;transition:all .15s}
-.rm-btn:hover{background:var(--bg);color:var(--text)}
-.rm-btn.del:hover{background:#fef2f2;color:#ef4444}
-.roadmap-card-meta{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
-.roadmap-date{font-family:var(--font-mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px}
-.roadmap-date input{border:none;font-family:var(--font-mono);font-size:11px;color:var(--muted);background:transparent;outline:none;cursor:pointer;width:110px}
-.roadmap-date input:focus{color:var(--text)}
-.roadmap-status-badge{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:99px;font-weight:600;cursor:pointer;transition:all .15s}
-.roadmap-status-badge.done{background:#f0fdf4;color:#059669}
-.roadmap-status-badge.pending{background:#f4f3ee;color:var(--muted)}
-.roadmap-status-badge.overdue{background:#fef2f2;color:#dc2626}
-.roadmap-card-desc{margin-top:10px;font-size:13px;color:var(--muted);outline:none;line-height:1.6;min-height:18px;white-space:pre-wrap}
-.roadmap-card-desc[contenteditable="true"]:empty:before{content:attr(placeholder);color:var(--muted2)}
-.roadmap-add-btn{display:flex;align-items:center;gap:8px;padding:14px 20px;border:1.5px dashed var(--border);border-radius:var(--r-lg);background:none;cursor:pointer;font-size:13px;color:var(--muted);font-family:var(--font-sans);width:100%;margin-top:8px;transition:all .15s}
+/* ─── ROADMAP TIMELINE ─── */
+.roadmap-wrap{position:relative}
+.rm-tline{position:absolute;left:35px;top:8px;bottom:80px;width:3px;background:linear-gradient(to bottom,var(--accent) 0%,color-mix(in srgb,var(--accent) 40%,transparent) 80%,transparent 100%);border-radius:99px;z-index:0}
+
+/* Month separator */
+.rm-month{display:flex;align-items:center;padding:28px 0 14px 16px;position:relative;z-index:2;pointer-events:none}
+.rm-month-dot{width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);flex-shrink:0;margin-right:20px}
+.rm-month-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-family:var(--font-mono);background:var(--accent-bg);padding:4px 14px;border-radius:99px;border:1.5px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+
+/* Timeline item */
+.rm-item{position:relative;display:flex;align-items:flex-start;padding:0 0 18px 72px;z-index:1}
+.rm-dot{position:absolute;left:26px;top:18px;width:20px;height:20px;border-radius:50%;border:3px solid var(--bg);cursor:pointer;z-index:3;transition:all .25s}
+.rm-dot-pending{background:#fff;box-shadow:0 0 0 2.5px var(--border2)}
+.rm-dot-pending:hover{box-shadow:0 0 0 2.5px var(--accent);transform:scale(1.15)}
+.rm-dot-done{background:var(--accent);box-shadow:0 0 0 2.5px var(--accent),0 4px 14px color-mix(in srgb,var(--accent) 35%,transparent)}
+.rm-dot-overdue{background:#ef4444;box-shadow:0 0 0 2.5px #ef4444,0 4px 14px rgba(239,68,68,.35)}
+.rm-connector{position:absolute;left:46px;top:27px;width:26px;height:2px;background:linear-gradient(to right,var(--border),var(--border2));z-index:1;border-radius:99px}
+
+/* Cards */
+.rm-card{flex:1;background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-md);transition:all .2s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.rm-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px}
+.rm-card-pending::before{background:linear-gradient(to bottom,var(--accent),#818cf8)}
+.rm-card-done::before{background:linear-gradient(to bottom,#10b981,#34d399)}
+.rm-card-overdue::before{background:linear-gradient(to bottom,#ef4444,#f87171)}
+.rm-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,30,.12)}
+.rm-card-done{opacity:.72}
+
+.rm-card-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.rm-card-title{flex:1;font-size:15px;font-weight:700;line-height:1.4;outline:none;padding-left:10px;min-height:22px}
+.rm-card-title:empty::before{content:attr(placeholder);color:var(--muted2);font-weight:400}
+.rm-card-title:focus{background:var(--bg);border-radius:6px;padding-left:8px}
+.rm-card-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.rm-badge{font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:99px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.rm-badge-pending{background:#f4f3ee;color:var(--muted)}
+.rm-badge-done{background:#f0fdf4;color:#059669}
+.rm-badge-overdue{background:#fef2f2;color:#dc2626}
+.rm-del{width:26px;height:26px;border-radius:50%;border:none;background:none;cursor:pointer;color:var(--muted2);font-size:17px;display:flex;align-items:center;justify-content:center;transition:all .15s;opacity:0;flex-shrink:0}
+.rm-card:hover .rm-del{opacity:1}
+.rm-del:hover{background:#fef2f2;color:#ef4444}
+
+.rm-card-date{font-family:var(--font-mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;padding-left:10px;margin-bottom:8px}
+.rm-card-date input{border:none;font-family:var(--font-mono);font-size:11px;color:var(--muted);background:transparent;outline:none;cursor:pointer}
+.rm-card-date input:focus{color:var(--text)}
+.rm-card-desc{font-size:13px;color:var(--muted);outline:none;line-height:1.65;white-space:pre-wrap;min-height:18px;padding:10px 10px 0;border-top:1px solid var(--border);margin-top:10px}
+.rm-card-desc:empty::before{content:attr(placeholder);color:var(--muted2)}
+
+.rm-empty{padding:48px 0 24px 72px;color:var(--muted2);font-size:14px}
+.roadmap-add-btn{display:flex;align-items:center;gap:10px;padding:14px 20px;border:2px dashed var(--border);border-radius:var(--r-lg);background:rgba(255,255,255,.6);backdrop-filter:blur(4px);cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);font-family:var(--font-sans);width:calc(100% - 72px);margin:8px 0 8px 72px;transition:all .2s;position:relative;z-index:1}
 .roadmap-add-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
 
 /* MODALES */
@@ -689,10 +707,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="strat-save-indicator" id="roadmap-save-indicator"></div>
       </div>
       <div class="roadmap-wrap" id="roadmap-wrap">
-        <div class="roadmap-line"></div>
+        <div class="rm-tline"></div>
         <div id="roadmap-items"></div>
         <button class="roadmap-add-btn" onclick="addRoadmapItem()">
-          <span style="font-size:18px">+</span> Agregar hito
+          <span style="font-size:18px;opacity:.6">+</span> Agregar hito
         </button>
       </div>
     </div>
@@ -1993,30 +2011,57 @@ function deleteCalEntry(id){
 function renderRoadmap(){
   const items=estrategia.roadmap||[];
   const el=document.getElementById('roadmap-items');
-  if(!items.length){el.innerHTML='<div style="padding:32px 0;color:var(--muted2);font-size:14px">Sin hitos aún. Agrega el primero con el botón de arriba.</div>';return;}
-  el.innerHTML=items.map(item=>{
+  if(!items.length){el.innerHTML='<div class="rm-empty">Sin hitos todavía. Agrega el primero.</div>';return;}
+
+  // Sort by date (undated go at the end)
+  const sorted=[...items].sort((a,b)=>{
+    if(!a.date&&!b.date)return 0;
+    if(!a.date)return 1;
+    if(!b.date)return -1;
+    return a.date.localeCompare(b.date);
+  });
+
+  let lastMonth='';
+  let html='';
+
+  sorted.forEach(item=>{
     const d=item.date?daysDiff(item.date):null;
-    let status=item.status||'pending';
-    let dotClass='pending',badgeClass='pending',badgeText='Pendiente';
-    if(status==='done'){dotClass='done';badgeClass='done';badgeText='Completado ✓';}
-    else if(d!==null&&d<0&&status!=='done'){dotClass='overdue';badgeClass='overdue';badgeText='Vencido';}
-    return`<div class="roadmap-item" data-id="${item.id}">
-      <div class="roadmap-dot ${dotClass}" onclick="toggleRoadmapStatus('${item.id}')" title="Click para marcar como ${status==='done'?'pendiente':'completado'}"></div>
-      <div class="roadmap-card${status==='done'?' done':''}">
-        <div class="roadmap-card-header">
-          <div class="roadmap-card-title" contenteditable="true" placeholder="Nombre del hito..." onblur="updateRoadmapField('${item.id}','title',this.innerText)">${esc(item.title||'')}</div>
-          <div class="roadmap-card-actions">
-            <button class="rm-btn del" onclick="deleteRoadmapItem('${item.id}')" title="Eliminar">🗑</button>
-          </div>
-        </div>
-        <div class="roadmap-card-meta">
-          <div class="roadmap-date">📅 <input type="date" value="${item.date||''}" onchange="updateRoadmapField('${item.id}','date',this.value)"></div>
-          <div class="roadmap-status-badge ${badgeClass}" onclick="toggleRoadmapStatus('${item.id}')">${badgeText}</div>
-        </div>
-        ${item.desc!==undefined?`<div class="roadmap-card-desc" contenteditable="true" placeholder="Descripción opcional..." onblur="updateRoadmapField('${item.id}','desc',this.innerText)">${escBr(item.desc||'')}</div>`:''}
-      </div>
-    </div>`;
-  }).join('');
+    const status=item.status||'pending';
+    const isOverdue=d!==null&&d<0&&status!=='done';
+    const dotClass='rm-dot-'+(status==='done'?'done':isOverdue?'overdue':'pending');
+    const cardClass='rm-card-'+(status==='done'?'done':isOverdue?'overdue':'pending');
+    const badgeClass='rm-badge-'+(status==='done'?'done':isOverdue?'overdue':'pending');
+    const badgeText=status==='done'?'✓ Completado':isOverdue?'⚠ Vencido':'Pendiente';
+
+    // Month marker
+    if(item.date){
+      const mk=item.date.substring(0,7);
+      if(mk!==lastMonth){
+        lastMonth=mk;
+        const parts=mk.split('-');
+        const label=MESES_ES[parseInt(parts[1])-1]+' '+parts[0];
+        html+='<div class="rm-month"><div class="rm-month-dot"></div><span class="rm-month-label">'+label+'</span></div>';
+      }
+    }
+
+    html+='<div class="rm-item" data-id="'+item.id+'">'
+      +'<div class="rm-dot '+dotClass+'" onclick="toggleRoadmapStatus(\''+item.id+'\')" title="Click para cambiar estado"></div>'
+      +'<div class="rm-connector"></div>'
+      +'<div class="rm-card '+cardClass+'">'
+        +'<div class="rm-card-top">'
+          +'<div class="rm-card-title" contenteditable="true" placeholder="Nombre del hito..." onblur="updateRoadmapField(\''+item.id+'\',\'title\',this.innerText)">'+esc(item.title||'')+'</div>'
+          +'<div class="rm-card-right">'
+            +'<span class="rm-badge '+badgeClass+'" onclick="toggleRoadmapStatus(\''+item.id+'\')">'+badgeText+'</span>'
+            +'<button class="rm-del" onclick="deleteRoadmapItem(\''+item.id+'\')" title="Eliminar">×</button>'
+          +'</div>'
+        +'</div>'
+        +'<div class="rm-card-date">📅 <input type="date" value="'+(item.date||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'date\',this.value)"></div>'
+        +(item.desc!==undefined?'<div class="rm-card-desc" contenteditable="true" placeholder="Descripción del hito..." onblur="updateRoadmapField(\''+item.id+'\',\'desc\',this.innerText)">'+escBr(item.desc||'')+'</div>':'')
+      +'</div>'
+    +'</div>';
+  });
+
+  el.innerHTML=html;
 }
 
 function addRoadmapItem(){
@@ -2026,7 +2071,7 @@ function addRoadmapItem(){
   renderRoadmap();
   scheduleStratSave();
   setTimeout(()=>{
-    const el=document.querySelector(`[data-id="${item.id}"] .roadmap-card-title`);
+    const el=document.querySelector('[data-id="'+item.id+'"] .rm-card-title');
     if(el){el.focus();const range=document.createRange();range.selectNodeContents(el);window.getSelection().removeAllRanges();window.getSelection().addRange(range);}
   },100);
 }
