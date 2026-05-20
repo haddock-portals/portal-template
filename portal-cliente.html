@@ -599,7 +599,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     <div class="p-sidebar-footer">
       <div class="p-progress-label"><span id="hdr-pct">0%</span> completado</div>
       <div class="p-progress-bar"><div id="progress-bar-fill" style="width:0%"></div></div>
-      <button class="p-refresh-btn" id="refresh-btn" onclick="refreshPortal()">↻ Actualizar datos</button>
+      <button class="p-refresh-btn" id="refresh-btn" onclick="refreshPortal()">Actualizar datos</button>
     </div>
   </aside>
 
@@ -654,9 +654,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <button class="action-btn" id="content-new-btn" onclick="onContentNew()">+ Nueva publicación</button>
       </div>
       <div class="content-subnav" style="margin-top:16px">
-        <button class="content-snav-btn active" id="csnav-posts" onclick="setContentSection('posts')">📱 Publicaciones</button>
-        <button class="content-snav-btn" id="csnav-grilla" onclick="setContentSection('grilla')">📊 Grilla</button>
-        <button class="content-snav-btn" id="csnav-piezas" onclick="setContentSection('piezas')">🗂 Piezas de medios</button>
+        <button class="content-snav-btn active" id="csnav-posts" onclick="setContentSection('posts')">Publicaciones</button>
+        <button class="content-snav-btn" id="csnav-grilla" onclick="setContentSection('grilla')">Grilla</button>
+        <button class="content-snav-btn" id="csnav-piezas" onclick="setContentSection('piezas')">Piezas de medios</button>
       </div>
 
       <!-- PUBLICACIONES -->
@@ -664,10 +664,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="content-filters" id="content-filters">
           <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Plataforma</span>
           <button class="filter-chip active" data-filter="plat" data-val="" onclick="setFilter('plat','',this)">Todas</button>
-          <button class="filter-chip" data-filter="plat" data-val="instagram" onclick="setFilter('plat','instagram',this)">📷 Instagram</button>
-          <button class="filter-chip" data-filter="plat" data-val="tiktok" onclick="setFilter('plat','tiktok',this)">🎵 TikTok</button>
-          <button class="filter-chip" data-filter="plat" data-val="facebook" onclick="setFilter('plat','facebook',this)">👍 Facebook</button>
-          <button class="filter-chip" data-filter="plat" data-val="linkedin" onclick="setFilter('plat','linkedin',this)">💼 LinkedIn</button>
+          <button class="filter-chip" data-filter="plat" data-val="instagram" onclick="setFilter('plat','instagram',this)">Instagram</button>
+          <button class="filter-chip" data-filter="plat" data-val="tiktok" onclick="setFilter('plat','tiktok',this)">TikTok</button>
+          <button class="filter-chip" data-filter="plat" data-val="facebook" onclick="setFilter('plat','facebook',this)">Facebook</button>
+          <button class="filter-chip" data-filter="plat" data-val="linkedin" onclick="setFilter('plat','linkedin',this)">LinkedIn</button>
           <div class="filter-sep"></div>
           <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Estado</span>
           <button class="filter-chip active" data-filter="estado" data-val="" onclick="setFilter('estado','',this)">Todos</button>
@@ -678,7 +678,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
           <div class="filter-sep"></div>
           <div class="content-view-toggle">
             <button class="content-vbtn active" id="cvbtn-grid" onclick="setPostsView('grid')">⊞ Grilla</button>
-            <button class="content-vbtn" id="cvbtn-list" onclick="setPostsView('list')">☰ Lista</button>
+            <button class="content-vbtn" id="cvbtn-list" onclick="setPostsView('list')">Lista</button>
           </div>
         </div>
         <div id="posts-grid-wrap"></div>
@@ -799,13 +799,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
           <option value="Resuelta">Entregado ✓</option>
         </select>
       </div>
-      <div class="form-group"><label class="form-label">📅 Fecha de entrega</label><input class="form-input" id="ff-fecha" type="date"></div>
+      <div class="form-group"><label class="form-label">Fecha de entrega</label><input class="form-input" id="ff-fecha" type="date"></div>
       <div class="form-group"><label class="form-label">Descripción</label><textarea class="form-textarea" id="ff-notas" placeholder="Detalles..."></textarea></div>
       <div class="form-group">
-        <label class="form-label">🖼 Imágenes</label>
+        <label class="form-label">Imágenes adjuntas</label>
         <div class="form-upload-zone" onclick="document.getElementById('form-img-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleFormImgDrop(event)">
-          <div style="font-size:20px;margin-bottom:4px">📷</div>
-          <div style="font-size:13px;font-weight:600;color:var(--muted)">Click o arrastra imágenes</div>
+          <div style="font-size:13px;font-weight:600;color:var(--muted)">Arrastra imágenes o haz click aquí</div>
         </div>
         <div class="form-upload-preview" id="form-img-preview"></div>
         <div id="form-upload-status" style="font-size:12px;color:var(--muted);margin-top:6px;display:none"></div>
@@ -851,17 +850,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       </div>
       <div class="ig-post-media-wrap" id="pp-media-wrap"></div>
       <div class="ig-post-actions">
-        <span class="ig-post-action-icon">🤍</span>
-        <span class="ig-post-action-icon">💬</span>
-        <span class="ig-post-action-icon">✈️</span>
-        <span class="ig-post-action-icon ig-post-save">🔖</span>
+        <span class="ig-post-action-icon">♡</span>
+        <span class="ig-post-action-icon">○</span>
+        <span class="ig-post-action-icon">↗</span>
+        <span class="ig-post-action-icon ig-post-save">⊡</span>
       </div>
       <div class="ig-post-likes" id="pp-likes"></div>
       <div class="ig-post-caption"><span id="pp-caption-user"></span> <span id="pp-caption-text"></span></div>
       <div class="ig-post-time" id="pp-date">Hace un momento</div>
     </div>
   </div>
-  <button class="post-preview-edit-btn" id="pp-edit-btn" onclick="openPostEditorFromPreview()">✏️ Editar post</button>
+  <button class="post-preview-edit-btn" id="pp-edit-btn" onclick="openPostEditorFromPreview()">Editar post</button>
 </div>
 
 <!-- POST EDITOR MODAL -->
@@ -876,20 +875,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="form-group" style="margin-bottom:0">
           <label class="form-label">Tipo</label>
           <select class="form-select" id="post-tipo" onchange="onPostTipoChange()">
-            <option value="reel">🎞 Reel</option>
-            <option value="imagen">🖼 Imagen estática</option>
-            <option value="carrusel">🎠 Carrusel</option>
-            <option value="story">📖 Story</option>
-            <option value="video">🎬 Video feed</option>
+            <option value="reel">Reel</option>
+            <option value="imagen">Imagen estática</option>
+            <option value="carrusel">Carrusel</option>
+            <option value="story">Story</option>
+            <option value="video">Video feed</option>
           </select>
         </div>
         <div class="form-group" style="margin-bottom:0">
           <label class="form-label">Plataforma</label>
           <select class="form-select" id="post-plataforma">
-            <option value="instagram">📷 Instagram</option>
-            <option value="tiktok">🎵 TikTok</option>
-            <option value="facebook">👍 Facebook</option>
-            <option value="linkedin">💼 LinkedIn</option>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="facebook">Facebook</option>
+            <option value="linkedin">LinkedIn</option>
           </select>
         </div>
       </div>
@@ -897,8 +896,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       <div class="form-group" style="margin-top:14px">
         <label class="form-label" id="post-files-label">Archivos</label>
         <div class="form-upload-zone" id="post-upload-zone" onclick="triggerPostFileInput()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handlePostFileDrop(event)">
-          <div style="font-size:22px;margin-bottom:4px" id="post-upload-icon">📷</div>
-          <div style="font-size:13px;font-weight:600;color:var(--muted)" id="post-upload-hint">Click o arrastra la imagen aquí</div>
+          <div style="font-size:13px;font-weight:600;color:var(--muted)" id="post-upload-hint">Arrastra el archivo o haz click aquí</div>
           <div style="font-size:11px;color:var(--muted2);margin-top:2px">Imágenes: máx. 25MB · Videos: máx. 50MB o pega un link</div>
         </div>
         <div class="form-upload-preview" id="post-files-preview"></div>
@@ -920,16 +918,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div class="form-group" style="margin-bottom:0">
-          <label class="form-label">📅 Fecha de publicación</label>
+          <label class="form-label">Fecha de publicación</label>
           <input class="form-input" id="post-date" type="date">
         </div>
         <div class="form-group" style="margin-bottom:0">
           <label class="form-label">Estado</label>
           <select class="form-select" id="post-estado">
-            <option value="borrador">⬜ Borrador</option>
-            <option value="revision">🟡 En revisión</option>
-            <option value="aprobado">🟢 Aprobado</option>
-            <option value="publicado">🔵 Publicado</option>
+            <option value="borrador">Borrador</option>
+            <option value="revision">En revisión</option>
+            <option value="aprobado">Aprobado</option>
+            <option value="publicado">Publicado</option>
           </select>
         </div>
       </div>
@@ -937,7 +935,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     </div>
     <div class="form-modal-footer">
       <button class="btn-cancel" onclick="closePostEditor()">Cancelar</button>
-      <button class="btn-cancel" onclick="previewCurrentPost()" style="background:#f0f4ff;color:var(--accent)">👁 Preview</button>
+      <button class="btn-cancel" onclick="previewCurrentPost()" style="background:#f0f4ff;color:var(--accent)">Vista previa</button>
       <button class="btn-save" id="btn-post-save" onclick="savePost()">Guardar</button>
     </div>
   </div>
@@ -955,11 +953,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="form-group" style="margin-bottom:0">
           <label class="form-label">Tipo</label>
           <select class="form-select" id="pieza-tipo">
-            <option value="foto">📷 Foto</option>
-            <option value="video">🎬 Video</option>
-            <option value="grafica">🎨 Gráfica</option>
-            <option value="logo">⭐ Logo / Marca</option>
-            <option value="audio">🔊 Audio / Música</option>
+            <option value="foto">Foto</option>
+            <option value="video">Video</option>
+            <option value="grafica">Gráfica</option>
+            <option value="logo">Logo / Marca</option>
+            <option value="audio">Audio / Música</option>
           </select>
         </div>
         <div class="form-group" style="margin-bottom:0">
@@ -970,8 +968,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       <div class="form-group" style="margin-top:14px">
         <label class="form-label">Archivo</label>
         <div class="form-upload-zone" onclick="document.getElementById('pieza-file-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handlePiezaFileDrop(event)">
-          <div style="font-size:20px;margin-bottom:4px">📁</div>
-          <div style="font-size:13px;font-weight:600;color:var(--muted)">Click o arrastra el archivo</div>
+          <div style="font-size:13px;font-weight:600;color:var(--muted)">Arrastra el archivo o haz click aquí</div>
         </div>
         <div class="form-upload-preview" id="pieza-file-preview"></div>
         <div id="pieza-upload-status" style="font-size:12px;color:var(--muted);margin-top:6px;display:none"></div>
@@ -1245,7 +1242,7 @@ function renderCol(id,items){
   });
 }
 
-function dateChip(f){if(!f)return'<span class="chip chip-none">Sin fecha</span>';const d=daysDiff(f);if(d<0)return`<span class="chip chip-over">📅 Vencida</span>`;if(d===0)return`<span class="chip chip-soon">📅 Hoy</span>`;if(d<=7)return`<span class="chip chip-soon">📅 En ${d}d</span>`;return`<span class="chip chip-ok">📅 ${fmtDate(f)}</span>`;}
+function dateChip(f){if(!f)return'<span class="chip chip-none">Sin fecha</span>';const d=daysDiff(f);if(d<0)return`<span class="chip chip-over">Vencida</span>`;if(d===0)return`<span class="chip chip-soon">Hoy</span>`;if(d<=7)return`<span class="chip chip-soon">En ${d}d</span>`;return`<span class="chip chip-ok">${fmtDate(f)}</span>`;}
 
 function onDragOver(e,estado){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over');}
 function onDragLeave(e){e.currentTarget.classList.remove('drag-over');}
@@ -1367,7 +1364,7 @@ function openModal(taskId){
   const badge=document.getElementById('m-status-badge');badge.textContent=s.label;badge.style.cssText=`background:${s.bg};color:${s.color}`;
   document.getElementById('m-title').textContent=t.titulo;
   const de=document.getElementById('m-deadline');
-  if(t.fecha){const d=daysDiff(t.fecha);let cls,label;if(d<0){cls='over';label=`Venció el ${fmtDateLong(t.fecha)}`;}else if(d===0){cls='soon';label='Vence hoy';}else if(d===1){cls='soon';label='Vence mañana';}else if(d<=7){cls='soon';label=`Vence en ${d} días — ${fmtDateLong(t.fecha)}`;}else{cls='ok';label=`Entrega: ${fmtDateLong(t.fecha)}`;}de.innerHTML=`<div class="modal-deadline-box ${cls}">📅 ${label}</div>`;}else de.innerHTML='';
+  if(t.fecha){const d=daysDiff(t.fecha);let cls,label;if(d<0){cls='over';label=`Venció el ${fmtDateLong(t.fecha)}`;}else if(d===0){cls='soon';label='Vence hoy';}else if(d===1){cls='soon';label='Vence mañana';}else if(d<=7){cls='soon';label=`Vence en ${d} días — ${fmtDateLong(t.fecha)}`;}else{cls='ok';label=`Entrega: ${fmtDateLong(t.fecha)}`;}de.innerHTML=`<div class="modal-deadline-box ${cls}">${label}</div>`;}else de.innerHTML='';
   document.getElementById('m-notes').innerHTML=t.notas?`<div class="m-section-title">Descripción</div><div class="notes-box">${esc(t.notas)}</div>`:'';
   renderModalFiles(t.archivos||[]);renderModalComments(t.comentarios||[]);
   document.getElementById('comment-input').value='';autoResize(document.getElementById('comment-input'));
@@ -1381,7 +1378,7 @@ function renderModalFiles(files){
   const others=files.filter(f=>!f.type||!f.type.startsWith('image'));
   let html='<div class="m-section-title">Archivos</div>';
   if(images.length){html+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:10px">';images.forEach(f=>{const thumb=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w300`:f.url;const full=f.id?`https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`:f.url;html+=`<div style="aspect-ratio:1;border-radius:var(--r);overflow:hidden;cursor:pointer;border:1.5px solid var(--border)" onclick="openLightbox('${full}')"><img src="${thumb}" style="width:100%;height:100%;object-fit:cover"></div>`;});html+='</div>';}
-  others.forEach(f=>{const icon=f.type==='link'?'🔗':f.type&&f.type.startsWith('video')?'🎬':f.name&&f.name.endsWith('.pdf')?'📄':'📎';html+=`<a class="file-row" href="${f.url}" target="_blank" rel="noopener"><span>${icon}</span><span class="file-row-name">${esc(f.name)}</span><span class="file-row-meta">${f.size?fmtSize(f.size):'Abrir'} ↗</span></a>`;});
+  others.forEach(f=>{const icon=f.type==='link'?'↗':f.type&&f.type.startsWith('video')?'▶':f.name&&f.name.endsWith('.pdf')?'PDF':'↓';html+=`<a class="file-row" href="${f.url}" target="_blank" rel="noopener"><span class="file-row-icon">${icon}</span><span class="file-row-name">${esc(f.name)}</span><span class="file-row-meta">${f.size?fmtSize(f.size):'Abrir'} ↗</span></a>`;});
   html+=`<div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)"><div style="font-size:22px;margin-bottom:4px">☁️</div><div style="font-size:13px;font-weight:600">Subir archivo</div><div style="font-size:11px;color:var(--muted)">Click o arrastra · máx. 25MB</div><div class="upload-progress-wrap" id="upload-prog-wrap"><div class="upload-progress-fill" id="upload-prog-fill"></div></div></div>`;
   el.innerHTML=html;
 }
@@ -1438,10 +1435,10 @@ let postsView = 'grid';
 let activeFilters = { plat: '', estado: '' };
 
 // helpers for content
-const TIPO_META = { reel:{label:'Reel',cls:'tipo-reel',icon:'🎞'}, imagen:{label:'Imagen',cls:'tipo-imagen',icon:'🖼'}, carrusel:{label:'Carrusel',cls:'tipo-carrusel',icon:'🎠'}, story:{label:'Story',cls:'tipo-story',icon:'📖'}, video:{label:'Video',cls:'tipo-video',icon:'🎬'} };
-const PLAT_META = { instagram:{icon:'📷',color:'#e1306c'}, tiktok:{icon:'🎵',color:'#000'}, facebook:{icon:'👍',color:'#1877f2'}, linkedin:{icon:'💼',color:'#0a66c2'} };
+const TIPO_META = { reel:{label:'Reel',cls:'tipo-reel',icon:'R'}, imagen:{label:'Imagen',cls:'tipo-imagen',icon:'I'}, carrusel:{label:'Carrusel',cls:'tipo-carrusel',icon:'C'}, story:{label:'Story',cls:'tipo-story',icon:'S'}, video:{label:'Video',cls:'tipo-video',icon:'V'} };
+const PLAT_META = { instagram:{icon:'IG',color:'#e1306c'}, tiktok:{icon:'TK',color:'#000'}, facebook:{icon:'FB',color:'#1877f2'}, linkedin:{icon:'LI',color:'#0a66c2'} };
 const ESTADO_META = { borrador:{label:'Borrador',cls:'sc-borrador',color:'#9ca3af'}, revision:{label:'En revisión',cls:'sc-revision',color:'#f59e0b'}, aprobado:{label:'Aprobado',cls:'sc-aprobado',color:'#10b981'}, publicado:{label:'Publicado',cls:'sc-publicado',color:'var(--accent)'} };
-const PIEZA_TIPOS = { foto:{label:'Foto',cls:'pt-foto',icon:'📷'}, video:{label:'Video',cls:'pt-video',icon:'🎬'}, grafica:{label:'Gráfica',cls:'pt-grafica',icon:'🎨'}, logo:{label:'Logo',cls:'pt-logo',icon:'⭐'}, audio:{label:'Audio',cls:'pt-audio',icon:'🔊'} };
+const PIEZA_TIPOS = { foto:{label:'Foto',cls:'pt-foto',icon:'F'}, video:{label:'Video',cls:'pt-video',icon:'V'}, grafica:{label:'Gráfica',cls:'pt-grafica',icon:'G'}, logo:{label:'Logo',cls:'pt-logo',icon:'L'}, audio:{label:'Audio',cls:'pt-audio',icon:'A'} };
 
 function getFilteredPosts(){
   let posts = estrategia.contentPosts || [];
@@ -1517,7 +1514,7 @@ function renderPostsGrid(posts){
     html+='<div class="post-card-top"><span class="tipo-badge '+tipo.cls+'" style="position:static;font-size:8px">'+tipo.label+'</span><span class="post-card-num">'+(i+1)+'</span></div>';
     html+='<div class="post-card-actions" onclick="event.stopPropagation()">';
     html+='<button class="post-card-action-btn edit" onclick="openPostEditor(\''+post.id+'\')" title="Editar">✏️</button>';
-    html+='<button class="post-card-action-btn del" onclick="deletePost(\''+post.id+'\')" title="Eliminar">🗑</button>';
+    html+='<button class="post-card-action-btn del" onclick="deletePost(\''+post.id+'\')" title="Eliminar">×</button>';
     html+='</div>';
     html+='<div class="post-card-bottom">';
     if(isRevision) html+='<button class="post-card-approve-btn" onclick="event.stopPropagation();approvePost(\''+post.id+'\')">✓ Aprobar</button>';
@@ -1543,7 +1540,7 @@ function renderPostsList(posts){
     const estado=ESTADO_META[post.estado]||ESTADO_META.borrador;
     return`<div class="post-list-row st-${post.estado||'borrador'}" onclick="openPostPreview('${post.id}')">
       <div class="post-list-num">${i+1}</div>
-      <div class="post-list-thumb">${thumb&&!isVideo?`<img src="${thumb}" alt="">`:(`<div class="post-list-thumb-empty">${isVideo?'🎬':tipo.icon}</div>`)}</div>
+      <div class="post-list-thumb">${thumb&&!isVideo?`<img src="${thumb}" alt="">`:(`<div class="post-list-thumb-empty">${isVideo?'▶':tipo.icon}</div>`)}</div>
       <div class="post-list-info">
         <div class="post-list-top">
           <span class="tipo-badge ${tipo.cls}" style="position:static;font-size:9px">${tipo.label}</span>
@@ -1556,7 +1553,7 @@ function renderPostsList(posts){
       <span class="status-chip ${estado.cls}">${estado.label}</span>
       <div class="post-list-actions" onclick="event.stopPropagation()">
         <button class="post-list-btn" onclick="openPostEditor('${post.id}')" title="Editar">✏️</button>
-        <button class="post-list-btn del" onclick="deletePost('${post.id}')" title="Eliminar">🗑</button>
+        <button class="post-list-btn del" onclick="deletePost('${post.id}')" title="Eliminar">×</button>
       </div>
     </div>`;
   }).join('')+'</div>';
@@ -1607,7 +1604,7 @@ function onPostTipoChange(){
   inp.multiple=isCarrusel;
   inp.accept=isVideo?'video/*,image/*':'image/*';
   document.getElementById('post-files-label').textContent=isVideo?'Video / Reel':isCarrusel?'Imágenes del carrusel (en orden)':'Imagen';
-  document.getElementById('post-upload-icon').textContent=isVideo?'🎬':isCarrusel?'🎠':'📷';
+  // upload icon removed (no emoji)
   document.getElementById('post-upload-hint').textContent=isVideo?'Click o arrastra el video':isCarrusel?'Click o arrastra las imágenes en orden':'Click o arrastra la imagen';
   document.getElementById('post-video-url-wrap').style.display=isVideo?'block':'none';
 }
@@ -1796,7 +1793,7 @@ function renderPiezasGrid(){
       <div class="pieza-info">
         <div class="pieza-tipo-badge ${tmeta.cls}">${tmeta.label}</div>
         <div class="pieza-name">${esc(p.nombre||'Sin nombre')}</div>
-        ${p.campana?`<div class="pieza-meta">📁 ${esc(p.campana)}</div>`:''}
+        ${p.campana?`<div class="pieza-meta">${esc(p.campana)}</div>`:''}
       </div>
     </div>`;
   }).join('')+'</div>';
@@ -1908,7 +1905,7 @@ function renderParrilla(){
     html+='<td><input class="parrilla-input" value="'+esc(row.copy||'')+'" placeholder="Copy out..." style="min-width:180px" onchange="updateParrillaField(\''+row.id+'\',\'copy\',this.value)"></td>';
     html+='<td class="parrilla-chip-cell"><select class="parrilla-select" style="background:'+medio.bg+';color:'+medio.color+'" onchange="updateParrillaField(\''+row.id+'\',\'medio\',this.value)">'+medioOpts+'</select></td>';
     html+='<td class="parrilla-chip-cell"><select class="parrilla-select" style="background:'+estado.bg+';color:'+estado.color+'" onchange="updateParrillaField(\''+row.id+'\',\'estado\',this.value)">'+estadoOpts+'</select></td>';
-    html+='<td><button class="parrilla-del-btn" onclick="deleteParrillaRow(\''+row.id+'\')">🗑</button></td>';
+    html+='<td><button class="parrilla-del-btn" onclick="deleteParrillaRow(\''+row.id+'\')">×</button></td>';
     html+='</tr>';
   });
   html+='</tbody></table>';
@@ -2096,7 +2093,7 @@ function renderRoadmap(){
             +'<button class="rm-del" onclick="deleteRoadmapItem(\''+item.id+'\')" title="Eliminar">×</button>'
           +'</div>'
         +'</div>'
-        +'<div class="rm-card-date">📅 <input type="date" value="'+(item.date||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'date\',this.value)"></div>'
+        +'<div class="rm-card-date"><input type="date" value="'+(item.date||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'date\',this.value)"></div>'
         +(item.desc!==undefined?'<div class="rm-card-desc" contenteditable="true" placeholder="Descripción del hito..." onblur="updateRoadmapField(\''+item.id+'\',\'desc\',this.innerText)">'+escBr(item.desc||'')+'</div>':'')
       +'</div>'
     +'</div>';
