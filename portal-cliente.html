@@ -781,7 +781,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
           <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Plataforma</span>
           <button class="filter-chip active" data-filter="plat" data-val="" onclick="setFilter('plat','',this)">Todas</button>
           <button class="filter-chip" data-filter="plat" data-val="instagram" onclick="setFilter('plat','instagram',this)">Instagram</button>
-          <button class="filter-chip" data-filter="plat" data-val="tiktok" onclick="setFilter('plat','tiktok',this)">TikTok</button>
           <button class="filter-chip" data-filter="plat" data-val="facebook" onclick="setFilter('plat','facebook',this)">Facebook</button>
           <button class="filter-chip" data-filter="plat" data-val="linkedin" onclick="setFilter('plat','linkedin',this)">LinkedIn</button>
           <div class="filter-sep"></div>
@@ -1016,7 +1015,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
           <label class="form-label">Plataforma</label>
           <select class="form-select" id="post-plataforma" onchange="onPostTipoChange()">
             <option value="instagram">Instagram</option>
-            <option value="tiktok">TikTok</option>
             <option value="facebook">Facebook</option>
             <option value="linkedin">LinkedIn</option>
           </select>
@@ -1570,7 +1568,7 @@ let activeFilters = { plat: '', estado: '' };
 
 // helpers for content
 const TIPO_META = { reel:{label:'Reel',cls:'tipo-reel',icon:'R'}, imagen:{label:'Imagen',cls:'tipo-imagen',icon:'I'}, carrusel:{label:'Carrusel',cls:'tipo-carrusel',icon:'C'}, story:{label:'Story',cls:'tipo-story',icon:'S'}, video:{label:'Video',cls:'tipo-video',icon:'V'} };
-const PLAT_META = { instagram:{icon:'IG',color:'#e1306c'}, tiktok:{icon:'TK',color:'#000'}, facebook:{icon:'FB',color:'#1877f2'}, linkedin:{icon:'LI',color:'#0a66c2'} };
+const PLAT_META = { instagram:{icon:'IG',color:'#e1306c'}, facebook:{icon:'FB',color:'#1877f2'}, linkedin:{icon:'LI',color:'#0a66c2'} };
 const ESTADO_META = { borrador:{label:'Borrador',cls:'sc-borrador',color:'#9ca3af'}, revision:{label:'En revisión',cls:'sc-revision',color:'#f59e0b'}, aprobado:{label:'Aprobado',cls:'sc-aprobado',color:'#10b981'}, publicado:{label:'Publicado',cls:'sc-publicado',color:'var(--accent)'} };
 const PIEZA_TIPOS = { foto:{label:'Foto',cls:'pt-foto',icon:'F'}, video:{label:'Video',cls:'pt-video',icon:'V'}, grafica:{label:'Gráfica',cls:'pt-grafica',icon:'G'}, logo:{label:'Logo',cls:'pt-logo',icon:'L'}, audio:{label:'Audio',cls:'pt-audio',icon:'A'} };
 
@@ -1764,9 +1762,6 @@ function renderMetaGuide(){
       linkedin:[
         {label:'1200×627',note:'feed estándar',rec:true},
         {label:'1080×1080',note:'1:1 cuadrado'}
-      ],
-      tiktok:[
-        {label:'1080×1920',note:'9:16 vertical',rec:true}
       ]
     },
     carrusel:{
@@ -1779,18 +1774,12 @@ function renderMetaGuide(){
       ],
       linkedin:[
         {label:'1080×1080',note:'1:1 cuadrado',rec:true}
-      ],
-      tiktok:[
-        {label:'1080×1080',note:'1:1 cuadrado',rec:true}
       ]
     },
     reel:{
       instagram:[
         {label:'1080×1920',note:'9:16 vertical',rec:true},
         {label:'1080×1080',note:'1:1 — preview feed'}
-      ],
-      tiktok:[
-        {label:'1080×1920',note:'9:16 vertical',rec:true}
       ],
       facebook:[
         {label:'1080×1920',note:'9:16 vertical',rec:true}
@@ -1807,9 +1796,6 @@ function renderMetaGuide(){
       facebook:[
         {label:'1080×1920',note:'9:16 vertical',rec:true}
       ],
-      tiktok:[
-        {label:'1080×1920',note:'9:16 vertical',rec:true}
-      ],
       linkedin:[
         {label:'1080×1920',note:'9:16 vertical',rec:true}
       ]
@@ -1819,9 +1805,6 @@ function renderMetaGuide(){
         {label:'1080×1080',note:'1:1 cuadrado',rec:true},
         {label:'1080×1350',note:'4:5 vertical'},
         {label:'1920×1080',note:'16:9 horizontal'}
-      ],
-      tiktok:[
-        {label:'1080×1920',note:'9:16 vertical',rec:true}
       ],
       facebook:[
         {label:'1280×720',note:'16:9 horizontal',rec:true},
@@ -1839,7 +1822,7 @@ function renderMetaGuide(){
   var platSizes=tipoSizes[plat]||tipoSizes.instagram||[];
   if(!platSizes.length){guideEl.innerHTML='';return;}
 
-  var platLabel={instagram:'Instagram',tiktok:'TikTok',facebook:'Facebook',linkedin:'LinkedIn'}[plat]||plat;
+  var platLabel={instagram:'Instagram',facebook:'Facebook',linkedin:'LinkedIn'}[plat]||plat;
   var tipoLabel={imagen:'Imagen',carrusel:'Carrusel',reel:'Reel',story:'Story',video:'Video'}[tipo]||tipo;
 
   var chipsHtml=platSizes.map(function(s){
@@ -2121,7 +2104,7 @@ async function savePieza(){
 
 // ─── PARRILLA ───
 const TIPO_P={reel:{label:'Reel',bg:'#fff0f1',color:'#ff4757'},video:{label:'Video',bg:'#f0fdf4',color:'#059669'},carrusel:{label:'Carrusel',bg:'#f5f3ff',color:'#7c3aed'},estatica:{label:'Estática',bg:'#eff6ff',color:'#2563eb'}};
-const MEDIO_P={instagram:{label:'Instagram',bg:'#fdf0f4',color:'#e1306c'},tiktok:{label:'TikTok',bg:'#f4f3ee',color:'#1a1a1a'},youtube:{label:'YouTube',bg:'#fff5f5',color:'#ff0000'},linkedin:{label:'LinkedIn',bg:'#f0f7ff',color:'#0a66c2'}};
+const MEDIO_P={instagram:{label:'Instagram',bg:'#fdf0f4',color:'#e1306c'},youtube:{label:'YouTube',bg:'#fff5f5',color:'#ff0000'},linkedin:{label:'LinkedIn',bg:'#f0f7ff',color:'#0a66c2'}};
 const ESTADO_P={borrador:{label:'Borrador',bg:'#f3f4f6',color:'#6b7280'},revision:{label:'Revisión',bg:'#fff7ed',color:'#d97706'},aprobado:{label:'Aprobado',bg:'#f0fdf4',color:'#059669'},publicado:{label:'Publicado',bg:'#eef2ff',color:'#4f46e5'}};
 
 function renderParrilla(){
