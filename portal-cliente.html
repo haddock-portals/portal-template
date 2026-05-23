@@ -614,6 +614,51 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 #toast.show{transform:translateX(-50%) translateY(0)}
 #no-client{min-height:100vh;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--muted)}
 .no-client-logo{font-weight:700;font-size:28px;letter-spacing:-.04em;color:var(--text)}
+
+/* ─── RESULTADOS / KPIs ─── */
+.res-year-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.res-year-btn{padding:4px 14px;border-radius:99px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;font-family:var(--font-sans)}
+.res-year-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.res-pilar-card{background:#fff;border-radius:16px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+.res-pilar-head{display:flex;align-items:center;gap:10px;padding:15px 18px;cursor:pointer;user-select:none;position:relative}
+.res-pilar-head:hover .res-pilar-del-btn{opacity:.5!important}
+.res-pilar-del-btn{background:none!important;border:none!important;cursor:pointer;padding:2px 6px;color:var(--muted);font-size:17px;opacity:0;transition:opacity .15s;flex-shrink:0}
+.res-pilar-del-btn:hover{opacity:1!important;color:#ef4444!important}
+.res-pilar-accent{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.res-pilar-name-input{flex:1;background:transparent;border:none;outline:none;font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans);min-width:0;cursor:text}
+.res-pilar-pct{font-size:20px;font-weight:800;font-family:var(--font-mono);min-width:56px;text-align:right}
+.res-pilar-toggle{display:flex;align-items:center;justify-content:center;width:22px;height:22px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.res-pilar-toggle.open{transform:rotate(180deg)}
+.res-pilar-bar-wrap{height:5px;background:var(--border);margin:0 18px 14px;border-radius:99px;overflow:hidden}
+.res-pilar-bar-fill{height:100%;border-radius:99px;transition:width .5s}
+.res-kpi-table{width:100%;border-collapse:collapse;font-size:13px}
+.res-kpi-table th{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);font-family:var(--font-mono);padding:7px 12px;border-top:1px solid var(--border);background:#f8f9fc;text-align:left}
+.res-kpi-table th.num{text-align:right}
+.res-kpi-table td{padding:9px 12px;border-top:1px solid var(--border);color:var(--text);vertical-align:middle}
+.res-kpi-table td.num{text-align:right;font-family:var(--font-mono);font-size:12px;font-weight:700}
+.res-kpi-label-input{background:transparent;border:none;outline:none;font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans);width:100%;min-width:110px}
+.res-tipo-toggle{display:flex;gap:0;margin-bottom:3px}
+.res-tipo-btn{padding:2px 8px;font-size:10px;font-weight:600;border:1px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;font-family:var(--font-mono);transition:all .15s;line-height:1.6}
+.res-tipo-btn:first-child{border-radius:5px 0 0 5px}
+.res-tipo-btn:last-child{border-radius:0 5px 5px 0}
+.res-tipo-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.res-meta-input{width:78px;border:1.5px solid var(--border);border-radius:7px;padding:4px 7px;font-size:12px;font-family:var(--font-mono);text-align:right;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
+.res-meta-input:focus{border-color:var(--accent);outline:none}
+.res-cumpl-bar{display:flex;align-items:center;gap:7px}
+.res-cumpl-track{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden;min-width:36px}
+.res-cumpl-fill{height:100%;border-radius:99px;transition:width .4s}
+.res-cumpl-pct{font-size:12px;font-weight:700;font-family:var(--font-mono);min-width:34px;text-align:right}
+.res-months-row td{padding:3px 12px 10px;border-top:none!important}
+.res-month-cells{display:flex;flex-wrap:wrap;gap:5px}
+.res-month-cell{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:50px}
+.res-month-lbl{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);font-family:var(--font-mono)}
+.res-month-input{width:50px;padding:4px 5px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:var(--font-mono);text-align:center;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
+.res-month-input:focus{border-color:var(--accent);outline:none}
+.res-month-input.has-data{border-color:var(--accent);background:var(--accent-bg)}
+.res-add-pilar-btn{display:flex;align-items:center;gap:8px;padding:12px 18px;border:1.5px dashed var(--border2);border-radius:12px;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;width:100%;margin-top:4px;transition:all .15s;font-family:var(--font-sans)}
+.res-add-pilar-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.res-add-kpi-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border:1.5px dashed var(--border2);border-radius:8px;background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:var(--font-sans);margin-top:4px}
+.res-add-kpi-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
 </style>
 </head>
 <body>
@@ -662,6 +707,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       </button>
       <button class="p-nav-item" id="tab-btn-estrategia" onclick="switchTab('estrategia')">
         <span class="p-nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="1.25" fill="currentColor"/></svg></span>Estrategia
+      </button>
+      <button class="p-nav-item" id="tab-btn-resultados" onclick="switchTab('resultados')">
+        <span class="p-nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 10.5l2.5-3 2 1.5 3-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Resultados
       </button>
     </nav>
     <div class="p-sidebar-footer">
@@ -821,6 +869,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <div class="strat-save-indicator" id="strat-save-indicator"></div>
       </div>
       <div class="matrix-wrap" id="mx-board-wrap"></div>
+    </div>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div id="tab-resultados" style="display:none">
+    <div class="tab-section">
+      <div class="section-toolbar" style="flex-wrap:wrap;gap:10px">
+        <div class="section-toolbar-title">Resultados</div>
+        <div id="res-year-bar" class="res-year-bar"></div>
+        <div style="flex:1"></div>
+        <div class="strat-save-indicator" id="res-save-indicator"></div>
+      </div>
+      <div id="res-pilares-wrap"></div>
+      <button class="res-add-pilar-btn" onclick="addResPilar()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Agregar objetivo
+      </button>
     </div>
   </div>
 
@@ -1198,7 +1263,8 @@ function launchPortal(data) {
     calEntries: saved.calEntries || [],
     contentPosts: saved.contentPosts || [],
     piezasMedias: saved.piezasMedias || [],
-    parrilla: (function(){let p=saved.parrilla||{};if(Array.isArray(p)){if(p.length){const k=new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,'0');const o={};o[k]=p;return o;}return{};}return p;})()
+    parrilla: (function(){let p=saved.parrilla||{};if(Array.isArray(p)){if(p.length){const k=new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,'0');const o={};o[k]=p;return o;}return{};}return p;})(),
+    kpis: saved.kpis || { pilares: [] }
   };
 
   const now = new Date();
@@ -1226,11 +1292,11 @@ function getDefaultMatrix() {
 }
 
 // ─── TABS ───
-const TAB_LABELS = {tareas:'Tareas',contenido:'Contenido',calendario:'Calendario',roadmap:'Roadmap',estrategia:'Estrategia'};
+const TAB_LABELS = {tareas:'Tareas',contenido:'Contenido',calendario:'Calendario',roadmap:'Roadmap',estrategia:'Estrategia',resultados:'Resultados'};
 
 function switchTab(tab) {
   activeTab = tab;
-  ['tareas','contenido','calendario','roadmap','estrategia'].forEach(t => {
+  ['tareas','contenido','calendario','roadmap','estrategia','resultados'].forEach(t => {
     document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
     document.getElementById('tab-btn-'+t).classList.toggle('active', t===tab);
   });
@@ -1244,6 +1310,7 @@ function switchTab(tab) {
   if (tab==='calendario') renderCalendar();
   if (tab==='roadmap') renderRoadmap();
   if (tab==='estrategia') renderMatrix();
+  if (tab==='resultados') renderResultados();
 }
 
 function onHdrAction() {
@@ -2646,6 +2713,245 @@ async function doSaveEstrategia(){
     fd.append('payload',JSON.stringify({action:'saveEstrategia',cliente:clientName,data:estrategia}));
     await fetch(API,{method:'POST',body:fd});
   }catch(e){console.error('Save estrategia error',e);}
+}
+
+// ─── RESULTADOS / KPIs ───
+var resOpenPilares = {};
+var resYear = new Date().getFullYear();
+var MONTHS_ES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+
+function calcKpiActual(kpi, year) {
+  var vals = [];
+  var meses = kpi.meses || {};
+  Object.keys(meses).forEach(function(k) {
+    if (k.startsWith(String(year))) vals.push(parseFloat(meses[k]) || 0);
+  });
+  if (!vals.length) return 0;
+  if (kpi.tipoCalculo === 'avg') return vals.reduce(function(a,b){return a+b;},0) / vals.length;
+  return vals.reduce(function(a,b){return a+b;},0);
+}
+
+function calcKpiObjetivo(kpi) {
+  var meta = parseFloat(kpi.metaMensual) || 0;
+  if (kpi.tipoMeta === 'anual') return meta * 12;
+  return meta;
+}
+
+function calcKpiCumplimiento(kpi, year) {
+  var obj = calcKpiObjetivo(kpi);
+  if (!obj) return 0;
+  return calcKpiActual(kpi, year) / obj;
+}
+
+function calcPilarResultado(pilar, year) {
+  var cs = (pilar.kpis || []).map(function(k){ return calcKpiCumplimiento(k, year); });
+  return cs.length ? cs.reduce(function(a,b){return a+b;},0) / cs.length : 0;
+}
+
+function resCumplColor(c) {
+  if (c >= 0.9) return '#10b981';
+  if (c >= 0.6) return '#f59e0b';
+  return '#ef4444';
+}
+
+function resCumplClass(c) {
+  if (c >= 0.9) return 'res-cumpl-ok';
+  if (c >= 0.6) return 'res-cumpl-mid';
+  return 'res-cumpl-low';
+}
+
+function fmtNum(n) {
+  if (n === null || n === undefined || (isNaN(n) && n !== 0)) return '-';
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+  if (n >= 10000) return (n / 1000).toFixed(1) + 'K';
+  return String(Math.round(n));
+}
+
+function renderResultados() {
+  var year = resYear;
+  var kpisData = estrategia.kpis || { pilares: [] };
+
+  var yearBar = document.getElementById('res-year-bar');
+  if (yearBar) {
+    var curY = new Date().getFullYear();
+    var yHtml = '';
+    for (var y = curY - 1; y <= curY + 1; y++) {
+      yHtml += '<button class="res-year-btn' + (y === year ? ' active' : '') + '" onclick="resYear=' + y + ';renderResultados()">' + y + '</button>';
+    }
+    yearBar.innerHTML = yHtml;
+  }
+
+  var wrap = document.getElementById('res-pilares-wrap');
+  if (!wrap) return;
+
+  var pilares = kpisData.pilares || [];
+  if (!pilares.length) {
+    wrap.innerHTML = '<div style="text-align:center;padding:48px 0;color:var(--muted);font-size:14px">Sin objetivos aun. Haz clic en "+ Agregar objetivo" para comenzar.</div>';
+    return;
+  }
+
+  var CARD_COLORS = ['#dbeafe','#fef9c3','#fde8d5','#dcfce7','#fce7f3','#ede9fe','#cffafe'];
+  var html = '';
+
+  pilares.forEach(function(pilar, pi) {
+    var accent = pilar.color || CARD_COLORS[pi % CARD_COLORS.length];
+    var resultado = calcPilarResultado(pilar, year);
+    var pctStr = Math.round(resultado * 100) + '%';
+    var isOpen = resOpenPilares[pilar.id] !== false;
+    var barW = Math.min(100, Math.round(resultado * 100));
+    var barColor = resCumplColor(resultado);
+
+    html += '<div class="res-pilar-card">';
+    html += '<div class="res-pilar-head" onclick="toggleResPilar(\'' + pilar.id + '\')">';
+    html += '<div class="res-pilar-accent" style="background:' + accent + '"></div>';
+    html += '<input class="res-pilar-name-input" value="' + esc(pilar.nombre || '') + '" onclick="event.stopPropagation()" onchange="updateResPilarNombre(\'' + pilar.id + '\',this.value)" placeholder="Nombre del objetivo">';
+    html += '<div class="res-pilar-pct" style="color:' + barColor + '">' + pctStr + '</div>';
+    html += '<div class="res-pilar-toggle' + (isOpen ? ' open' : '') + '"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+    html += '<button class="res-pilar-del-btn" onclick="event.stopPropagation();deleteResPilar(\'' + pilar.id + '\')" title="Eliminar objetivo">×</button>';
+    html += '</div>';
+    html += '<div class="res-pilar-bar-wrap"><div class="res-pilar-bar-fill" style="width:' + barW + '%;background:' + barColor + '"></div></div>';
+
+    if (isOpen) {
+      html += '<div style="padding:0 18px 16px">';
+      if ((pilar.kpis || []).length) {
+        html += '<table class="res-kpi-table" style="margin-bottom:10px">';
+        html += '<thead><tr><th>KPI</th><th>Tipo meta</th><th>Calculo</th><th class="num">Meta mensual</th><th class="num">Actual ' + year + '</th><th class="num">Objetivo</th><th>Cumplimiento</th></tr></thead>';
+        html += '<tbody>';
+
+        (pilar.kpis || []).forEach(function(kpi) {
+          var actual = calcKpiActual(kpi, year);
+          var objetivo = calcKpiObjetivo(kpi);
+          var cumpl = calcKpiCumplimiento(kpi, year);
+          var cumplPct = Math.round(cumpl * 100);
+          var fillW = Math.min(100, cumplPct);
+          var fillCls = resCumplClass(cumpl);
+          var fillColor = resCumplColor(cumpl);
+
+          html += '<tr>';
+          html += '<td><div style="display:flex;align-items:center;gap:6px"><input class="res-kpi-label-input" value="' + esc(kpi.label || '') + '" onchange="updateResKpi(\'' + pilar.id + '\',\'' + kpi.id + '\',\'label\',this.value)" placeholder="Nombre KPI"><button style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:15px;opacity:.4;padding:0 3px;flex-shrink:0;transition:opacity .15s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.4" onclick="deleteResKpi(\'' + pilar.id + '\',\'' + kpi.id + '\')" title="Eliminar KPI">×</button></div></td>';
+
+          html += '<td><div class="res-tipo-toggle">';
+          html += '<button class="res-tipo-btn' + (kpi.tipoMeta === 'anual' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoMeta\',\'anual\')">Anual</button>';
+          html += '<button class="res-tipo-btn' + (kpi.tipoMeta === 'mensual' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoMeta\',\'mensual\')">Mensual</button>';
+          html += '</div></td>';
+
+          html += '<td><div class="res-tipo-toggle">';
+          html += '<button class="res-tipo-btn' + (kpi.tipoCalculo !== 'avg' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoCalculo\',\'sum\')">Suma</button>';
+          html += '<button class="res-tipo-btn' + (kpi.tipoCalculo === 'avg' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoCalculo\',\'avg\')">Prom.</button>';
+          html += '</div></td>';
+
+          html += '<td class="num"><input class="res-meta-input" type="number" value="' + (kpi.metaMensual || '') + '" onchange="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'metaMensual\',this.value)" placeholder="0"></td>';
+
+          html += '<td class="num">' + (actual > 0 ? fmtNum(actual) : '—') + '</td>';
+          html += '<td class="num">' + fmtNum(objetivo) + '</td>';
+          html += '<td><div class="res-cumpl-bar"><div class="res-cumpl-track"><div class="res-cumpl-fill ' + fillCls + '" style="width:' + fillW + '%"></div></div><span class="res-cumpl-pct" style="color:' + fillColor + '">' + cumplPct + '%</span></div></td>';
+          html += '</tr>';
+
+          html += '<tr class="res-months-row"><td colspan="7"><div class="res-month-cells">';
+          for (var m = 0; m < 12; m++) {
+            var mk = year + '-' + String(m + 1).padStart(2, '0');
+            var mv = (kpi.meses || {})[mk];
+            var hasData = mv !== undefined && mv !== '';
+            html += '<div class="res-month-cell">';
+            html += '<div class="res-month-lbl">' + MONTHS_ES[m] + '</div>';
+            html += '<input class="res-month-input' + (hasData ? ' has-data' : '') + '" type="number" value="' + (hasData ? mv : '') + '" placeholder="—" onchange="saveKpiMonth(\'' + pilar.id + '\',\'' + kpi.id + '\',\'' + mk + '\',this.value)">';
+            html += '</div>';
+          }
+          html += '</div></td></tr>';
+        });
+
+        html += '</tbody></table>';
+      }
+
+      html += '<button class="res-add-kpi-btn" onclick="addResKpi(\'' + pilar.id + '\')">';
+      html += '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Agregar KPI';
+      html += '</button>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+  });
+
+  wrap.innerHTML = html;
+}
+
+function toggleResPilar(id) {
+  resOpenPilares[id] = resOpenPilares[id] === false ? true : false;
+  renderResultados();
+}
+
+function addResPilar() {
+  if (!estrategia.kpis) estrategia.kpis = { pilares: [] };
+  var CARD_COLORS = ['#dbeafe','#fef9c3','#fde8d5','#dcfce7','#fce7f3','#ede9fe'];
+  var idx = (estrategia.kpis.pilares || []).length;
+  var newPilar = { id: uid(), nombre: 'Nuevo objetivo', color: CARD_COLORS[idx % CARD_COLORS.length], kpis: [] };
+  estrategia.kpis.pilares.push(newPilar);
+  resOpenPilares[newPilar.id] = true;
+  scheduleStratSave();
+  renderResultados();
+}
+
+function deleteResPilar(pilarId) {
+  if (!estrategia.kpis) return;
+  if (!confirm('¿Eliminar este objetivo y todos sus KPIs?')) return;
+  estrategia.kpis.pilares = (estrategia.kpis.pilares || []).filter(function(p){ return p.id !== pilarId; });
+  scheduleStratSave();
+  renderResultados();
+}
+
+function addResKpi(pilarId) {
+  if (!estrategia.kpis) return;
+  var pilar = (estrategia.kpis.pilares || []).find(function(p){ return p.id === pilarId; });
+  if (!pilar) return;
+  if (!pilar.kpis) pilar.kpis = [];
+  pilar.kpis.push({ id: uid(), label: 'Nuevo KPI', metaMensual: 0, tipoMeta: 'anual', tipoCalculo: 'sum', meses: {} });
+  scheduleStratSave();
+  renderResultados();
+}
+
+function deleteResKpi(pilarId, kpiId) {
+  if (!estrategia.kpis) return;
+  var pilar = (estrategia.kpis.pilares || []).find(function(p){ return p.id === pilarId; });
+  if (!pilar) return;
+  pilar.kpis = (pilar.kpis || []).filter(function(k){ return k.id !== kpiId; });
+  scheduleStratSave();
+  renderResultados();
+}
+
+function updateResPilarNombre(pilarId, val) {
+  if (!estrategia.kpis) return;
+  var pilar = (estrategia.kpis.pilares || []).find(function(p){ return p.id === pilarId; });
+  if (pilar) { pilar.nombre = val; scheduleStratSave(); }
+}
+
+function updateResKpi(pilarId, kpiId, field, val) {
+  if (!estrategia.kpis) return;
+  var pilar = (estrategia.kpis.pilares || []).find(function(p){ return p.id === pilarId; });
+  if (!pilar) return;
+  var kpi = (pilar.kpis || []).find(function(k){ return k.id === kpiId; });
+  if (!kpi) return;
+  if (field === 'metaMensual') kpi[field] = parseFloat(val) || 0;
+  else kpi[field] = val;
+  scheduleStratSave();
+}
+
+function updateResKpiAndRender(pilarId, kpiId, field, val) {
+  updateResKpi(pilarId, kpiId, field, val);
+  renderResultados();
+}
+
+function saveKpiMonth(pilarId, kpiId, monthKey, val) {
+  if (!estrategia.kpis) return;
+  var pilar = (estrategia.kpis.pilares || []).find(function(p){ return p.id === pilarId; });
+  if (!pilar) return;
+  var kpi = (pilar.kpis || []).find(function(k){ return k.id === kpiId; });
+  if (!kpi) return;
+  if (!kpi.meses) kpi.meses = {};
+  var num = parseFloat(val);
+  if (val === '' || isNaN(num)) delete kpi.meses[monthKey];
+  else kpi.meses[monthKey] = num;
+  scheduleStratSave();
+  renderResultados();
 }
 
 // ─── LIGHTBOX ───
