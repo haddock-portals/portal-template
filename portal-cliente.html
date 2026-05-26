@@ -2680,13 +2680,16 @@ function deleteMatrixRow(rowId){
 }
 
 function scheduleStratSave(){
-  const ind=document.getElementById('strat-save-indicator');
-  if(ind)ind.textContent='Guardando...';
+  ['strat-save-indicator','res-save-indicator'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.textContent='Guardando...';
+  });
   clearTimeout(estrategiaSaveTimer);
   estrategiaSaveTimer=setTimeout(async()=>{
     await doSaveEstrategia();
-    const ind2=document.getElementById('strat-save-indicator');
-    if(ind2){ind2.textContent='Guardado ✓';setTimeout(()=>{ind2.textContent='';},2000);}
+    ['strat-save-indicator','res-save-indicator'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){el.textContent='Guardado ✓';setTimeout(()=>{el.textContent='';},2000);}
+    });
   },2000);
 }
 
