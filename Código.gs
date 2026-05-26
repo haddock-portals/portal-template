@@ -48,11 +48,12 @@ function handlePortalGet(e, ss, tasksSheet, clientsSheet) {
   }
 
   // Buscar cliente en la hoja Clientes y verificar código
-  // Columnas: A=nombre  B=codigo  C=color  D=descripcion
+  // Columnas: A=nombre  B=codigo  C=color  D=descripcion  E=logo
   const cData = clientsSheet ? clientsSheet.getDataRange().getValues() : [];
   let clientName  = null;
   let clientColor = '#6366f1';
   let clientDesc  = '';
+  let clientLogo  = '';
 
   for (let i = 1; i < cData.length; i++) {
     const rowName = String(cData[i][0] || '').trim();
@@ -65,6 +66,7 @@ function handlePortalGet(e, ss, tasksSheet, clientsSheet) {
       clientName  = rowName;
       clientColor = String(cData[i][2] || '').trim() || '#6366f1';
       clientDesc  = String(cData[i][3] || '').trim();
+      clientLogo  = String(cData[i][4] || '').trim();
       break;
     }
   }
@@ -104,7 +106,7 @@ function handlePortalGet(e, ss, tasksSheet, clientsSheet) {
     }
   } catch(_) {}
 
-  return out({ ok: true, cliente: clientName, clientColor, clientDesc, tasks: visibleTasks, estrategia });
+  return out({ ok: true, cliente: clientName, clientColor, clientDesc, clientLogo, tasks: visibleTasks, estrategia });
 }
 
 // ─── POST ──────────────────────────────────────────────────────────
@@ -217,7 +219,7 @@ function doPost(e) {
   if (action === 'addClient') {
     const nombre = (params.nombre || '').trim();
     if (!nombre) return out({ ok: false });
-    clientsSheet.appendRow([nombre, params.codigo || '', params.color || '', params.descripcion || '']);
+    clientsSheet.appendRow([nombre, params.codigo || '', params.color || '', params.descripcion || '', params.logo || '']);
     return out({ ok: true });
   }
 
@@ -232,6 +234,7 @@ function doPost(e) {
         if (params.codigo      !== undefined) clientsSheet.getRange(i + 1, 2).setValue(params.codigo);
         if (params.color       !== undefined) clientsSheet.getRange(i + 1, 3).setValue(params.color);
         if (params.descripcion !== undefined) clientsSheet.getRange(i + 1, 4).setValue(params.descripcion);
+        if (params.logo        !== undefined) clientsSheet.getRange(i + 1, 5).setValue(params.logo);
         return out({ ok: true });
       }
     }

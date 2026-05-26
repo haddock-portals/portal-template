@@ -642,7 +642,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .res-tipo-btn:first-child{border-radius:5px 0 0 5px}
 .res-tipo-btn:last-child{border-radius:0 5px 5px 0}
 .res-tipo-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.res-meta-input{width:78px;border:1.5px solid var(--border);border-radius:7px;padding:4px 7px;font-size:12px;font-family:var(--font-mono);text-align:right;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
+.res-meta-input{width:100px;min-width:80px;border:1.5px solid var(--border);border-radius:7px;padding:4px 7px;font-size:12px;font-family:var(--font-mono);text-align:right;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
 .res-meta-input:focus{border-color:var(--accent);outline:none}
 .res-cumpl-bar{display:flex;align-items:center;gap:7px}
 .res-cumpl-track{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden;min-width:36px}
@@ -650,9 +650,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .res-cumpl-pct{font-size:12px;font-weight:700;font-family:var(--font-mono);min-width:34px;text-align:right}
 .res-months-row td{padding:3px 12px 10px;border-top:none!important}
 .res-month-cells{display:flex;flex-wrap:wrap;gap:5px}
-.res-month-cell{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:50px}
+.res-month-cell{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:68px}
 .res-month-lbl{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);font-family:var(--font-mono)}
-.res-month-input{width:50px;padding:4px 5px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:var(--font-mono);text-align:center;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
+.res-month-input{width:68px;padding:4px 5px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:var(--font-mono);text-align:center;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
 .res-month-input:focus{border-color:var(--accent);outline:none}
 .res-month-input.has-data{border-color:var(--accent);background:var(--accent-bg)}
 .res-add-pilar-btn{display:flex;align-items:center;gap:8px;padding:12px 18px;border:1.5px dashed var(--border2);border-radius:12px;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;width:100%;margin-top:4px;transition:all .15s;font-family:var(--font-sans)}
@@ -2697,8 +2697,16 @@ async function doSaveEstrategia(){
   try{
     const fd=new FormData();
     fd.append('payload',JSON.stringify({action:'saveEstrategia',cliente:clientName,data:estrategia}));
-    await fetch(API,{method:'POST',body:fd});
-  }catch(e){console.error('Save estrategia error',e);}
+    const res=await fetch(API,{method:'POST',body:fd});
+    const json=await res.json();
+    if(!json.ok){
+      showToast('Error al guardar — revisa conexión');
+      console.error('doSaveEstrategia error:',json);
+    }
+  }catch(e){
+    showToast('Sin conexión — los cambios no se guardaron');
+    console.error('doSaveEstrategia exception:',e);
+  }
 }
 
 // ─── RESULTADOS / KPIs ───
@@ -2787,7 +2795,7 @@ function renderResultados() {
     var barW = Math.min(100, Math.round(resultado * 100));
     var barColor = resCumplColor(resultado);
 
-    html += '<div class="res-pilar-card">';
+    html += '<div class="res-pilar-card" data-pilar-id="' + pilar.id + '">';
     html += '<div class="res-pilar-head" onclick="toggleResPilar(\'' + pilar.id + '\')">';
     html += '<div class="res-pilar-accent" style="background:' + accent + '"></div>';
     html += '<input class="res-pilar-name-input" value="' + esc(pilar.nombre || '') + '" onclick="event.stopPropagation()" onchange="updateResPilarNombre(\'' + pilar.id + '\',this.value)" placeholder="Nombre del objetivo">';
@@ -2840,7 +2848,7 @@ function renderResultados() {
             var hasData = mv !== undefined && mv !== '';
             html += '<div class="res-month-cell">';
             html += '<div class="res-month-lbl">' + MONTHS_ES[m] + '</div>';
-            html += '<input class="res-month-input' + (hasData ? ' has-data' : '') + '" type="number" value="' + (hasData ? mv : '') + '" placeholder="—" onchange="saveKpiMonth(\'' + pilar.id + '\',\'' + kpi.id + '\',\'' + mk + '\',this.value)">';
+            html += '<input class="res-month-input' + (hasData ? ' has-data' : '') + '" type="number" value="' + (hasData ? mv : '') + '" placeholder="—" onchange="saveKpiMonth(\'' + pilar.id + '\',\'' + kpi.id + '\',\'' + mk + '\',this.value,this)">';
             html += '</div>';
           }
           html += '</div></td></tr>';
@@ -2926,7 +2934,7 @@ function updateResKpiAndRender(pilarId, kpiId, field, val) {
   renderResultados();
 }
 
-function saveKpiMonth(pilarId, kpiId, monthKey, val) {
+function saveKpiMonth(pilarId, kpiId, monthKey, val, inputEl) {
   if (!estrategia.kpis) return;
   var pilar = (estrategia.kpis.pilares || []).find(function(p){ return p.id === pilarId; });
   if (!pilar) return;
@@ -2934,10 +2942,41 @@ function saveKpiMonth(pilarId, kpiId, monthKey, val) {
   if (!kpi) return;
   if (!kpi.meses) kpi.meses = {};
   var num = parseFloat(val);
-  if (val === '' || isNaN(num)) delete kpi.meses[monthKey];
+  var hasData = val !== '' && !isNaN(num);
+  if (!hasData) delete kpi.meses[monthKey];
   else kpi.meses[monthKey] = num;
+  // Actualizar solo el estilo del input sin re-renderizar todo
+  if (inputEl) inputEl.classList.toggle('has-data', hasData);
+  // Actualizar barra de cumplimiento del pilar sin destruir los inputs
+  updateResPilarBar(pilar.id);
   scheduleStratSave();
-  renderResultados();
+}
+
+function updateResPilarBar(pilarId) {
+  // Actualiza solo el % y la barra del pilar sin re-renderizar la tabla completa
+  if (!estrategia.kpis) return;
+  var pilar = (estrategia.kpis.pilares || []).find(function(p){ return p.id === pilarId; });
+  if (!pilar) return;
+  var resultado = calcPilarResultado(pilar, resYear);
+  var pctStr = Math.round(resultado * 100) + '%';
+  var barColor = resCumplColor(resultado);
+  var barW = Math.min(100, Math.round(resultado * 100));
+  // Buscar los elementos del pilar en el DOM
+  var cards = document.querySelectorAll('.res-pilar-card');
+  cards.forEach(function(card) {
+    var nameInput = card.querySelector('.res-pilar-name-input');
+    if (!nameInput) return;
+    // Identificar el pilar por el nombre (coincidencia con pilar.nombre)
+    // Usamos data attribute para identificar sin requerir IDs únicos en DOM
+    var pctEl = card.querySelector('.res-pilar-pct');
+    var barFill = card.querySelector('.res-pilar-bar-fill');
+    // Solo actualizar si es el pilar correcto (comparamos via nombre)
+    // Mejor: añadir data-pilar-id al card en renderResultados
+    if (card.dataset.pilarId === pilarId) {
+      if (pctEl) { pctEl.textContent = pctStr; pctEl.style.color = barColor; }
+      if (barFill) { barFill.style.width = barW + '%'; barFill.style.background = barColor; }
+    }
+  });
 }
 
 // ─── LIGHTBOX ───
