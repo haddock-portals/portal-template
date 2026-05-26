@@ -2697,15 +2697,9 @@ async function doSaveEstrategia(){
   try{
     const fd=new FormData();
     fd.append('payload',JSON.stringify({action:'saveEstrategia',cliente:clientName,data:estrategia}));
-    const res=await fetch(API,{method:'POST',body:fd});
-    const json=await res.json();
-    if(!json.ok){
-      showToast('Error al guardar — revisa conexión');
-      console.error('doSaveEstrategia error:',json);
-    }
+    await fetch(API,{method:'POST',body:fd});
   }catch(e){
-    showToast('Sin conexión — los cambios no se guardaron');
-    console.error('doSaveEstrategia exception:',e);
+    console.error('doSaveEstrategia error:',e);
   }
 }
 
