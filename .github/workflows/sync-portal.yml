@@ -16,6 +16,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ORG_SYNC_TOKEN }}
         run: |
+          echo "$GH_TOKEN" | gh auth login --with-token
+
           git config --global user.email "sync@haddock-portals.com"
           git config --global user.name "Haddock Sync"
 
