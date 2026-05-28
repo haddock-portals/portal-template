@@ -12,14 +12,14 @@ jobs:
 
       - name: Sync portal-cliente.html a todos los repos de la org
         env:
-          GH_TOKEN: ${{ secrets.ORG_SYNC_TOKEN }}
+          TOKEN: ${{ secrets.ORG_SYNC_TOKEN }}
         run: |
-          echo "$GH_TOKEN" | gh auth login --with-token
-
           git config --global user.email "sync@haddock-portals.com"
           git config --global user.name "Haddock Sync"
 
-          repos=$(gh repo list haddock-portals --limit 100 --json name -q '.[].name')
+          repos=$(curl -s -H "Authorization: token $TOKEN" \
+            "https://api.github.com/orgs/haddock-portals/repos?per_page=100" \
+            | grep '"name"' | awk -F'"' '{print $4}')
 
           for repo in $repos; do
             if [ "$repo" = "portal-template" ]; then
@@ -28,7 +28,7 @@ jobs:
 
             echo "Sincronizando $repo..."
 
-            git clone "https://x-access-token:${GH_TOKEN}@github.com/haddock-portals/${repo}.git" "/tmp/${repo}"
+            git clone "https://x-access-token:${TOKEN}@github.com/haddock-portals/${repo}.git" "/tmp/${repo}"
 
             cp portal-cliente.html "/tmp/${repo}/portal-cliente.html"
 
