@@ -782,35 +782,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <button class="action-btn" id="content-new-btn" onclick="onContentNew()">+ Nueva publicación</button>
       </div>
       <div class="content-subnav" style="margin-top:16px">
-        <button class="content-snav-btn active" id="csnav-posts" onclick="setContentSection('posts')">Publicaciones</button>
+        <button class="content-snav-btn active" id="csnav-feed" onclick="setContentSection('feed')">Feed Instagram</button>
         <button class="content-snav-btn" id="csnav-grilla" onclick="setContentSection('grilla')">Grilla</button>
-        <button class="content-snav-btn" id="csnav-piezas" onclick="setContentSection('piezas')">Piezas de medios</button>
-        <button class="content-snav-btn" id="csnav-feed" onclick="setContentSection('feed')">Feed Instagram</button>
       </div>
 
-      <!-- PUBLICACIONES -->
-      <div id="content-posts-section">
-        <div class="content-filters" id="content-filters">
-          <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Plataforma</span>
-          <button class="filter-chip active" data-filter="plat" data-val="" onclick="setFilter('plat','',this)">Todas</button>
-          <button class="filter-chip" data-filter="plat" data-val="instagram" onclick="setFilter('plat','instagram',this)">Instagram</button>
-          <button class="filter-chip" data-filter="plat" data-val="facebook" onclick="setFilter('plat','facebook',this)">Facebook</button>
-          <button class="filter-chip" data-filter="plat" data-val="linkedin" onclick="setFilter('plat','linkedin',this)">LinkedIn</button>
-          <div class="filter-sep"></div>
-          <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Estado</span>
-          <button class="filter-chip active" data-filter="estado" data-val="" onclick="setFilter('estado','',this)">Todos</button>
-          <button class="filter-chip" data-filter="estado" data-val="borrador" onclick="setFilter('estado','borrador',this)">Borrador</button>
-          <button class="filter-chip" data-filter="estado" data-val="revision" onclick="setFilter('estado','revision',this)">En revisión</button>
-          <button class="filter-chip" data-filter="estado" data-val="aprobado" onclick="setFilter('estado','aprobado',this)">Aprobado</button>
-          <button class="filter-chip" data-filter="estado" data-val="publicado" onclick="setFilter('estado','publicado',this)">Publicado</button>
-          <div class="filter-sep"></div>
-          <div class="content-view-toggle">
-            <button class="content-vbtn active" id="cvbtn-grid" onclick="setPostsView('grid')">⊞ Grilla</button>
-            <button class="content-vbtn" id="cvbtn-list" onclick="setPostsView('list')">Lista</button>
-          </div>
-        </div>
-        <div id="posts-grid-wrap"></div>
-        <div id="posts-list-wrap" style="display:none"></div>
+      <!-- FEED INSTAGRAM -->
+      <div id="content-feed-section">
+        <div id="ig-feed-setup-wrap"></div>
       </div>
 
       <!-- GRILLA DE CONTENIDO -->
@@ -823,20 +801,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
           <button class="action-btn" onclick="addParrillaRow()">+ Agregar fila</button>
         </div>
         <div id="parrilla-wrap"></div>
-      </div>
-
-      <!-- FEED INSTAGRAM -->
-      <div id="content-feed-section" style="display:none">
-        <div id="ig-feed-setup-wrap"></div>
-      </div>
-
-      <!-- PIEZAS DE MEDIOS -->
-      <div id="content-piezas-section" style="display:none">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-          <div style="flex:1;font-size:14px;color:var(--muted)">Archivos y recursos para campañas. Solo para uso interno del equipo.</div>
-          <button class="action-btn" onclick="openPiezaEditor(null)">+ Agregar pieza</button>
-        </div>
-        <div id="piezas-grid-wrap"></div>
       </div>
     </div>
   </div>
@@ -1323,7 +1287,7 @@ function switchTab(tab) {
   if (tab==='tareas') { btn.style.display=''; btn.textContent='+ Nueva tarea'; }
   else if (tab==='roadmap') { btn.style.display=''; btn.textContent='+ Hito'; }
   else { btn.style.display='none'; }
-  if (tab==='contenido') renderContentGrid();
+  if (tab==='contenido') { setContentSection('feed'); }
   if (tab==='calendario') renderCalendar();
   if (tab==='roadmap') renderRoadmap();
   if (tab==='estrategia') renderMatrix();
@@ -1581,7 +1545,7 @@ let pendingPostFiles = [];
 let pendingPiezaFile = null;
 let previewingPost = null;
 let carouselSlide = 0;
-let contentSection = 'posts';
+let contentSection = 'feed';
 let postsView = 'grid';
 let activeFilters = { plat: '', estado: '' };
 
@@ -1607,26 +1571,18 @@ function setFilter(type, val, el){
 
 function setContentSection(sec){
   contentSection=sec;
-  document.getElementById('content-posts-section').style.display=sec==='posts'?'block':'none';
-  document.getElementById('content-grilla-section').style.display=sec==='grilla'?'block':'none';
-  document.getElementById('content-piezas-section').style.display=sec==='piezas'?'block':'none';
   document.getElementById('content-feed-section').style.display=sec==='feed'?'block':'none';
-  document.getElementById('csnav-posts').classList.toggle('active',sec==='posts');
-  document.getElementById('csnav-grilla').classList.toggle('active',sec==='grilla');
-  document.getElementById('csnav-piezas').classList.toggle('active',sec==='piezas');
+  document.getElementById('content-grilla-section').style.display=sec==='grilla'?'block':'none';
   document.getElementById('csnav-feed').classList.toggle('active',sec==='feed');
-  const labels={posts:'+ Nueva publicación',grilla:'+ Agregar fila',piezas:'+ Agregar pieza'};
-  document.getElementById('content-new-btn').style.display=sec==='feed'?'none':'';
-  document.getElementById('content-new-btn').textContent=labels[sec]||'+ Nuevo';
-  if(sec==='piezas') renderPiezasGrid();
+  document.getElementById('csnav-grilla').classList.toggle('active',sec==='grilla');
+  document.getElementById('content-new-btn').style.display=sec==='grilla'?'':'none';
+  document.getElementById('content-new-btn').textContent='+ Agregar fila';
   if(sec==='grilla') renderParrilla();
   if(sec==='feed') renderIgFeed();
 }
 
 function onContentNew(){
-  if(contentSection==='posts') openPostEditor(null);
-  else if(contentSection==='grilla') addParrillaRow();
-  else openPiezaEditor(null);
+  if(contentSection==='grilla') addParrillaRow();
 }
 
 function renderIgFeed(){

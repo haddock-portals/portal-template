@@ -1,0 +1,44 @@
+name: Sync portal to all clients
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'portal-cliente.html'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync portal-cliente.html a todos los repos de la org
+        env:
+          GH_TOKEN: ${{ secrets.ORG_SYNC_TOKEN }}
+        run: |
+          git config --global user.email "sync@haddock-portals.com"
+          git config --global user.name "Haddock Sync"
+
+          repos=$(gh repo list haddock-portals --limit 100 --json name -q '.[].name')
+
+          for repo in $repos; do
+            if [ "$repo" = "portal-template" ]; then
+              continue
+            fi
+
+            echo "Sincronizando $repo..."
+
+            git clone "https://x-access-token:${GH_TOKEN}@github.com/haddock-portals/${repo}.git" "/tmp/${repo}"
+
+            cp portal-cliente.html "/tmp/${repo}/portal-cliente.html"
+
+            cd "/tmp/${repo}"
+            git add portal-cliente.html
+            if git diff --staged --quiet; then
+              echo "Sin cambios en $repo"
+            else
+              git commit -m "sync: update portal-cliente.html"
+              git push
+            fi
+            cd -
+          done
