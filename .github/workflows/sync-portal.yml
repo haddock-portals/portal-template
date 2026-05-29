@@ -21,6 +21,8 @@ jobs:
             "https://api.github.com/orgs/haddock-portals/repos?per_page=100" \
             | grep '"name"' | awk -F'"' '{print $4}')
 
+          TEMPLATE_DIR="$(pwd)"
+
           for repo in $repos; do
             if [ "$repo" = "portal-template" ]; then
               continue
@@ -28,17 +30,17 @@ jobs:
 
             echo "Sincronizando $repo..."
 
-            git clone "https://x-access-token:${TOKEN}@github.com/haddock-portals/${repo}.git" "/tmp/${repo}"
+            REPO_DIR="/tmp/${repo}"
+            git clone "https://x-access-token:${TOKEN}@github.com/haddock-portals/${repo}.git" "$REPO_DIR"
 
-            cp portal-cliente.html "/tmp/${repo}/index.html"
+            cp "$TEMPLATE_DIR/portal-cliente.html" "$REPO_DIR/index.html"
 
-            cd "/tmp/${repo}"
-            git add index.html
-            if git diff --staged --quiet; then
+            git -C "$REPO_DIR" add index.html
+            if git -C "$REPO_DIR" diff --staged --quiet; then
               echo "Sin cambios en $repo"
             else
-              git commit -m "sync: update index.html"
-              git push
+              git -C "$REPO_DIR" commit -m "sync: update index.html"
+              git -C "$REPO_DIR" push
+              echo "Actualizado $repo"
             fi
-            cd -
           done
