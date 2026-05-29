@@ -628,48 +628,62 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .no-client-logo{font-weight:700;font-size:28px;letter-spacing:-.04em;color:var(--text)}
 
 /* ─── RESULTADOS / KPIs ─── */
-.res-year-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.res-year-btn{padding:4px 14px;border-radius:99px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;font-family:var(--font-sans)}
-.res-year-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.res-summary-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+.res-summary-card{background:#fff;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.res-summary-card-name{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.03em;text-transform:uppercase;line-height:1.3}
+.res-summary-card-pct{font-size:28px;font-weight:800;font-family:var(--font-mono);line-height:1}
+.res-summary-card-bar{height:4px;border-radius:99px;background:var(--border);overflow:hidden}
+.res-summary-card-fill{height:100%;border-radius:99px}
+.res-summary-card-status{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;display:inline-block;width:fit-content}
+.res-status-ok{background:#d1fae5;color:#065f46}
+.res-status-mid{background:#fef3c7;color:#92400e}
+.res-status-low{background:#fee2e2;color:#991b1b}
+.res-year-label{font-size:13px;font-weight:600;color:var(--muted);padding:4px 12px;background:#f8f9fc;border-radius:99px;border:1px solid var(--border)}
 .res-pilar-card{background:#fff;border-radius:16px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
-.res-pilar-head{display:flex;align-items:center;gap:10px;padding:15px 18px;cursor:pointer;user-select:none;position:relative}
+.res-pilar-head{display:flex;align-items:center;gap:10px;padding:16px 18px;cursor:pointer;user-select:none;position:relative}
 .res-pilar-head:hover .res-pilar-del-btn{opacity:.5!important}
 .res-pilar-del-btn{background:none!important;border:none!important;cursor:pointer;padding:2px 6px;color:var(--muted);font-size:17px;opacity:0;transition:opacity .15s;flex-shrink:0}
 .res-pilar-del-btn:hover{opacity:1!important;color:#ef4444!important}
-.res-pilar-accent{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.res-pilar-accent{width:12px;height:12px;border-radius:3px;flex-shrink:0}
 .res-pilar-name-input{flex:1;background:transparent;border:none;outline:none;font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans);min-width:0;cursor:text}
 .res-pilar-pct{font-size:20px;font-weight:800;font-family:var(--font-mono);min-width:56px;text-align:right}
 .res-pilar-toggle{display:flex;align-items:center;justify-content:center;width:22px;height:22px;color:var(--muted);transition:transform .2s;flex-shrink:0}
 .res-pilar-toggle.open{transform:rotate(180deg)}
-.res-pilar-bar-wrap{height:5px;background:var(--border);margin:0 18px 14px;border-radius:99px;overflow:hidden}
+.res-pilar-bar-wrap{height:5px;background:var(--border);margin:0 18px 16px;border-radius:99px;overflow:hidden}
 .res-pilar-bar-fill{height:100%;border-radius:99px;transition:width .5s}
-.res-kpi-table{width:100%;border-collapse:collapse;font-size:13px}
-.res-kpi-table th{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);font-family:var(--font-mono);padding:7px 12px;border-top:1px solid var(--border);background:#f8f9fc;text-align:left}
-.res-kpi-table th.num{text-align:right}
-.res-kpi-table td{padding:9px 12px;border-top:1px solid var(--border);color:var(--text);vertical-align:middle}
-.res-kpi-table td.num{text-align:right;font-family:var(--font-mono);font-size:12px;font-weight:700}
-.res-kpi-label-input{background:transparent;border:none;outline:none;font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans);width:100%;min-width:110px}
-.res-tipo-toggle{display:flex;gap:0;margin-bottom:3px}
-.res-tipo-btn{padding:2px 8px;font-size:10px;font-weight:600;border:1px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;font-family:var(--font-mono);transition:all .15s;line-height:1.6}
+.res-kpi-block{border-top:1px solid var(--border);padding:14px 18px}
+.res-kpi-block:last-of-type{border-bottom:none}
+.res-kpi-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.res-kpi-label-input{flex:1;background:transparent;border:none;outline:none;font-size:14px;font-weight:700;color:var(--text);font-family:var(--font-sans);min-width:0}
+.res-kpi-cumpl-pill{font-size:12px;font-weight:700;font-family:var(--font-mono);padding:3px 10px;border-radius:99px;flex-shrink:0}
+.res-kpi-del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:15px;padding:0 4px;opacity:.35;transition:opacity .15s;flex-shrink:0}
+.res-kpi-del-btn:hover{opacity:1;color:#ef4444}
+.res-kpi-nums{display:flex;gap:20px;margin-bottom:10px;flex-wrap:wrap}
+.res-kpi-num-group{display:flex;flex-direction:column;gap:2px}
+.res-kpi-num-lbl{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);font-family:var(--font-mono)}
+.res-kpi-num-val{font-size:22px;font-weight:800;font-family:var(--font-mono);line-height:1.1}
+.res-kpi-num-val.objetivo{font-size:18px;font-weight:700;color:var(--muted)}
+.res-kpi-cumpl-bar-wrap{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.res-kpi-cumpl-track{flex:1;height:6px;background:var(--border);border-radius:99px;overflow:hidden}
+.res-kpi-cumpl-fill{height:100%;border-radius:99px;transition:width .4s}
+.res-kpi-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.res-kpi-meta-label{font-size:11px;color:var(--muted);font-weight:600;font-family:var(--font-mono)}
+.res-tipo-toggle{display:flex;gap:0}
+.res-tipo-btn{padding:3px 9px;font-size:10px;font-weight:700;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;font-family:var(--font-mono);transition:all .15s;line-height:1.5;letter-spacing:.03em}
 .res-tipo-btn:first-child{border-radius:5px 0 0 5px}
 .res-tipo-btn:last-child{border-radius:0 5px 5px 0}
 .res-tipo-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.res-meta-input{width:100px;min-width:80px;border:1.5px solid var(--border);border-radius:7px;padding:4px 7px;font-size:12px;font-family:var(--font-mono);text-align:right;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
+.res-meta-input{width:90px;border:1.5px solid var(--border);border-radius:7px;padding:4px 7px;font-size:12px;font-family:var(--font-mono);text-align:right;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
 .res-meta-input:focus{border-color:var(--accent);outline:none}
-.res-cumpl-bar{display:flex;align-items:center;gap:7px}
-.res-cumpl-track{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden;min-width:36px}
-.res-cumpl-fill{height:100%;border-radius:99px;transition:width .4s}
-.res-cumpl-pct{font-size:12px;font-weight:700;font-family:var(--font-mono);min-width:34px;text-align:right}
-.res-months-row td{padding:3px 12px 10px;border-top:none!important}
-.res-month-cells{display:flex;flex-wrap:wrap;gap:5px}
+.res-month-cells{display:flex;flex-wrap:wrap;gap:5px;padding-top:4px}
 .res-month-cell{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:68px}
 .res-month-lbl{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);font-family:var(--font-mono)}
-.res-month-input{width:68px;padding:4px 5px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:var(--font-mono);text-align:center;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
+.res-month-input{width:68px;padding:5px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:var(--font-mono);text-align:center;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
 .res-month-input:focus{border-color:var(--accent);outline:none}
 .res-month-input.has-data{border-color:var(--accent);background:var(--accent-bg)}
 .res-add-pilar-btn{display:flex;align-items:center;gap:8px;padding:12px 18px;border:1.5px dashed var(--border2);border-radius:12px;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;width:100%;margin-top:4px;transition:all .15s;font-family:var(--font-sans)}
 .res-add-pilar-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
-.res-add-kpi-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border:1.5px dashed var(--border2);border-radius:8px;background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:var(--font-sans);margin-top:4px}
+.res-add-kpi-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border:1.5px dashed var(--border2);border-radius:8px;background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:var(--font-sans);margin:10px 18px 14px}
 .res-add-kpi-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
 </style>
 </head>
@@ -782,35 +796,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <button class="action-btn" id="content-new-btn" onclick="onContentNew()">+ Nueva publicación</button>
       </div>
       <div class="content-subnav" style="margin-top:16px">
-        <button class="content-snav-btn active" id="csnav-posts" onclick="setContentSection('posts')">Publicaciones</button>
+        <button class="content-snav-btn active" id="csnav-feed" onclick="setContentSection('feed')">Feed Instagram</button>
         <button class="content-snav-btn" id="csnav-grilla" onclick="setContentSection('grilla')">Grilla</button>
-        <button class="content-snav-btn" id="csnav-piezas" onclick="setContentSection('piezas')">Piezas de medios</button>
-        <button class="content-snav-btn" id="csnav-feed" onclick="setContentSection('feed')">Feed Instagram</button>
       </div>
 
-      <!-- PUBLICACIONES -->
-      <div id="content-posts-section">
-        <div class="content-filters" id="content-filters">
-          <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Plataforma</span>
-          <button class="filter-chip active" data-filter="plat" data-val="" onclick="setFilter('plat','',this)">Todas</button>
-          <button class="filter-chip" data-filter="plat" data-val="instagram" onclick="setFilter('plat','instagram',this)">Instagram</button>
-          <button class="filter-chip" data-filter="plat" data-val="facebook" onclick="setFilter('plat','facebook',this)">Facebook</button>
-          <button class="filter-chip" data-filter="plat" data-val="linkedin" onclick="setFilter('plat','linkedin',this)">LinkedIn</button>
-          <div class="filter-sep"></div>
-          <span style="font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em">Estado</span>
-          <button class="filter-chip active" data-filter="estado" data-val="" onclick="setFilter('estado','',this)">Todos</button>
-          <button class="filter-chip" data-filter="estado" data-val="borrador" onclick="setFilter('estado','borrador',this)">Borrador</button>
-          <button class="filter-chip" data-filter="estado" data-val="revision" onclick="setFilter('estado','revision',this)">En revisión</button>
-          <button class="filter-chip" data-filter="estado" data-val="aprobado" onclick="setFilter('estado','aprobado',this)">Aprobado</button>
-          <button class="filter-chip" data-filter="estado" data-val="publicado" onclick="setFilter('estado','publicado',this)">Publicado</button>
-          <div class="filter-sep"></div>
-          <div class="content-view-toggle">
-            <button class="content-vbtn active" id="cvbtn-grid" onclick="setPostsView('grid')">⊞ Grilla</button>
-            <button class="content-vbtn" id="cvbtn-list" onclick="setPostsView('list')">Lista</button>
-          </div>
-        </div>
-        <div id="posts-grid-wrap"></div>
-        <div id="posts-list-wrap" style="display:none"></div>
+      <!-- FEED INSTAGRAM -->
+      <div id="content-feed-section">
+        <div id="ig-feed-setup-wrap"></div>
       </div>
 
       <!-- GRILLA DE CONTENIDO -->
@@ -823,20 +815,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
           <button class="action-btn" onclick="addParrillaRow()">+ Agregar fila</button>
         </div>
         <div id="parrilla-wrap"></div>
-      </div>
-
-      <!-- FEED INSTAGRAM -->
-      <div id="content-feed-section" style="display:none">
-        <div id="ig-feed-setup-wrap"></div>
-      </div>
-
-      <!-- PIEZAS DE MEDIOS -->
-      <div id="content-piezas-section" style="display:none">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-          <div style="flex:1;font-size:14px;color:var(--muted)">Archivos y recursos para campañas. Solo para uso interno del equipo.</div>
-          <button class="action-btn" onclick="openPiezaEditor(null)">+ Agregar pieza</button>
-        </div>
-        <div id="piezas-grid-wrap"></div>
       </div>
     </div>
   </div>
@@ -894,10 +872,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     <div class="tab-section">
       <div class="section-toolbar" style="flex-wrap:wrap;gap:10px">
         <div class="section-toolbar-title">Resultados</div>
-        <div id="res-year-bar" class="res-year-bar"></div>
+        <div id="res-year-label"></div>
         <div style="flex:1"></div>
         <div class="strat-save-indicator" id="res-save-indicator"></div>
       </div>
+      <div id="res-summary-cards" class="res-summary-cards"></div>
       <div id="res-pilares-wrap"></div>
       <button class="res-add-pilar-btn" onclick="addResPilar()">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -1163,7 +1142,7 @@ let calEntryDate = null;
 const ENTRY_COLORS = ['#f59e0b','#10b981','#6366f1','#ec4899','#ef4444','#0ea5e9','#8b5cf6','#14b8a6'];
 
 const urlParams = new URLSearchParams(location.search);
-clientSlug = (urlParams.get('c') || 'madesur').trim();
+clientSlug = (urlParams.get('c') || '').trim();
 
 // ─── INIT ───
 let storedCode = '';
@@ -1323,7 +1302,7 @@ function switchTab(tab) {
   if (tab==='tareas') { btn.style.display=''; btn.textContent='+ Nueva tarea'; }
   else if (tab==='roadmap') { btn.style.display=''; btn.textContent='+ Hito'; }
   else { btn.style.display='none'; }
-  if (tab==='contenido') renderContentGrid();
+  if (tab==='contenido') { setContentSection('feed'); }
   if (tab==='calendario') renderCalendar();
   if (tab==='roadmap') renderRoadmap();
   if (tab==='estrategia') renderMatrix();
@@ -1581,7 +1560,7 @@ let pendingPostFiles = [];
 let pendingPiezaFile = null;
 let previewingPost = null;
 let carouselSlide = 0;
-let contentSection = 'posts';
+let contentSection = 'feed';
 let postsView = 'grid';
 let activeFilters = { plat: '', estado: '' };
 
@@ -1607,26 +1586,18 @@ function setFilter(type, val, el){
 
 function setContentSection(sec){
   contentSection=sec;
-  document.getElementById('content-posts-section').style.display=sec==='posts'?'block':'none';
-  document.getElementById('content-grilla-section').style.display=sec==='grilla'?'block':'none';
-  document.getElementById('content-piezas-section').style.display=sec==='piezas'?'block':'none';
   document.getElementById('content-feed-section').style.display=sec==='feed'?'block':'none';
-  document.getElementById('csnav-posts').classList.toggle('active',sec==='posts');
-  document.getElementById('csnav-grilla').classList.toggle('active',sec==='grilla');
-  document.getElementById('csnav-piezas').classList.toggle('active',sec==='piezas');
+  document.getElementById('content-grilla-section').style.display=sec==='grilla'?'block':'none';
   document.getElementById('csnav-feed').classList.toggle('active',sec==='feed');
-  const labels={posts:'+ Nueva publicación',grilla:'+ Agregar fila',piezas:'+ Agregar pieza'};
-  document.getElementById('content-new-btn').style.display=sec==='feed'?'none':'';
-  document.getElementById('content-new-btn').textContent=labels[sec]||'+ Nuevo';
-  if(sec==='piezas') renderPiezasGrid();
+  document.getElementById('csnav-grilla').classList.toggle('active',sec==='grilla');
+  document.getElementById('content-new-btn').style.display=sec==='grilla'?'':'none';
+  document.getElementById('content-new-btn').textContent='+ Agregar fila';
   if(sec==='grilla') renderParrilla();
   if(sec==='feed') renderIgFeed();
 }
 
 function onContentNew(){
-  if(contentSection==='posts') openPostEditor(null);
-  else if(contentSection==='grilla') addParrillaRow();
-  else openPiezaEditor(null);
+  if(contentSection==='grilla') addParrillaRow();
 }
 
 function renderIgFeed(){
@@ -2830,36 +2801,53 @@ function resCumplClass(c) {
 }
 
 function fmtNum(n) {
-  if (n === null || n === undefined || (isNaN(n) && n !== 0)) return '-';
-  if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
-  if (n >= 10000) return (n / 1000).toFixed(1) + 'K';
-  return String(Math.round(n));
+  if (n === null || n === undefined || isNaN(n)) return '—';
+  return Math.round(n).toLocaleString('es-CL');
 }
 
 function renderResultados() {
   var year = resYear;
   var kpisData = estrategia.kpis || { pilares: [] };
 
-  var yearBar = document.getElementById('res-year-bar');
-  if (yearBar) {
-    var curY = new Date().getFullYear();
-    var yHtml = '';
-    for (var y = curY - 1; y <= curY + 1; y++) {
-      yHtml += '<button class="res-year-btn' + (y === year ? ' active' : '') + '" onclick="resYear=' + y + ';renderResultados()">' + y + '</button>';
+  var yearLabel = document.getElementById('res-year-label');
+  if (yearLabel) yearLabel.innerHTML = '<span class="res-year-label">' + year + '</span>';
+
+  var pilares = kpisData.pilares || [];
+
+  // Summary cards
+  var summaryWrap = document.getElementById('res-summary-cards');
+  if (summaryWrap) {
+    if (!pilares.length) {
+      summaryWrap.innerHTML = '';
+    } else {
+      var sHtml = '';
+      pilares.forEach(function(pilar) {
+        var resultado = calcPilarResultado(pilar, year);
+        var pct = Math.round(resultado * 100);
+        var barW = Math.min(100, pct);
+        var color = resCumplColor(resultado);
+        var statusCls = resultado >= 0.9 ? 'res-status-ok' : resultado >= 0.6 ? 'res-status-mid' : 'res-status-low';
+        var statusTxt = resultado >= 0.9 ? 'En objetivo' : resultado >= 0.6 ? 'En progreso' : 'Por debajo';
+        sHtml += '<div class="res-summary-card">';
+        sHtml += '<div class="res-summary-card-name">' + esc(pilar.nombre || 'Sin nombre') + '</div>';
+        sHtml += '<div class="res-summary-card-pct" style="color:' + color + '">' + pct + '%</div>';
+        sHtml += '<div class="res-summary-card-bar"><div class="res-summary-card-fill" style="width:' + barW + '%;background:' + color + '"></div></div>';
+        sHtml += '<span class="res-summary-card-status ' + statusCls + '">' + statusTxt + '</span>';
+        sHtml += '</div>';
+      });
+      summaryWrap.innerHTML = sHtml;
     }
-    yearBar.innerHTML = yHtml;
   }
 
   var wrap = document.getElementById('res-pilares-wrap');
   if (!wrap) return;
 
-  var pilares = kpisData.pilares || [];
   if (!pilares.length) {
     wrap.innerHTML = '<div style="text-align:center;padding:48px 0;color:var(--muted);font-size:14px">Sin objetivos aun. Haz clic en "+ Agregar objetivo" para comenzar.</div>';
     return;
   }
 
-  var CARD_COLORS = ['#dbeafe','#fef9c3','#fde8d5','#dcfce7','#fce7f3','#ede9fe','#cffafe'];
+  var CARD_COLORS = ['#3b82f6','#f59e0b','#f97316','#10b981','#ec4899','#8b5cf6','#06b6d4'];
   var html = '';
 
   pilares.forEach(function(pilar, pi) {
@@ -2881,61 +2869,76 @@ function renderResultados() {
     html += '<div class="res-pilar-bar-wrap"><div class="res-pilar-bar-fill" style="width:' + barW + '%;background:' + barColor + '"></div></div>';
 
     if (isOpen) {
-      html += '<div style="padding:0 18px 16px">';
-      if ((pilar.kpis || []).length) {
-        html += '<table class="res-kpi-table" style="margin-bottom:10px">';
-        html += '<thead><tr><th>KPI</th><th>Tipo meta</th><th>Calculo</th><th class="num">Meta mensual</th><th class="num">Actual ' + year + '</th><th class="num">Objetivo</th><th>Cumplimiento</th></tr></thead>';
-        html += '<tbody>';
+      (pilar.kpis || []).forEach(function(kpi) {
+        var actual = calcKpiActual(kpi, year);
+        var objetivo = calcKpiObjetivo(kpi);
+        var cumpl = calcKpiCumplimiento(kpi, year);
+        var cumplPct = Math.round(cumpl * 100);
+        var fillW = Math.min(100, cumplPct);
+        var fillColor = resCumplColor(cumpl);
+        var pillBg = cumpl >= 0.9 ? '#d1fae5' : cumpl >= 0.6 ? '#fef3c7' : '#fee2e2';
+        var tipoLabel = kpi.tipoMeta === 'mensual' ? 'Mes actual' : 'Acumulado anual';
 
-        (pilar.kpis || []).forEach(function(kpi) {
-          var actual = calcKpiActual(kpi, year);
-          var objetivo = calcKpiObjetivo(kpi);
-          var cumpl = calcKpiCumplimiento(kpi, year);
-          var cumplPct = Math.round(cumpl * 100);
-          var fillW = Math.min(100, cumplPct);
-          var fillCls = resCumplClass(cumpl);
-          var fillColor = resCumplColor(cumpl);
+        html += '<div class="res-kpi-block">';
 
-          html += '<tr>';
-          html += '<td><div style="display:flex;align-items:center;gap:6px"><input class="res-kpi-label-input" value="' + esc(kpi.label || '') + '" onchange="updateResKpi(\'' + pilar.id + '\',\'' + kpi.id + '\',\'label\',this.value)" placeholder="Nombre KPI"><button style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:15px;opacity:.4;padding:0 3px;flex-shrink:0;transition:opacity .15s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.4" onclick="deleteResKpi(\'' + pilar.id + '\',\'' + kpi.id + '\')" title="Eliminar KPI">×</button></div></td>';
+        // Top row: name + cumplimiento pill + delete
+        html += '<div class="res-kpi-top">';
+        html += '<input class="res-kpi-label-input" value="' + esc(kpi.label || '') + '" onchange="updateResKpi(\'' + pilar.id + '\',\'' + kpi.id + '\',\'label\',this.value)" placeholder="Nombre del KPI">';
+        html += '<span class="res-kpi-cumpl-pill" style="background:' + pillBg + ';color:' + fillColor + '">' + cumplPct + '% cumplido</span>';
+        html += '<button class="res-kpi-del-btn" onclick="deleteResKpi(\'' + pilar.id + '\',\'' + kpi.id + '\')" title="Eliminar KPI">×</button>';
+        html += '</div>';
 
-          html += '<td><div class="res-tipo-toggle">';
-          html += '<button class="res-tipo-btn' + (kpi.tipoMeta === 'anual' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoMeta\',\'anual\')">Anual</button>';
-          html += '<button class="res-tipo-btn' + (kpi.tipoMeta === 'mensual' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoMeta\',\'mensual\')">Mensual</button>';
-          html += '</div></td>';
+        // Numbers: actual vs objetivo
+        html += '<div class="res-kpi-nums">';
+        html += '<div class="res-kpi-num-group">';
+        html += '<div class="res-kpi-num-lbl">Valor actual ' + year + '</div>';
+        html += '<div class="res-kpi-num-val" style="color:' + fillColor + '">' + (actual > 0 ? fmtNum(actual) : '—') + '</div>';
+        html += '</div>';
+        html += '<div style="display:flex;align-items:flex-end;padding-bottom:4px;color:var(--muted);font-size:18px;font-weight:300">→</div>';
+        html += '<div class="res-kpi-num-group">';
+        html += '<div class="res-kpi-num-lbl">Valor objetivo (' + (kpi.tipoMeta === 'mensual' ? 'mensual' : 'anual') + ')</div>';
+        html += '<div class="res-kpi-num-val objetivo">' + fmtNum(objetivo) + '</div>';
+        html += '</div>';
+        html += '</div>';
 
-          html += '<td><div class="res-tipo-toggle">';
-          html += '<button class="res-tipo-btn' + (kpi.tipoCalculo !== 'avg' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoCalculo\',\'sum\')">Suma</button>';
-          html += '<button class="res-tipo-btn' + (kpi.tipoCalculo === 'avg' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoCalculo\',\'avg\')">Prom.</button>';
-          html += '</div></td>';
+        // Progress bar
+        html += '<div class="res-kpi-cumpl-bar-wrap">';
+        html += '<div class="res-kpi-cumpl-track"><div class="res-kpi-cumpl-fill" style="width:' + fillW + '%;background:' + fillColor + '"></div></div>';
+        html += '</div>';
 
-          html += '<td class="num"><input class="res-meta-input" type="number" value="' + (kpi.metaMensual || '') + '" onchange="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'metaMensual\',this.value)" placeholder="0"></td>';
+        // Controls: tipo meta + tipo calculo + meta mensual
+        html += '<div class="res-kpi-controls">';
+        html += '<div class="res-tipo-toggle">';
+        html += '<button class="res-tipo-btn' + (kpi.tipoMeta === 'anual' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoMeta\',\'anual\')">Anual</button>';
+        html += '<button class="res-tipo-btn' + (kpi.tipoMeta === 'mensual' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoMeta\',\'mensual\')">Mensual</button>';
+        html += '</div>';
+        html += '<div class="res-tipo-toggle">';
+        html += '<button class="res-tipo-btn' + (kpi.tipoCalculo !== 'avg' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoCalculo\',\'sum\')">Suma</button>';
+        html += '<button class="res-tipo-btn' + (kpi.tipoCalculo === 'avg' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoCalculo\',\'avg\')">Promedio</button>';
+        html += '</div>';
+        html += '<span class="res-kpi-meta-label">Meta mensual:</span>';
+        html += '<input class="res-meta-input" type="number" value="' + (kpi.metaMensual || '') + '" onchange="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'metaMensual\',this.value)" placeholder="0">';
+        html += '</div>';
 
-          html += '<td class="num">' + (actual > 0 ? fmtNum(actual) : '—') + '</td>';
-          html += '<td class="num">' + fmtNum(objetivo) + '</td>';
-          html += '<td><div class="res-cumpl-bar"><div class="res-cumpl-track"><div class="res-cumpl-fill ' + fillCls + '" style="width:' + fillW + '%"></div></div><span class="res-cumpl-pct" style="color:' + fillColor + '">' + cumplPct + '%</span></div></td>';
-          html += '</tr>';
+        // Monthly grid
+        html += '<div class="res-month-cells">';
+        for (var m = 0; m < 12; m++) {
+          var mk = year + '-' + String(m + 1).padStart(2, '0');
+          var mv = (kpi.meses || {})[mk];
+          var hasData = mv !== undefined && mv !== '';
+          html += '<div class="res-month-cell">';
+          html += '<div class="res-month-lbl">' + MONTHS_ES[m] + '</div>';
+          html += '<input class="res-month-input' + (hasData ? ' has-data' : '') + '" type="number" value="' + (hasData ? mv : '') + '" placeholder="—" onchange="saveKpiMonth(\'' + pilar.id + '\',\'' + kpi.id + '\',\'' + mk + '\',this.value,this)">';
+          html += '</div>';
+        }
+        html += '</div>';
 
-          html += '<tr class="res-months-row"><td colspan="7"><div class="res-month-cells">';
-          for (var m = 0; m < 12; m++) {
-            var mk = year + '-' + String(m + 1).padStart(2, '0');
-            var mv = (kpi.meses || {})[mk];
-            var hasData = mv !== undefined && mv !== '';
-            html += '<div class="res-month-cell">';
-            html += '<div class="res-month-lbl">' + MONTHS_ES[m] + '</div>';
-            html += '<input class="res-month-input' + (hasData ? ' has-data' : '') + '" type="number" value="' + (hasData ? mv : '') + '" placeholder="—" onchange="saveKpiMonth(\'' + pilar.id + '\',\'' + kpi.id + '\',\'' + mk + '\',this.value,this)">';
-            html += '</div>';
-          }
-          html += '</div></td></tr>';
-        });
-
-        html += '</tbody></table>';
-      }
+        html += '</div>'; // res-kpi-block
+      });
 
       html += '<button class="res-add-kpi-btn" onclick="addResKpi(\'' + pilar.id + '\')">';
       html += '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Agregar KPI';
       html += '</button>';
-      html += '</div>';
     }
 
     html += '</div>';
