@@ -33,7 +33,15 @@ jobs:
             REPO_DIR="/tmp/${repo}"
             git clone "https://x-access-token:${TOKEN}@github.com/haddock-portals/${repo}.git" "$REPO_DIR"
 
+            # Extraer el slug del cliente desde el repo actual (preservar fallback)
+            CLIENT_SLUG=$(git -C "$REPO_DIR" show HEAD:index.html 2>/dev/null | grep -o "urlParams.get('c') || '[^']*'" | grep -o "'[^']*'" | tail -1 | tr -d "'" || echo "")
+
             cp "$TEMPLATE_DIR/portal-cliente.html" "$REPO_DIR/index.html"
+
+            # Restaurar el slug del cliente si existía
+            if [ -n "$CLIENT_SLUG" ] && [ "$CLIENT_SLUG" != "" ]; then
+              sed -i "s/urlParams.get('c') || ''/urlParams.get('c') || '$CLIENT_SLUG'/" "$REPO_DIR/index.html"
+            fi
 
             git -C "$REPO_DIR" add index.html
             if git -C "$REPO_DIR" diff --staged --quiet; then
