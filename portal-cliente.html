@@ -675,6 +675,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .res-tipo-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .res-meta-input{width:90px;border:1.5px solid var(--border);border-radius:7px;padding:4px 7px;font-size:12px;font-family:var(--font-mono);text-align:right;font-weight:600;color:var(--text);background:#fff;transition:border-color .15s}
 .res-meta-input:focus{border-color:var(--accent);outline:none}
+.res-kpi-inicial-input{width:110px;border:1.5px solid var(--border);border-radius:7px;padding:5px 8px;font-size:18px;font-family:var(--font-mono);text-align:left;font-weight:700;color:var(--muted);background:#f8f9fc;transition:border-color .15s;margin-top:2px}
+.res-kpi-inicial-input:focus{border-color:var(--accent);outline:none;background:#fff}
 .res-month-cells{display:flex;flex-wrap:wrap;gap:5px;padding-top:4px}
 .res-month-cell{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:68px}
 .res-month-lbl{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);font-family:var(--font-mono)}
@@ -2888,13 +2890,19 @@ function renderResultados() {
         html += '<button class="res-kpi-del-btn" onclick="deleteResKpi(\'' + pilar.id + '\',\'' + kpi.id + '\')" title="Eliminar KPI">×</button>';
         html += '</div>';
 
-        // Numbers: actual vs objetivo
+        // Numbers: inicial + actual + objetivo
+        var valorInicial = parseFloat(kpi.valorInicial) || 0;
         html += '<div class="res-kpi-nums">';
+        html += '<div class="res-kpi-num-group">';
+        html += '<div class="res-kpi-num-lbl">Valor inicial</div>';
+        html += '<input class="res-kpi-inicial-input" type="number" value="' + (kpi.valorInicial || '') + '" onchange="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'valorInicial\',this.value)" placeholder="0">';
+        html += '</div>';
+        html += '<div style="display:flex;align-items:center;padding:0 4px;color:var(--muted);font-size:16px;margin-top:16px">→</div>';
         html += '<div class="res-kpi-num-group">';
         html += '<div class="res-kpi-num-lbl">Valor actual ' + year + '</div>';
         html += '<div class="res-kpi-num-val" style="color:' + fillColor + '">' + (actual > 0 ? fmtNum(actual) : '—') + '</div>';
         html += '</div>';
-        html += '<div style="display:flex;align-items:flex-end;padding-bottom:4px;color:var(--muted);font-size:18px;font-weight:300">→</div>';
+        html += '<div style="display:flex;align-items:center;padding:0 4px;color:var(--muted);font-size:16px;margin-top:16px">→</div>';
         html += '<div class="res-kpi-num-group">';
         html += '<div class="res-kpi-num-lbl">Valor objetivo (' + (kpi.tipoMeta === 'mensual' ? 'mensual' : 'anual') + ')</div>';
         html += '<div class="res-kpi-num-val objetivo">' + fmtNum(objetivo) + '</div>';
@@ -2916,7 +2924,7 @@ function renderResultados() {
         html += '<button class="res-tipo-btn' + (kpi.tipoCalculo !== 'avg' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoCalculo\',\'sum\')">Suma</button>';
         html += '<button class="res-tipo-btn' + (kpi.tipoCalculo === 'avg' ? ' active' : '') + '" onclick="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'tipoCalculo\',\'avg\')">Promedio</button>';
         html += '</div>';
-        html += '<span class="res-kpi-meta-label">Meta mensual:</span>';
+        html += '<span class="res-kpi-meta-label">Meta:</span>';
         html += '<input class="res-meta-input" type="number" value="' + (kpi.metaMensual || '') + '" onchange="updateResKpiAndRender(\'' + pilar.id + '\',\'' + kpi.id + '\',\'metaMensual\',this.value)" placeholder="0">';
         html += '</div>';
 
