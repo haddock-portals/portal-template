@@ -41,6 +41,41 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 35%,transparent)}
 .login-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
 .login-powered{margin-top:44px;font-family:var(--font-mono);font-size:10px;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase}
+.login-field{width:100%;padding:14px 16px;font-size:15px;font-family:var(--font-sans);border:2px solid var(--border);border-radius:var(--r);outline:none;transition:border-color .2s;background:#fafaf7;margin-bottom:10px}
+.login-field:focus{border-color:var(--accent);background:#fff}
+.login-field.error{border-color:#ef4444;animation:shake .3s}
+.login-field-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);font-family:var(--font-mono);text-align:left;display:block;margin-bottom:5px}
+
+.p-user-badge{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);margin-bottom:10px}
+.p-user-av{width:30px;height:30px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.p-user-name{font-size:12px;font-weight:600;color:#f1f5f9;line-height:1.2;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p-user-rol{font-size:10px;font-family:var(--font-mono);padding:2px 7px;border-radius:99px;font-weight:700;letter-spacing:.04em}
+.p-user-rol.agencia{background:rgba(79,110,247,.25);color:#93a8fb}
+.p-user-rol.cliente{background:rgba(16,185,129,.2);color:#6ee7b7}
+.p-logout-btn{background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:11px;padding:4px 0;font-family:var(--font-sans);transition:color .15s;text-align:left;width:100%}
+.p-logout-btn:hover{color:rgba(255,255,255,.65)}
+
+.hist-panel{padding:0}
+.hist-empty{text-align:center;padding:60px 20px;color:var(--muted2);font-size:13px}
+.hist-row{display:flex;align-items:flex-start;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);transition:background .1s}
+.hist-row:hover{background:#f8f9fc}
+.hist-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.hist-dot.crear{background:#10b981}
+.hist-dot.editar{background:#6366f1}
+.hist-dot.eliminar{background:#ef4444}
+.hist-dot.guardar{background:#f59e0b}
+.hist-dot.comentar{background:#0ea5e9}
+.hist-dot.restaurar{background:#8b5cf6}
+.hist-body{flex:1;min-width:0}
+.hist-desc{font-size:13px;font-weight:500;color:var(--text);line-height:1.4;margin-bottom:3px}
+.hist-meta{font-size:11px;color:var(--muted2);font-family:var(--font-mono);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hist-meta-sep{opacity:.4}
+.hist-user{font-weight:700;color:var(--muted)}
+.hist-rol-chip{font-size:9px;padding:1px 6px;border-radius:99px;font-weight:700;letter-spacing:.04em}
+.hist-rol-chip.agencia{background:#eef2ff;color:#4f6ef7}
+.hist-rol-chip.cliente{background:#ecfdf5;color:#059669}
+.hist-restore-btn{background:#f4f3ff;color:#6366f1;border:1px solid #e0e7ff;border-radius:7px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .15s;flex-shrink:0;align-self:center}
+.hist-restore-btn:hover{background:#6366f1;color:#fff}
 
 /* ─── SIDEBAR LAYOUT ─── */
 #portal{display:none;min-height:100vh;flex-direction:row}
@@ -699,8 +734,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
     <div class="login-logo">haddock</div>
     <div class="login-accent-bar"></div>
     <div class="login-title">Bienvenido a tu portal</div>
-    <div class="login-sub">Ingresa el código de acceso que te compartió tu equipo Haddock.</div>
-    <input type="tel" class="code-input" id="code-input" placeholder="· · · · · ·" maxlength="8" autocomplete="off" inputmode="numeric">
+    <div class="login-sub">Ingresa tu nombre y contraseña para acceder.</div>
+    <label class="login-field-label" for="login-nombre">Nombre</label>
+    <input type="text" class="login-field" id="login-nombre" placeholder="Tu nombre" autocomplete="username">
+    <label class="login-field-label" for="login-contrasena">Contraseña</label>
+    <input type="password" class="login-field" id="login-contrasena" placeholder="••••••••" autocomplete="current-password">
     <div class="login-error" id="login-error"></div>
     <button class="login-btn" id="login-btn">Ingresar →</button>
     <div class="login-powered">Portal by Haddock Studio</div>
@@ -739,11 +777,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
       <button class="p-nav-item" id="tab-btn-resultados" onclick="switchTab('resultados')">
         <span class="p-nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 10.5l2.5-3 2 1.5 3-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Resultados
       </button>
+      <button class="p-nav-item" id="tab-btn-historial" onclick="switchTab('historial')">
+        <span class="p-nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 4.5v4l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Historial
+      </button>
     </nav>
     <div class="p-sidebar-footer">
+      <div class="p-user-badge" id="p-user-badge" style="display:none">
+        <div class="p-user-av" id="p-user-av">?</div>
+        <div style="flex:1;min-width:0">
+          <div class="p-user-name" id="p-user-name">—</div>
+          <span class="p-user-rol" id="p-user-rol"></span>
+        </div>
+      </div>
       <div class="p-progress-label"><span id="hdr-pct">0%</span> completado</div>
       <div class="p-progress-bar"><div id="progress-bar-fill" style="width:0%"></div></div>
       <button class="p-refresh-btn" id="refresh-btn" onclick="refreshPortal()">Actualizar datos</button>
+      <button class="p-logout-btn" onclick="doLogout()">Cerrar sesión</button>
     </div>
   </aside>
 
@@ -884,6 +933,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         Agregar objetivo
       </button>
+    </div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div id="tab-historial" style="display:none">
+    <div class="tab-section">
+      <div class="section-toolbar">
+        <div class="section-toolbar-title">Historial de cambios</div>
+        <button class="hdr-action-btn" style="background:transparent;color:var(--muted);border:1px solid var(--border);box-shadow:none;font-size:12px;padding:7px 14px" onclick="loadHistorial()">Actualizar</button>
+      </div>
+      <div id="hist-list" class="hist-panel"><div class="hist-empty">Cargando historial...</div></div>
     </div>
   </div>
 
@@ -1138,8 +1198,19 @@ let currentContentView = 'gallery';
 let calYear, calMonth;
 let estrategiaSaveTimer = null;
 let roadmapSaveTimer = null;
-let pendingFormFiles = []; // files staged in task form
+let pendingFormFiles = [];
 let calEntryDate = null;
+let currentUser = null; // { nombre, rol }
+
+async function apiPost(payload) {
+  const fd = new FormData();
+  fd.append('payload', JSON.stringify({
+    ...payload,
+    usuario: currentUser ? currentUser.nombre : '',
+    rol: currentUser ? currentUser.rol : ''
+  }));
+  return fetch(API, { method: 'POST', body: fd });
+}
 
 const ENTRY_COLORS = ['#f59e0b','#10b981','#6366f1','#ec4899','#ef4444','#0ea5e9','#8b5cf6','#14b8a6'];
 
@@ -1151,23 +1222,25 @@ let storedCode = '';
 
 window.addEventListener('DOMContentLoaded', () => {
   if (!clientSlug) { hide('loading-screen'); show('no-client','flex'); return; }
-  // Solo guardamos el código de acceso, nunca los datos (siempre frescos del servidor)
   const savedAuth = sessionStorage.getItem('haddock_auth_' + clientSlug);
   if (savedAuth) {
     try {
       const auth = JSON.parse(savedAuth);
-      storedCode = auth.codigo || '';
-      fetchAndLaunch(storedCode);
-      return;
+      if (auth.nombre && auth.contrasena) {
+        fetchAndLaunch(auth.nombre, auth.contrasena);
+        return;
+      }
     } catch(e) { sessionStorage.removeItem('haddock_auth_' + clientSlug); }
   }
   hide('loading-screen'); show('login-screen','flex'); setupLogin();
 });
 
-async function fetchAndLaunch(code) {
+async function fetchAndLaunch(nombre, contrasena) {
   show('loading-screen'); hide('portal'); hide('login-screen');
   try {
-    const res = await fetch(API+'?portal=1&cliente='+encodeURIComponent(clientSlug)+'&codigo='+encodeURIComponent(code));
+    const fd = new FormData();
+    fd.append('payload', JSON.stringify({ action: 'loginUsuario', clientSlug, nombre, contrasena }));
+    const res = await fetch(API, { method: 'POST', body: fd });
     const data = await res.json();
     if (data.ok) {
       hide('loading-screen'); launchPortal(data);
@@ -1181,11 +1254,16 @@ async function fetchAndLaunch(code) {
 }
 
 async function refreshPortal() {
-  if (!storedCode) return;
+  const savedAuth = sessionStorage.getItem('haddock_auth_' + clientSlug);
+  if (!savedAuth) return;
+  let auth;
+  try { auth = JSON.parse(savedAuth); } catch(e) { return; }
   const btn = document.getElementById('refresh-btn');
   if (btn) { btn.style.opacity='.4'; btn.style.pointerEvents='none'; }
   try {
-    const res = await fetch(API+'?portal=1&cliente='+encodeURIComponent(clientSlug)+'&codigo='+encodeURIComponent(storedCode));
+    const fd = new FormData();
+    fd.append('payload', JSON.stringify({ action: 'loginUsuario', clientSlug, nombre: auth.nombre, contrasena: auth.contrasena }));
+    const res = await fetch(API, { method: 'POST', body: fd });
     const data = await res.json();
     if (data.ok) { launchPortal(data); showToast('Portal actualizado ✓'); }
   } catch(e) { showToast('Error al actualizar.'); }
@@ -1193,35 +1271,43 @@ async function refreshPortal() {
 }
 
 function setupLogin() {
-  const input = document.getElementById('code-input');
-  input.focus();
-  input.addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+  const nombreEl = document.getElementById('login-nombre');
+  const passEl = document.getElementById('login-contrasena');
+  if (nombreEl) nombreEl.focus();
+  [nombreEl, passEl].forEach(el => {
+    if (el) el.addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+  });
   document.getElementById('login-btn').addEventListener('click', doLogin);
 }
 
 async function doLogin() {
-  const code = document.getElementById('code-input').value.trim();
-  if (!code) return;
+  const nombre = (document.getElementById('login-nombre').value || '').trim();
+  const contrasena = (document.getElementById('login-contrasena').value || '').trim();
+  if (!nombre || !contrasena) return;
   const btn = document.getElementById('login-btn');
   const errEl = document.getElementById('login-error');
-  const input = document.getElementById('code-input');
   btn.disabled=true; btn.textContent='Verificando...';
-  errEl.style.display='none'; input.classList.remove('error');
+  errEl.style.display='none';
+  document.getElementById('login-nombre').classList.remove('error');
+  document.getElementById('login-contrasena').classList.remove('error');
   try {
-    const res = await fetch(API+'?portal=1&cliente='+encodeURIComponent(clientSlug)+'&codigo='+encodeURIComponent(code));
+    const fd = new FormData();
+    fd.append('payload', JSON.stringify({ action: 'loginUsuario', clientSlug, nombre, contrasena }));
+    const res = await fetch(API, { method: 'POST', body: fd });
     const data = await res.json();
     if (data.ok) {
-      storedCode = code;
-      // Guardar solo el código, nunca los datos
-      sessionStorage.setItem('haddock_auth_'+clientSlug, JSON.stringify({codigo: code}));
-      sessionStorage.removeItem('haddock_p_'+clientSlug); // limpiar caché viejo
+      sessionStorage.setItem('haddock_auth_'+clientSlug, JSON.stringify({ nombre, contrasena }));
       hide('login-screen'); launchPortal(data);
     } else {
-      input.classList.add('error');
-      errEl.textContent='Código incorrecto. Intenta de nuevo.';
+      document.getElementById('login-nombre').classList.add('error');
+      document.getElementById('login-contrasena').classList.add('error');
+      errEl.textContent = data.error || 'Credenciales incorrectas.';
       errEl.style.display='block';
       btn.disabled=false; btn.textContent='Ingresar →';
-      setTimeout(()=>input.classList.remove('error'),500);
+      setTimeout(() => {
+        document.getElementById('login-nombre').classList.remove('error');
+        document.getElementById('login-contrasena').classList.remove('error');
+      }, 500);
     }
   } catch(e) {
     errEl.textContent='Error de conexión.'; errEl.style.display='block';
@@ -1229,9 +1315,32 @@ async function doLogin() {
   }
 }
 
+function doLogout() {
+  sessionStorage.removeItem('haddock_auth_' + clientSlug);
+  currentUser = null;
+  hide('portal'); show('login-screen','flex');
+  document.getElementById('login-nombre').value = '';
+  document.getElementById('login-contrasena').value = '';
+  setupLogin();
+}
+
 function launchPortal(data) {
   tasks = data.tasks || [];
   clientName = data.cliente || clientSlug;
+
+  // Sesión de usuario
+  currentUser = { nombre: data.nombre || '', rol: (data.rol || 'cliente').toLowerCase() };
+  const badgeEl = document.getElementById('p-user-badge');
+  const avEl2 = document.getElementById('p-user-av');
+  const nameEl2 = document.getElementById('p-user-name');
+  const rolEl = document.getElementById('p-user-rol');
+  if (badgeEl && currentUser.nombre) {
+    badgeEl.style.display = 'flex';
+    avEl2.textContent = currentUser.nombre.charAt(0).toUpperCase();
+    nameEl2.textContent = currentUser.nombre;
+    rolEl.textContent = currentUser.rol;
+    rolEl.className = 'p-user-rol ' + currentUser.rol;
+  }
   const color = data.clientColor || '#6366f1';
   document.documentElement.style.setProperty('--accent', color);
   document.documentElement.style.setProperty('--accent-bg', color+'15');
@@ -1290,14 +1399,15 @@ function getDefaultMatrix() {
 }
 
 // ─── TABS ───
-const TAB_LABELS = {tareas:'Tareas',contenido:'Contenido',calendario:'Calendario',roadmap:'Roadmap',estrategia:'Estrategia',resultados:'Resultados'};
+const TAB_LABELS = {tareas:'Tareas',contenido:'Contenido',calendario:'Calendario',roadmap:'Roadmap',estrategia:'Estrategia',resultados:'Resultados',historial:'Historial'};
 
 function switchTab(tab) {
   activeTab = tab;
-  ['tareas','contenido','calendario','roadmap','estrategia','resultados'].forEach(t => {
+  ['tareas','contenido','calendario','roadmap','estrategia','resultados','historial'].forEach(t => {
     document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
     document.getElementById('tab-btn-'+t).classList.toggle('active', t===tab);
   });
+  if (tab==='historial') loadHistorial();
   const titleEl = document.getElementById('p-page-title');
   if (titleEl) titleEl.textContent = TAB_LABELS[tab] || tab;
   const btn = document.getElementById('hdr-action-btn');
@@ -1383,7 +1493,7 @@ async function onDrop(e,nuevoEstado){
   const task=tasks.find(t=>t.id===draggingId);
   if(!task||task.estado===nuevoEstado)return;
   task.estado=nuevoEstado;renderPortal();
-  try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task}));await fetch(API,{method:'POST',body:fd});showToast('Tarea movida ✓');}
+  try{await apiPost({action:'update',task});showToast('Tarea movida ✓');}
   catch(e){showToast('Error al guardar.');}
 }
 
@@ -1391,7 +1501,7 @@ async function deleteTask(id){
   if(!confirm('¿Eliminar esta tarea?'))return;
   tasks=tasks.filter(t=>t.id!==id);
   renderPortal();
-  try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'delete',id}));await fetch(API,{method:'POST',body:fd});showToast('Tarea eliminada');}
+  try{await apiPost({action:'delete',id});showToast('Tarea eliminada');}
   catch(e){showToast('Error al eliminar.');}
 }
 
@@ -1462,8 +1572,7 @@ async function saveTaskForm(){
         statusEl.textContent=`Subiendo imagen ${i+1} de ${pendingFormFiles.length}...`;
         const reader=new FileReader();
         const fileData=await new Promise(res=>{reader.onload=e=>res(e.target.result);reader.readAsDataURL(pf.file);});
-        const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:pf.file.name,mimeType:pf.file.type,fileData:fileData.split(',')[1]}));
-        const resp=await fetch(API,{method:'POST',body:fd});
+        const resp=await apiPost({action:'uploadFile',fileName:pf.file.name,mimeType:pf.file.type,fileData:fileData.split(',')[1]});
         const data=await resp.json();
         if(data.ok)archivosNuevos.push(data.file);
       }
@@ -1474,12 +1583,12 @@ async function saveTaskForm(){
       if(idx>-1){
         const existing=tasks[idx];
         tasks[idx]={...existing,titulo,estado,fecha,notas,archivos:[...(existing.archivos||[]),...archivosNuevos]};
-        const fd=new FormData();fd.append('payload',JSON.stringify({action:'update',task:tasks[idx]}));await fetch(API,{method:'POST',body:fd});
+        await apiPost({action:'update',task:tasks[idx]});
       }
     }else{
       const newTask={id:uid(),titulo,cliente:clientName,estado,fecha,notas,prioridad:'media',encargados:[],archivos:archivosNuevos,comentarios:[],visible_cliente:'Sí',creadoPor:clientName,modificadoPor:clientName};
       tasks.push(newTask);
-      const fd=new FormData();fd.append('payload',JSON.stringify({action:'create',task:newTask}));await fetch(API,{method:'POST',body:fd});
+      await apiPost({action:'create',task:newTask});
     }
     closeTaskForm();renderPortal();
     if(document.getElementById('cal-grid'))renderCalendar();
@@ -1527,7 +1636,7 @@ async function submitComment(){
   const input=document.getElementById('comment-input');const text=input.value.trim();if(!text)return;
   const btn=document.getElementById('comment-btn');btn.disabled=true;
   const comment={author:clientName,time:new Date().toISOString(),text};
-  try{const fd=new FormData();fd.append('payload',JSON.stringify({action:'addComment',id:currentTask.id,comment}));await fetch(API,{method:'POST',body:fd});currentTask.comentarios=[...(currentTask.comentarios||[]),comment];input.value='';autoResize(input);renderModalComments(currentTask.comentarios);updateTaskInList(currentTask);showToast('Comentario enviado ✓');}catch(e){showToast('Error al enviar.');}
+  try{await apiPost({action:'addComment',id:currentTask.id,comment});currentTask.comentarios=[...(currentTask.comentarios||[]),comment];input.value='';autoResize(input);renderModalComments(currentTask.comentarios);updateTaskInList(currentTask);showToast('Comentario enviado ✓');}catch(e){showToast('Error al enviar.');}
   btn.disabled=false;
 }
 
@@ -1539,7 +1648,7 @@ async function uploadFile(file){
   const zone=document.getElementById('upload-zone'),pw=document.getElementById('upload-prog-wrap'),pf=document.getElementById('upload-prog-fill');
   zone.style.pointerEvents='none';pw.style.display='block';pf.style.width='20%';
   const reader=new FileReader();
-  reader.onload=async()=>{try{pf.style.width='65%';const fd=new FormData();fd.append('payload',JSON.stringify({action:'uploadFile',fileName:file.name,mimeType:file.type||'application/octet-stream',fileData:reader.result.split(',')[1]}));const res=await fetch(API,{method:'POST',body:fd});const data=await res.json();pf.style.width='100%';if(data.ok){currentTask.archivos=[...(currentTask.archivos||[]),data.file];const fd2=new FormData();fd2.append('payload',JSON.stringify({action:'update',task:currentTask}));await fetch(API,{method:'POST',body:fd2});updateTaskInList(currentTask);renderModalFiles(currentTask.archivos);showToast('Archivo subido ✓');}else showToast('Error al subir.');}catch(e){showToast('Error de conexión.');}setTimeout(()=>{pw.style.display='none';pf.style.width='0';zone.style.pointerEvents='';},400);};
+  reader.onload=async()=>{try{pf.style.width='65%';const res=await apiPost({action:'uploadFile',fileName:file.name,mimeType:file.type||'application/octet-stream',fileData:reader.result.split(',')[1]});const data=await res.json();pf.style.width='100%';if(data.ok){currentTask.archivos=[...(currentTask.archivos||[]),data.file];await apiPost({action:'update',task:currentTask});updateTaskInList(currentTask);renderModalFiles(currentTask.archivos);showToast('Archivo subido ✓');}else showToast('Error al subir.');}catch(e){showToast('Error de conexión.');}setTimeout(()=>{pw.style.display='none';pf.style.width='0';zone.style.pointerEvents='';},400);};
   reader.readAsDataURL(file);
 }
 
@@ -1962,9 +2071,7 @@ async function savePost(){
       statusEl.textContent=`Subiendo archivo ${i+1} de ${toUpload.length}...`;
       const reader=new FileReader();
       const dataUrl=await new Promise(res=>{reader.onload=ev=>res(ev.target.result);reader.readAsDataURL(pf.file);});
-      const fd=new FormData();
-      fd.append('payload',JSON.stringify({action:'uploadFile',fileName:pf.file.name,mimeType:pf.file.type||'application/octet-stream',fileData:dataUrl.split(',')[1]}));
-      const resp=await fetch(API,{method:'POST',body:fd});
+      const resp=await apiPost({action:'uploadFile',fileName:pf.file.name,mimeType:pf.file.type||'application/octet-stream',fileData:dataUrl.split(',')[1]});
       const data=await resp.json();
       if(data.ok) freshFiles.push(data.file);
       else showToast(`Error subiendo ${pf.file.name}`);
@@ -2135,9 +2242,7 @@ async function savePieza(){
       statusEl.style.display='block';statusEl.textContent='Subiendo archivo...';
       const reader=new FileReader();
       const dataUrl=await new Promise(res=>{reader.onload=ev=>res(ev.target.result);reader.readAsDataURL(pendingPiezaFile);});
-      const fd=new FormData();
-      fd.append('payload',JSON.stringify({action:'uploadFile',fileName:pendingPiezaFile.name,mimeType:pendingPiezaFile.type||'application/octet-stream',fileData:dataUrl.split(',')[1]}));
-      const resp=await fetch(API,{method:'POST',body:fd});
+      const resp=await apiPost({action:'uploadFile',fileName:pendingPiezaFile.name,mimeType:pendingPiezaFile.type||'application/octet-stream',fileData:dataUrl.split(',')[1]});
       const data=await resp.json();
       if(data.ok) archivos=[data.file];
       statusEl.style.display='none';
@@ -2749,11 +2854,68 @@ function scheduleStratSave(){
 
 async function doSaveEstrategia(){
   try{
-    const fd=new FormData();
-    fd.append('payload',JSON.stringify({action:'saveEstrategia',cliente:clientName,data:estrategia}));
-    await fetch(API,{method:'POST',body:fd});
+    await apiPost({action:'saveEstrategia',cliente:clientName,data:estrategia});
   }catch(e){
     console.error('doSaveEstrategia error:',e);
+  }
+}
+
+// ─── HISTORIAL ───
+async function loadHistorial() {
+  const el = document.getElementById('hist-list');
+  if (!el) return;
+  el.innerHTML = '<div class="hist-empty">Cargando...</div>';
+  try {
+    const res = await fetch(API + '?historial=1&cliente=' + encodeURIComponent(clientSlug));
+    const data = await res.json();
+    if (data.ok) renderHistorial(data.rows || []);
+    else el.innerHTML = '<div class="hist-empty">Error al cargar historial.</div>';
+  } catch(e) {
+    el.innerHTML = '<div class="hist-empty">Error de conexión.</div>';
+  }
+}
+
+function renderHistorial(rows) {
+  const el = document.getElementById('hist-list');
+  if (!el) return;
+  if (!rows.length) { el.innerHTML = '<div class="hist-empty">Sin cambios registrados aún.</div>'; return; }
+  const accionLabel = { crear:'Creó', editar:'Editó', eliminar:'Eliminó', guardar:'Guardó', comentar:'Comentó en', restaurar:'Restauró' };
+  const seccionLabel = { tareas:'tarea', estrategia:'estrategia', comentarios:'comentario' };
+  el.innerHTML = rows.map((r, i) => {
+    const label = (accionLabel[r.accion] || r.accion) + ' ' + (seccionLabel[r.seccion] || r.seccion);
+    const desc = r.descripcion || label;
+    const fecha = r.timestamp ? new Date(r.timestamp).toLocaleString('es-CL', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) : '';
+    const canRestore = r.valorAnterior && (r.seccion === 'estrategia' || r.seccion === 'tareas');
+    return `<div class="hist-row">
+      <div class="hist-dot ${r.accion || 'editar'}"></div>
+      <div class="hist-body">
+        <div class="hist-desc">${esc(desc)}</div>
+        <div class="hist-meta">
+          <span class="hist-user">${esc(r.usuario || 'Desconocido')}</span>
+          <span class="hist-rol-chip ${r.rol || 'cliente'}">${r.rol || 'cliente'}</span>
+          <span class="hist-meta-sep">·</span>
+          <span>${fecha}</span>
+        </div>
+      </div>
+      ${canRestore ? `<button class="hist-restore-btn" onclick="restaurarCambio(${r.rowIndex}, '${esc(r.seccion)}')">Restaurar</button>` : ''}
+    </div>`;
+  }).join('');
+}
+
+async function restaurarCambio(rowIndex, seccion) {
+  const labels = { estrategia: 'la estrategia', tareas: 'esta tarea' };
+  if (!confirm('¿Restaurar ' + (labels[seccion] || seccion) + ' a este estado anterior?')) return;
+  try {
+    const res = await apiPost({ action: 'restaurar', rowIndex, clientSlug });
+    const data = await res.json();
+    if (data.ok) {
+      showToast('Restaurado ✓');
+      await refreshPortal();
+    } else {
+      showToast('Error: ' + (data.error || 'No se pudo restaurar'));
+    }
+  } catch(e) {
+    showToast('Error de conexión.');
   }
 }
 
@@ -2904,7 +3066,7 @@ function renderResultados() {
         html += '</div>';
         html += '<div style="display:flex;align-items:center;padding:0 4px;color:var(--muted);font-size:16px;margin-top:16px">→</div>';
         html += '<div class="res-kpi-num-group">';
-        html += '<div class="res-kpi-num-lbl">Valor objetivo (' + (kpi.tipoMeta === 'mensual' ? 'mensual' : 'anual') + ')</div>';
+        html += '<div class="res-kpi-num-lbl">Valor objetivo total</div>';
         html += '<div class="res-kpi-num-val objetivo">' + fmtNum(objetivo) + '</div>';
         html += '</div>';
         html += '</div>';
