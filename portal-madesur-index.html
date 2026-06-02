@@ -312,7 +312,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .rm-connector{position:absolute;left:46px;top:29px;width:26px;height:2px;background:linear-gradient(to right,var(--border2),var(--border));z-index:1;border-radius:99px}
 
 /* Cards */
-.rm-card{flex:1;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);transition:all .2s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.rm-card{flex:1;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);transition:all .2s cubic-bezier(.4,0,.2,1);position:relative}
 .rm-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
 .rm-card-pending::before{background:linear-gradient(to bottom,var(--accent),#818cf8)}
 .rm-card-done::before{background:linear-gradient(to bottom,#10b981,#34d399)}
@@ -340,11 +340,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .rm-card-date-wrap svg{flex-shrink:0;opacity:.6}
 .rm-card-date-wrap input{border:none;font-family:var(--font-mono);font-size:11px;color:var(--muted);background:transparent;outline:none;cursor:pointer;transition:color .15s}
 .rm-card-date-wrap input:focus{color:var(--text)}
-.rm-dates-row{display:flex;align-items:center;gap:6px}
-.rm-date-label{display:flex;flex-direction:column;gap:2px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--font-sans)}
-.rm-date-label input{border:1px solid var(--border2);border-radius:6px;font-family:var(--font-mono);font-size:11px;color:var(--text);background:var(--bg);outline:none;cursor:pointer;padding:3px 6px;transition:border-color .15s;width:130px}
+.rm-dates-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rm-date-label{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--muted);font-family:var(--font-sans)}
+.rm-date-label input{border:1px solid var(--border2);border-radius:6px;font-family:var(--font-mono);font-size:11px;color:var(--text);background:var(--bg);outline:none;cursor:pointer;padding:4px 7px;transition:border-color .15s}
 .rm-date-label input:focus{border-color:var(--accent)}
-.rm-date-arrow{font-size:12px;color:var(--muted2);margin-top:14px;flex-shrink:0}
+.rm-date-arrow{font-size:13px;color:var(--muted2);flex-shrink:0}
 .rm-days-pill{font-size:10px;font-weight:700;padding:2px 9px;border-radius:99px;font-family:var(--font-mono)}
 .rm-days-ok{background:#eff6ff;color:#3b82f6}
 .rm-days-soon{background:#fff7ed;color:#d97706}
@@ -2754,6 +2754,7 @@ function escBr(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'
 function updateRoadmapField(id,field,value){
   const item=(estrategia.roadmap||[]).find(i=>i.id===id);
   if(item)item[field]=field==='desc'?value:value.trim();
+  if((field==='date'||field==='startDate')&&document.getElementById('cal-grid'))renderCalendar();
   scheduleRoadmapSave();
 }
 
