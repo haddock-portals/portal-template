@@ -2489,7 +2489,11 @@ function renderCalendar(){
   (estrategia.calEntries||[]).forEach(e=>{if(!entriesByDate[e.date])entriesByDate[e.date]=[];entriesByDate[e.date].push(e);});
 
   const roadmapByDate={};
-  (estrategia.roadmap||[]).forEach(r=>{if(r.date){if(!roadmapByDate[r.date])roadmapByDate[r.date]=[];roadmapByDate[r.date].push(r);}});
+  (estrategia.roadmap||[]).forEach(r=>{
+    const key=r.date||r.startDate;
+    if(key){if(!roadmapByDate[key])roadmapByDate[key]=[];roadmapByDate[key].push(r);}
+    if(r.startDate&&r.startDate!==key){if(!roadmapByDate[r.startDate])roadmapByDate[r.startDate]=[];roadmapByDate[r.startDate].push(r);}
+  });
 
   // Parrilla de contenido: recoger todos los meses visibles (mes actual + anterior + siguiente)
   const parrByDate={};
@@ -2699,7 +2703,8 @@ function renderRoadmap(){
           +'</div>'
         +'</div>'
         +'<div class="rm-card-meta">'
-          +'<div class="rm-card-date-wrap">'+iconCalendar+'<input type="date" value="'+(item.date||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'date\',this.value)"></div>'
+          +'<div class="rm-card-date-wrap">'+iconCalendar+'<span style="opacity:.5;margin-right:1px">Inicio</span><input type="date" value="'+(item.startDate||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'startDate\',this.value)"></div>'
+          +'<div class="rm-card-date-wrap" style="margin-left:8px">'+iconCalendar+'<span style="opacity:.5;margin-right:1px">Fin</span><input type="date" value="'+(item.date||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'date\',this.value)"></div>'
           +daysPill
         +'</div>'
         +(item.desc!==undefined?'<div class="rm-card-desc" contenteditable="true" placeholder="Descripción del hito..." onblur="updateRoadmapField(\''+item.id+'\',\'desc\',this.innerText)">'+escBr(item.desc||'')+'</div>':'')
@@ -2712,7 +2717,7 @@ function renderRoadmap(){
 
 function addRoadmapItem(){
   if(!estrategia.roadmap)estrategia.roadmap=[];
-  const item={id:uid(),title:'',date:'',status:'pending',desc:''};
+  const item={id:uid(),title:'',startDate:'',date:'',status:'pending',desc:''};
   estrategia.roadmap.push(item);
   renderRoadmap();
   scheduleStratSave();
