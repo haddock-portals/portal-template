@@ -340,6 +340,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .rm-card-date-wrap svg{flex-shrink:0;opacity:.6}
 .rm-card-date-wrap input{border:none;font-family:var(--font-mono);font-size:11px;color:var(--muted);background:transparent;outline:none;cursor:pointer;transition:color .15s}
 .rm-card-date-wrap input:focus{color:var(--text)}
+.rm-dates-row{display:flex;align-items:center;gap:6px}
+.rm-date-label{display:flex;flex-direction:column;gap:2px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--font-sans)}
+.rm-date-label input{border:1px solid var(--border2);border-radius:6px;font-family:var(--font-mono);font-size:11px;color:var(--text);background:var(--bg);outline:none;cursor:pointer;padding:3px 6px;transition:border-color .15s}
+.rm-date-label input:focus{border-color:var(--accent)}
+.rm-date-arrow{font-size:12px;color:var(--muted2);margin-top:12px}
 .rm-days-pill{font-size:10px;font-weight:700;padding:2px 9px;border-radius:99px;font-family:var(--font-mono)}
 .rm-days-ok{background:#eff6ff;color:#3b82f6}
 .rm-days-soon{background:#fff7ed;color:#d97706}
@@ -2703,8 +2708,11 @@ function renderRoadmap(){
           +'</div>'
         +'</div>'
         +'<div class="rm-card-meta">'
-          +'<div class="rm-card-date-wrap">'+iconCalendar+'<span style="opacity:.5;margin-right:1px">Inicio</span><input type="date" value="'+(item.startDate||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'startDate\',this.value)"></div>'
-          +'<div class="rm-card-date-wrap" style="margin-left:8px">'+iconCalendar+'<span style="opacity:.5;margin-right:1px">Fin</span><input type="date" value="'+(item.date||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'date\',this.value)"></div>'
+          +'<div class="rm-dates-row">'
+            +'<label class="rm-date-label">Inicio<input type="date" value="'+(item.startDate||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'startDate\',this.value)"></label>'
+            +'<span class="rm-date-arrow">→</span>'
+            +'<label class="rm-date-label">Fin<input type="date" value="'+(item.date||'')+'" onchange="updateRoadmapField(\''+item.id+'\',\'date\',this.value)"></label>'
+          +'</div>'
           +daysPill
         +'</div>'
         +(item.desc!==undefined?'<div class="rm-card-desc" contenteditable="true" placeholder="Descripción del hito..." onblur="updateRoadmapField(\''+item.id+'\',\'desc\',this.innerText)">'+escBr(item.desc||'')+'</div>':'')
