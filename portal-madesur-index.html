@@ -237,6 +237,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-si
 .cal-entry-chip{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:4px;cursor:default;font-family:var(--font-mono)}
 .cal-content-chip{font-size:10px;padding:2px 7px;border-radius:6px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:4px;cursor:pointer;font-family:var(--font-mono);border-left:3px solid transparent;transition:filter .12s}
 .cal-content-chip:hover{filter:brightness(.93)}
+.cal-roadmap-chip{font-size:10px;padding:2px 7px;border-radius:6px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:4px;cursor:pointer;font-family:var(--font-mono);background:#f5f3ff;color:#6d28d9;border-left:3px solid #7c3aed;transition:filter .12s}
+.cal-roadmap-chip:hover{filter:brightness(.93)}
+.cal-roadmap-chip.done{background:#f0fdf4;color:#15803d;border-left-color:#4ade80}
+.cal-roadmap-chip.overdue{background:#fef2f2;color:#dc2626;border-left-color:#ef4444}
 /* estado colores */
 .cal-cc-borrador{background:#f1f5f9;color:#64748b;border-left-color:#94a3b8}
 .cal-cc-revision{background:#fff7ed;color:#c2410c;border-left-color:#fb923c}
@@ -2484,6 +2488,9 @@ function renderCalendar(){
   const entriesByDate={};
   (estrategia.calEntries||[]).forEach(e=>{if(!entriesByDate[e.date])entriesByDate[e.date]=[];entriesByDate[e.date].push(e);});
 
+  const roadmapByDate={};
+  (estrategia.roadmap||[]).forEach(r=>{if(r.date){if(!roadmapByDate[r.date])roadmapByDate[r.date]=[];roadmapByDate[r.date].push(r);}});
+
   // Parrilla de contenido: recoger todos los meses visibles (mes actual + anterior + siguiente)
   const parrByDate={};
   const parrPool=[];
@@ -2514,10 +2521,12 @@ function renderCalendar(){
       const entriesOnDay=entriesByDate[dateStr]||[];
       const hasT=tasksOnDay.length>0||entriesOnDay.length>0;
       const parrOnDay=parrByDate[dateStr]||[];
+      const roadmapOnDay=roadmapByDate[dateStr]||[];
       let chips=tasksOnDay.slice(0,2).map(t=>{const d=daysDiff(t.fecha);const cls=d<0?'over':d<=3?'soon':'';return`<div class="cal-task-chip ${cls}" onclick="event.stopPropagation();openModal('${t.id}')" title="${esc(t.titulo)}">${esc(t.titulo)}</div>`;}).join('');
       chips+=entriesOnDay.slice(0,2).map(e=>`<div class="cal-entry-chip" style="background:${e.color}20;color:${e.color}"><span style="width:6px;height:6px;border-radius:50%;background:${e.color};flex-shrink:0;display:inline-block"></span>${esc(e.text)}</div>`).join('');
       chips+=parrOnDay.slice(0,3).map(r=>{const cls='cal-cc-'+(r.estado||'borrador');const medio=MEDIO_P[r.medio];const platAbr=medio?(medio.label.substring(0,2).toUpperCase()):'??';return`<div class="cal-content-chip ${cls}" onclick="event.stopPropagation();switchTab('contenido');setTimeout(()=>setContentSection('grilla'),100)" title="${esc(r.descripcion||r.tipo||'Publicación')}"><span style="font-size:8px;font-weight:800;opacity:.7">${platAbr}</span><span style="overflow:hidden;text-overflow:ellipsis;max-width:70px">${esc((r.descripcion||r.tipo||'Post').substring(0,16))}</span></div>`;}).join('');
-      const totalItems=tasksOnDay.length+entriesOnDay.length+parrOnDay.length;
+      chips+=roadmapOnDay.map(r=>{const cls=r.status==='done'?'done':r.date&&daysDiff(r.date)<0?'overdue':'';return`<div class="cal-roadmap-chip ${cls}" onclick="event.stopPropagation();switchTab('roadmap')" title="${esc(r.title)}"><span style="font-size:8px;font-weight:800;opacity:.7">RM</span><span style="overflow:hidden;text-overflow:ellipsis;max-width:70px">${esc((r.title||'Hito').substring(0,18))}</span></div>`;}).join('');
+      const totalItems=tasksOnDay.length+entriesOnDay.length+parrOnDay.length+roadmapOnDay.length;
       if(totalItems>5)chips+=`<div style="font-size:10px;color:var(--muted);font-family:var(--font-mono);padding:2px 7px">+${totalItems-5} más</div>`;
       const hasAny=totalItems>0;
       html+=`<div class="cal-cell${isToday?' today':''}${hasAny?' has-tasks':''}" onclick="openCalEntry('${dateStr}')"><div class="cal-day-num">${day}</div>${chips}<span class="cal-add-hint">+ agregar</span></div>`;
