@@ -1589,7 +1589,7 @@ async function saveTaskForm(){
         await apiPost({action:'update',task:tasks[idx]});
       }
     }else{
-      const newTask={id:uid(),titulo,cliente:clientName,estado,fecha,notas,prioridad:'media',encargados:[],archivos:archivosNuevos,comentarios:[],visible_cliente:'Sí',creadoPor:clientName,modificadoPor:clientName};
+      const newTask={id:uid(),titulo,cliente:clientName,estado,fecha,notas,prioridad:'media',encargados:[],archivos:archivosNuevos,comentarios:[],visible_cliente:'Sí',solo_cliente:'Sí',creadoPor:clientName,modificadoPor:clientName};
       tasks.push(newTask);
       await apiPost({action:'create',task:newTask});
     }
