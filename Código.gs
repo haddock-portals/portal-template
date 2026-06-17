@@ -48,12 +48,21 @@ function doGet(e) {
   // Dashboard interno (comportamiento original)
   const tData = tasksSheet.getDataRange().getValues();
   const tHeaders = tData[0];
+  const clientNames = new Set();
+  if (clientsSheet) {
+    const cData = clientsSheet.getDataRange().getValues();
+    for (let i = 1; i < cData.length; i++) {
+      if (cData[i][0]) clientNames.add(String(cData[i][0]).trim().toLowerCase());
+    }
+  }
+
   const tasks = [];
   for (let i = 1; i < tData.length; i++) {
     const row = tData[i];
     if (!row[0]) continue;
     const task = parseTaskRow(tHeaders, row);
-    if (task.visible_cliente === 'Solo-Cliente') continue;
+    const creadoPor = String(task.creadoPor || '').trim().toLowerCase();
+    if (clientNames.has(creadoPor)) continue;
     tasks.push(task);
   }
 
