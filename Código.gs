@@ -251,7 +251,8 @@ function doPost(e) {
       t.creadoPor || '', t.modificadoPor || '',
       JSON.stringify(t.comentarios || []),
       JSON.stringify(t.historial || []),
-      t.visible_cliente || 'No'
+      t.visible_cliente || 'No',
+      t.fase || ''
     ]);
     logHistorial(ss, slugify(t.cliente || ''), params.usuario || '', params.rol || '', 'crear', 'tareas', t.id, 'Tarea: ' + t.titulo, null, t);
     return out({ ok: true, id: t.id });
@@ -264,7 +265,7 @@ function doPost(e) {
     for (let i = 1; i < data.length; i++) {
       if (data[i][0] === t.id) {
         const prev = parseTaskRow(tHeaders, data[i]);
-        sheet.getRange(i + 1, 1, 1, 16).setValues([[
+        sheet.getRange(i + 1, 1, 1, 17).setValues([[
           t.id, t.titulo, t.cliente, t.proyecto, t.estado,
           t.prioridad, t.fecha, (t.encargados || []).join('|'),
           t.notas, data[i][9] || new Date().toISOString(),
@@ -273,7 +274,8 @@ function doPost(e) {
           t.modificadoPor || '',
           JSON.stringify(t.comentarios || []),
           data[i][14] || JSON.stringify(t.historial || []),
-          t.visible_cliente || data[i][15] || 'No'
+          t.visible_cliente || data[i][15] || 'No',
+          t.fase || data[i][16] || ''
         ]]);
         logHistorial(ss, slugify(t.cliente || ''), params.usuario || '', params.rol || '', 'editar', 'tareas', t.id, 'Tarea: ' + t.titulo, prev, t);
         return out({ ok: true });
