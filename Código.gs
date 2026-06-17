@@ -52,7 +52,9 @@ function doGet(e) {
   for (let i = 1; i < tData.length; i++) {
     const row = tData[i];
     if (!row[0]) continue;
-    tasks.push(parseTaskRow(tHeaders, row));
+    const task = parseTaskRow(tHeaders, row);
+    if (task.visible_cliente === 'Solo-Cliente') continue;
+    tasks.push(task);
   }
 
   const clientes = [];
@@ -118,7 +120,7 @@ function handlePortalGet(e, ss, tasksSheet, clientsSheet) {
   }
 
   // Solo tareas marcadas como visibles en portal
-  const visibleTasks = tasks.filter(t => t.visible_cliente === 'Sí');
+  const visibleTasks = tasks.filter(t => t.visible_cliente === 'Sí' || t.visible_cliente === 'Solo-Cliente');
 
   // Cargar estrategia del cliente
   let estrategia = null;
@@ -221,7 +223,7 @@ function doPost(e) {
     for (let i = 1; i < tData.length; i++) {
       if (!tData[i][0]) continue;
       const task = parseTaskRow(tHeaders, tData[i]);
-      if (String(task.cliente || '').toLowerCase() === clientName.toLowerCase() && task.visible_cliente === 'Sí') {
+      if (String(task.cliente || '').toLowerCase() === clientName.toLowerCase() && (task.visible_cliente === 'Sí' || task.visible_cliente === 'Solo-Cliente')) {
         tasks.push(task);
       }
     }
@@ -251,7 +253,7 @@ function doPost(e) {
       t.creadoPor || '', t.modificadoPor || '',
       JSON.stringify(t.comentarios || []),
       JSON.stringify(t.historial || []),
-      t.visible_cliente || 'No',
+      t.solo_cliente === 'Sí' ? 'Solo-Cliente' : (t.visible_cliente || 'No'),
       t.fase || ''
     ]);
     logHistorial(ss, slugify(t.cliente || ''), params.usuario || '', params.rol || '', 'crear', 'tareas', t.id, 'Tarea: ' + t.titulo, null, t);

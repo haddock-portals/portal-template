@@ -841,7 +841,7 @@ async function loadData(force){
   try{
     const r = await fetch(API_URL+'?t='+Date.now());
     const data = await r.json();
-    tasks = (data.tasks || []).filter(t => t.solo_cliente !== 'Sí');
+    tasks = data.tasks || [];
     clientes = data.clientes || [];
     setSync('ok','Sincronizado');
     document.getElementById('loading').classList.add('hidden');
